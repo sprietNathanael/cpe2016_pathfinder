@@ -3,8 +3,10 @@
 void generateGraph(int numRow, int numCol, char graph[numRow][numCol])
 {
 	displayGraph(numRow,numCol,graph);
+	/**
+	 * Search for the target's coordinates
+	 */
 	Coordinates targetCoordinates = findCoordinates(numRow, numCol, graph, 'A');
-	printf("x: %d; y: %d\n",targetCoordinates.x, targetCoordinates.y);
 }
 
 void launchPathResolution(void)
@@ -16,11 +18,20 @@ Coordinates findCoordinates(int numRow, int numCol, char graph[numRow][numCol], 
 	bool targetFound = false;
 	Coordinates targetCoordinates;
 	int i = 0, j = 0;
+	/**
+	 * Browses each row of the graph
+	 */
 	while(i < numRow && !targetFound)
 	{
 		j = 0;
+		/**
+		 * Browses each column of the current row
+		 */
 		while(j < numCol && !targetFound)
 		{
+			/**
+			 * If the content of the current cell matches the char to find
+			 */
 			if(graph[i][j] == charToFind)
 			{
 				targetFound = true;
@@ -31,6 +42,9 @@ Coordinates findCoordinates(int numRow, int numCol, char graph[numRow][numCol], 
 		}
 		i++;
 	}
+	/**
+	 * Return the coordinates
+	 */
 	return targetCoordinates;
 }
 
