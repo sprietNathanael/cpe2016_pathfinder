@@ -62,9 +62,13 @@ typedef struct Node Node;
 void generateGraph(int numRow, int numCol, char graph[numRow][numCol]);
 
 /**
- * @brief      { function_description }
+ * @brief      Lauches the path resolution for the graph
+ *
+ * @param[in]  numRow  The graph's number row
+ * @param[in]  numCol  The graph's number col
+ * @param      graph   The node graph
  */
-void launchPathResolution(void);
+void launchPathResolution(int numRow, int numCol, Node graph[numRow][numCol]);
 
 /**
  * @brief      Displays the graph
@@ -76,7 +80,7 @@ void launchPathResolution(void);
 void displayGraph(int numRow, int numCol, Node graph[numRow][numCol]);
 
 /**
- * @brief      Finds the coordinates of a given charater
+ * @brief      Finds the coordinates of a given charater in a Node graph
  *
  * @param[in]  numRow      The matrix's number of rows
  * @param[in]  numCol      The matrix's number of columns
@@ -85,7 +89,19 @@ void displayGraph(int numRow, int numCol, Node graph[numRow][numCol]);
  *
  * @return     The coordinates of the character to find
  */
-Coordinates findCoordinates(int numRow, int numCol, char graph[numRow][numCol], char charToFind);
+Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char graph[numRow][numCol], char charToFind);
+
+/**
+ * @brief      Finds the coordinates of a given charater in a character graph
+ *
+ * @param[in]  numRow      The matrix's number of rows
+ * @param[in]  numCol      The matrix's number of columns
+ * @param      graph       The matrix itself
+ * @param[in]  charToFind  The character to find
+ *
+ * @return     The coordinates of the character to find
+ */
+Coordinates findCoordinatesInNodeGraph(int numRow, int numCol, Node graph[numRow][numCol], char charToFind);
 
 /**
  * @brief      Calculates the "simple distance" between two coordinates.

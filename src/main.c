@@ -13,6 +13,5 @@ int main()
 						{ '0','0','0','0','0','0','0','0'},
 					 };
 	generateGraph(6, 8, graph);
-	launchPathResolution();
 	return 0;
 }
