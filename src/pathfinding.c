@@ -6,7 +6,7 @@ void generateGraph(int numRow, int numCol, char graph[numRow][numCol])
 	/**
 	 * Search for the target's coordinates
 	 */
-	Coordinates targetCoordinates = findCoordinates(numRow, numCol, graph, 'A');
+	Coordinates targetCoordinates = findCoordinates(numRow, numCol, graph, 'T');
 }
 
 void launchPathResolution(void)
@@ -46,6 +46,14 @@ Coordinates findCoordinates(int numRow, int numCol, char graph[numRow][numCol], 
 	 * Return the coordinates
 	 */
 	return targetCoordinates;
+}
+
+int computeSimpleDistanceBetweenCoordinates(Coordinates firstCoordinates, Coordinates secondCoordinates)
+{
+	/**
+	 * Distance = |x1-x2|+|y1-y2|
+	 */
+	return((abs(secondCoordinates.x - firstCoordinates.x) + abs(secondCoordinates.y - firstCoordinates.y)) * SIMPLE_DISTANCE_FACTOR);
 }
 
 void displayGraph(int numRow, int numCol, char graph[numRow][numCol])
