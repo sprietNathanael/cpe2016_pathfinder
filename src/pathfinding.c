@@ -2,11 +2,32 @@
 
 void generateGraph(int numRow, int numCol, char graph[numRow][numCol])
 {
-	displayGraph(numRow,numCol,graph);
+	Node finalGraph[numRow][numCol];
 	/**
 	 * Search for the target's coordinates
 	 */
-	Coordinates targetCoordinates = findCoordinates(numRow, numCol, graph, 'T');
+	Coordinates targetCoordinates = findCoordinates(numRow, numCol, graph, TYPE_TARGET);
+	int i = 0;
+	int j = 0;
+	int currentDistance;
+	Coordinates currentCoordinates;
+	/**
+	 * Browse each row of the graph
+	 */
+	for(i = 0; i < numRow; i++)
+	{
+		/**
+		 * Browse each column of the current row
+		 */
+		for(j = 0; j < numCol; j++)
+		{
+			currentCoordinates.x = j+1;
+			currentCoordinates.y = i+1;
+			currentDistance = computeSimpleDistanceBetweenCoordinates(currentCoordinates, targetCoordinates);
+			finalGraph[i][j].H = currentDistance;
+			finalGraph[i][j].type = graph[i][j];
+		}
+	}
 }
 
 void launchPathResolution(void)
@@ -56,15 +77,30 @@ int computeSimpleDistanceBetweenCoordinates(Coordinates firstCoordinates, Coordi
 	return((abs(secondCoordinates.x - firstCoordinates.x) + abs(secondCoordinates.y - firstCoordinates.y)) * SIMPLE_DISTANCE_FACTOR);
 }
 
-void displayGraph(int numRow, int numCol, char graph[numRow][numCol])
+void displayGraph(int numRow, int numCol, Node graph[numRow][numCol])
 {
 	int i = 0;
-	int y = 0;
+	int j = 0;
     for(i = 0; i < numRow; i ++)
     {
-    	for(y = 0; y < numCol; y ++)
+    	for(j = 0; j < numCol; j ++)
     	{
-    		printf("%c",graph[i][y]);
+    		if(graph[i][j].type == TYPE_NORMAL)
+    		{
+    			printf(".");
+    		}
+    		else if(graph[i][j].type == TYPE_START)
+    		{
+    			printf("S");
+    		}
+    		else if(graph[i][j].type == TYPE_TARGET)
+    		{
+    			printf("T");
+    		}
+    		else if(graph[i][j].type == TYPE_WALL)
+    		{
+    			printf("X");
+    		}
     	}
     	printf("\n");
     }

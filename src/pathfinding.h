@@ -10,6 +10,10 @@
 
 #define SIMPLE_DISTANCE_FACTOR 10
 #define DIAGONAL_DISTANCE_FACTOR 14
+#define TYPE_WALL 'W'
+#define TYPE_START 'S'
+#define TYPE_TARGET 'T'
+#define TYPE_NORMAL '0'
 
 /*
  ***************************** Functions *************************
@@ -28,6 +32,21 @@ struct Coordinates
  */
 typedef struct Coordinates Coordinates;
 
+/**
+ * @brief      Represents a Node (if you do not understand that, you would
+ *             better read the Readme file)
+ */
+struct Node
+{
+	int H; /* The simple distance between this node and the target */
+	int G; /* The distance between this node and the current node */
+	int F; /* The sum of H and G */
+	char type; /* The type of Node */
+};
+/**
+ * A type defined over the Node structure
+ */
+typedef struct Node Node;
 
 /**
  * @brief      Generates a graph from a char matrix The function
@@ -54,7 +73,7 @@ void launchPathResolution(void);
  * @param[in]  numCol  The matrix's number of columns
  * @param      graph   The matrix itself
  */
-void displayGraph(int numRow, int numCol, char graph[numRow][numCol]);
+void displayGraph(int numRow, int numCol, Node graph[numRow][numCol]);
 
 /**
  * @brief      Finds the coordinates of a given charater
