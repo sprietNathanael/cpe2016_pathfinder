@@ -17,7 +17,7 @@ node_managment.o: node_managment.c graph_managment.h
 graph_managment.o: graph_managment.c
 	$(CC) -o graph_managment.o -c graph_managment.c $(FLAGS)
 
-view.o: view.c
+view.o: view.c graph_managment.h
 	$(CC) -o view.o -c view.c $(FLAGS)
 
 

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "astar_pathfinding.h"
 #include "view.h"
 
 int main()
@@ -13,7 +12,6 @@ int main()
 						{ '0','0','0','0','0','0','0','0'},
 						{ '0','0','0','0','0','0','0','0'},
 					 };
-	launchPathResolution(6, 8, graph);
     launchView(6, 8, graph);
 	return 0;
 }
