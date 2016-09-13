@@ -119,27 +119,33 @@ void analysingNeighbourNodes(int listLength, Node openList[listLength], int *ope
 			 */
 			if(deltaY != 0 || deltaX != 0)
 			{
-				neighbourNode = graph[currentNode.coordinates.y+deltaY][currentNode.coordinates.x+deltaX];
 				/**
-				 * If the node is not a wall
+				 * If the Node exists
 				 */
-				if(neighbourNode.type != TYPE_WALL)
+				if((currentNode.coordinates.y+deltaY >= 0 && currentNode.coordinates.y+deltaY < numRow) && (currentNode.coordinates.x+deltaX >= 0 && currentNode.coordinates.x+deltaX < numCol))
 				{
+					neighbourNode = graph[currentNode.coordinates.y+deltaY][currentNode.coordinates.x+deltaX];
 					/**
-					 * If the neighbour is in a diagonal position
-					 * (if |Dx|+|Dy| > 1)
+					 * If the node is not a wall
 					 */
-					if((abs(deltaX) + abs(deltaY)) > 1)
+					if(neighbourNode.type != TYPE_WALL)
 					{
-						neighbourNode.G = DIAGONAL_DISTANCE_FACTOR;
+						/**
+						 * If the neighbour is in a diagonal position
+						 * (if |Dx|+|Dy| > 1)
+						 */
+						if((abs(deltaX) + abs(deltaY)) > 1)
+						{
+							neighbourNode.G = DIAGONAL_DISTANCE_FACTOR;
+						}
+						else
+						{
+							neighbourNode.G = SIMPLE_DISTANCE_FACTOR;
+						}
+						neighbourNode.F = neighbourNode.H + neighbourNode.G;
+						openList[*openListHead] = neighbourNode;
+						*openListHead+=1;
 					}
-					else
-					{
-						neighbourNode.G = SIMPLE_DISTANCE_FACTOR;
-					}
-					neighbourNode.F = neighbourNode.H + neighbourNode.G;
-					openList[*openListHead] = neighbourNode;
-					*openListHead+=1;
 				}
 			}
 		}
