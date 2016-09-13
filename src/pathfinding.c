@@ -86,7 +86,7 @@ void launchPathResolution(int numRow, int numCol, Node graph[numRow][numCol])
 		{
 			printf("%d : (%d;%d) %d + %d = %d\n",i , openList[i].coordinates.x, openList[i].coordinates.y, openList[i].G, openList[i].H, openList[i].F);
 		}
-		sortList(listsLength, openList, openListHead, compareNodeByF);
+		sortList(listsLength, openList, openListHead);
 		printf("Open list ( %d )\n\n",openListHead);
 		for(i = 0; i < listsLength; i ++)
 		{
@@ -269,13 +269,48 @@ void printCoordinates(Coordinates coordinates)
 }
 
 
-int compareNodeByF (const void * a, const void * b)
+int compareNodeByF (Node a, Node b)
 {
-	Node *nodeA = (Node *)a;
-  	Node *nodeB = (Node *)b;
-	if ( nodeA->F <  nodeB->F ) return -1;
-	if ( nodeA->F == nodeB->F ) return 0;
-	if ( nodeA->F >  nodeB->F ) return 1;
+	if ( a.F <  b.F ) return -1;
+	if ( a.F == b.F ) return 0;
+	if ( a.F >  b.F ) return 1;
 }
 
-void sortList(int listLength, Node list[listLength], int indexLimitation, )
+void sortList(int listLength, Node list[listLength], int indexLimitation)
+{
+	int min = 0;
+	Node inter;
+	int i = 0;
+	int j = 0;
+	/**
+	 * Browse the list
+	 */
+	for(i = 0; i < indexLimitation; i++)
+	{
+		min = i;
+		/**
+		 * Browse only the list's tail after the current item
+		 */
+		for(j = i+1;j < indexLimitation; j++)
+		{
+			/**
+			 * If list[j] < list[min]
+			 */
+			if(compareNodeByF(list[j],list[min]) == -1)
+			{
+				min = j;
+			}
+		}
+		/**
+		 * If the current item is not the minimum of the rest of the list
+		 * intervert the current item and the minimum
+		 */
+		if(min != i)
+		{
+			inter = list[i];
+			list[i] = list[min];
+			list[min] = inter;
+		}
+
+	}
+}

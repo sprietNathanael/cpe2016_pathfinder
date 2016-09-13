@@ -142,7 +142,8 @@ void removeNodeFromList(int listLength, Node list[listLength], int indexOfNodeTo
 void printCoordinates(Coordinates coordinates);
 
 void analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, int numRow, int numCol, Node graph[numRow][numCol], Node currentNode);
-int compareNodeByF (const void * a, const void * b);
+int compareNodeByF (Node a, Node b);
+void sortList(int listLength, Node list[listLength], int indexLimitation);
 
 
 #define PATHFINDING_H
