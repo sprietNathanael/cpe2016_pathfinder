@@ -94,7 +94,7 @@ int analysingNeighbourNodes(int listLength, Node openList[listLength], int *open
 					/**
 					 * If the node is not a wall
 					 */
-					if(graph[currentNode->coordinates.y+deltaY][currentNode->coordinates.x+deltaX] != TYPE_WALL)
+					if(canGoToThisPoint(numRow, numCol, graph, currentNode, deltaX, deltaY))
 					{
 						/**
 						 * Get the coordinates
@@ -312,4 +312,35 @@ int getExistingNodeInList(int listLength, Node list[listLength], int listHead, C
 		i = -1;
 	}
 	return(i);
+}
+
+int canGoToThisPoint(int numRow, int numCol, char graph[numRow][numCol], Node* currentNode, int deltaX, int deltaY)
+{
+	/**
+	 * If the node-to-go is a wall
+	 */
+	if(graph[currentNode->coordinates.y+deltaY][currentNode->coordinates.x+deltaX] == TYPE_WALL)
+	{
+		return 0;
+	}
+	/**
+	 * If the node-to-go is at diagonal
+	 */
+	if(abs(deltaX) == 1 && abs(deltaY) == 1)
+	{
+		/**
+		 * Check the two adjacing nodes are not walls :
+		 * (current.x ; deltaY) and (deltaX ; current.y)
+		 */		
+		if(graph[currentNode->coordinates.y+deltaY][currentNode->coordinates.x] == TYPE_WALL)
+		{
+			return 0;
+		}
+		if(graph[currentNode->coordinates.y][currentNode->coordinates.x+deltaX] == TYPE_WALL)
+		{
+			return 0;
+		}
+
+	}
+	return 1;
 }

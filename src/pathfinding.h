@@ -174,5 +174,19 @@ void sortList(int listLength, Node list[listLength], int indexLimitation);
  */
 int getExistingNodeInList(int listLength, Node list[listLength], int listHead, Coordinates coordinatesToFind);
 
+/**
+ * @brief      Determines ability to go to this point.
+ *
+ * @param[in]  numRow       The graph number of row
+ * @param[in]  numCol       The graph number of col
+ * @param      graph        The graph
+ * @param      currentNode  The current node
+ * @param[in]  deltaX       The delta x
+ * @param[in]  deltaY       The delta y
+ *
+ * @return     True if able to go to this point, False otherwise.
+ */
+int canGoToThisPoint(int numRow, int numCol, char graph[numRow][numCol], Node* currentNode, int deltaX, int deltaY);
+
 #define PATHFINDING_H
 #endif
