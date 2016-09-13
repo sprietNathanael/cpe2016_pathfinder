@@ -21,6 +21,10 @@
 */
 
 /**
+ * A type defined over the Coordinates structure
+ */
+typedef struct Coordinates Coordinates;
+/**
  * @brief      Represents a coordinate tuple with x and y
  */
 struct Coordinates
@@ -28,13 +32,13 @@ struct Coordinates
     int x;
     int y;
 };
-/**
- * A type defined over the Coordinates structure
- */
-typedef struct Coordinates Coordinates;
 
 #define COORDINATES_SIZE (2*sizeof(int))
 
+/**
+ * A type defined over the Node structure
+ */
+typedef struct Node Node;
 /**
  * @brief      Represents a Node (if you do not understand that, you would
  *             better read the Readme file)
@@ -46,12 +50,8 @@ struct Node
 	int F; /* The sum of H and G */
 	char type; /* The type of Node */
 	Coordinates coordinates; /* The coordinates of Node */
-	Coordinates parentCoordinates; /* The parent coordinates */
+	Node* parent; /* The parent coordinates */
 };
-/**
- * A type defined over the Node structure
- */
-typedef struct Node Node;
 
 #define NODE_SIZE (3*sizeof(int)+sizeof(char)+COORDINATES_SIZE)
 
@@ -133,9 +133,11 @@ void removeNodeFromList(int listLength, Node list[listLength], int indexOfNodeTo
  * @param[in]  numRow         The graph number row
  * @param[in]  numCol         The graph number col
  * @param      graph          The graph
- * @param[in]  currentNode    The current node
+ * @param[in]  currentNode    Pointer to the parent Node in the close list
+ *
+ * @return     1 if it foud the target, 0 else
  */
-void analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, Node closeList[listLength], int closeListHead, int numRow, int numCol, char graph[numRow][numCol], Node currentNode);
+int analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, Node closeList[listLength], int closeListHead, int numRow, int numCol, char graph[numRow][numCol], Node* currentNode);
 
 
 /**
@@ -160,7 +162,17 @@ int compareNodeByF (Node a, Node b);
  */
 void sortList(int listLength, Node list[listLength], int indexLimitation);
 
-int getExistingNodeInList(int listLength, Node openList[listLength], int openListHead, Coordinates coordinatesToFind);
+/**
+ * @brief      Gets the index of existing node in list.
+ *
+ * @param[in]  listLength         The list length
+ * @param      list           The list
+ * @param[in]  listHead       The list head
+ * @param[in]  coordinatesToFind  The coordinates to find
+ *
+ * @return     The index of node in list, -1 if not present.
+ */
+int getExistingNodeInList(int listLength, Node list[listLength], int listHead, Coordinates coordinatesToFind);
 
 #define PATHFINDING_H
 #endif
