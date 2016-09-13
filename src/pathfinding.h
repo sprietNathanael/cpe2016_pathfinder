@@ -135,14 +135,39 @@ void removeNodeFromList(int listLength, Node list[listLength], int indexOfNodeTo
 
 
 /**
- * @brief      Simply prints the given coordinates
+ * @brief      Analyses the 8 neighbour nodes of a given Node
  *
- * @param[in]  coordinates  The coordinates
+ * @param[in]  listLength    The list length
+ * @param      openList      The open list
+ * @param      openListHead  The open list head
+ * @param[in]  numRow        The graph number row
+ * @param[in]  numCol        The graph number col
+ * @param      graph         The graph
+ * @param[in]  currentNode   The current node
  */
-void printCoordinates(Coordinates coordinates);
-
 void analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, int numRow, int numCol, Node graph[numRow][numCol], Node currentNode);
+
+
+/**
+ * @brief      Compares two nodes by their F parameter
+ *
+ * @param[in]  a     first node
+ * @param[in]  b     second node
+ *
+ * @return     integer
+ * 			   -1 if a < b
+ * 			   0 if a == b
+ * 			   1 if a > b
+ */
 int compareNodeByF (Node a, Node b);
+
+/**
+ * @brief      Sort the first items (to indexLimitation) of the list increasingly by the nodes' F parameter
+ *
+ * @param[in]  listLength       The list length
+ * @param      list             The list
+ * @param[in]  indexLimitation  The index limitation
+ */
 void sortList(int listLength, Node list[listLength], int indexLimitation);
 
 

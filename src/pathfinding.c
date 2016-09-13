@@ -86,12 +86,15 @@ void launchPathResolution(int numRow, int numCol, Node graph[numRow][numCol])
 		{
 			printf("%d : (%d;%d) %d + %d = %d\n",i , openList[i].coordinates.x, openList[i].coordinates.y, openList[i].G, openList[i].H, openList[i].F);
 		}
+
 		sortList(listsLength, openList, openListHead);
+
 		printf("Open list ( %d )\n\n",openListHead);
 		for(i = 0; i < listsLength; i ++)
 		{
 			printf("%d : (%d;%d) %d + %d = %d\n",i , openList[i].coordinates.x, openList[i].coordinates.y, openList[i].G, openList[i].H, openList[i].F);
 		}
+
 		continuing = false;
 		
 
@@ -262,12 +265,6 @@ void removeNodeFromList(int listLength, Node list[listLength], int indexOfNodeTo
 		i++;
 	}
 }
-
-void printCoordinates(Coordinates coordinates)
-{
-	printf("(%d;%d)\n",coordinates.x, coordinates.y);
-}
-
 
 int compareNodeByF (Node a, Node b)
 {
