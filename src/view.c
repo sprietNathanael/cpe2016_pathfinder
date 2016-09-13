@@ -1,6 +1,6 @@
 #include "view.h"
 
-int launchView()
+int launchView(int numRow, int numCol, char graph[numRow][numCol])
 {
 	SDL_Surface *ecran = NULL; // Le pointeur qui va stocker la surface de l'écran
 	
@@ -13,22 +13,60 @@ int launchView()
     }    
     SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 204, 204, 204));
     SDL_Flip(ecran);
-	pause(ecran);    
+	createGraph(numRow, numCol, graph, ecran);
+	pause(ecran);
     SDL_Quit();
     return EXIT_SUCCESS;
 }	
 
+void createGraph(int numRow, int numCol, char graph[numRow][numCol], SDL_Surface* ecran)
+{
+	SDL_Surface *rectangleGraph[numRow][numCol];
+	SDL_Rect position;
+	Uint32 common = SDL_MapRGB(ecran->format, 255, 255, 255);
+	Uint32 start = SDL_MapRGB(ecran->format, 0, 255, 0);
+	Uint32 target = SDL_MapRGB(ecran->format, 255, 0, 0);
+	Uint32 wall = SDL_MapRGB(ecran->format, 0, 0, 0);
+	Uint32 color;
+	int currentX = POS_START_X;
+	int currentY = POS_START_Y;
+	int i = 0;
+	int j = 0;
+	for(i = 0; i < numRow; i++)
+	{
+		for(j = 0; j < numCol; j++)
+		{
+			rectangleGraph[i][j] = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_X, SIZE_Y, 32, 0, 0, 0, 0);
+			position.x = currentX;
+    		position.y = currentY;
+    		if(graph[i][j]== '0')
+    		{
+    			color = common;
+    		}
+    		else if(graph[i][j] == 'W')
+    		{
+    			color = wall;
+    		}
+    		else if(graph[i][j] == 'S')
+    		{
+    			color = start;
+    		}
+    		else if(graph[i][j] == 'T')
+    		{
+    			color = target;
+    		}
+    		SDL_FillRect(rectangleGraph[i][j], NULL, color);     			
+    		SDL_BlitSurface(rectangleGraph[i][j], NULL, ecran, &position); // Collage de la surface sur l'écran
+			currentX += SIZE_X+OFFSET_X;
+		}
+		currentX = POS_START_X;
+		currentY += SIZE_Y+OFFSET_Y;
+	}
+	SDL_Flip(ecran);
+}
 
 void pause(SDL_Surface* ecran)
 {
-	SDL_Surface *rectangle = NULL;	
-	SDL_Rect position;
-	rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, 25, 25, 32, 0, 0, 0, 0);	
- 	position.x = 5;
-    position.y = 5;
-    // Remplissage de la surface avec du blanc
-    SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));    
-    SDL_BlitSurface(rectangle, NULL, ecran, &position); // Collage de la surface sur l'écran
     int continuer = 1;
     SDL_Event event;
     while (continuer)
@@ -40,5 +78,4 @@ void pause(SDL_Surface* ecran)
                 continuer = 0;
         }
     }
-    SDL_FreeSurface(rectangle); // Libération de la surface
 }

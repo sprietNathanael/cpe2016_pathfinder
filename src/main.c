@@ -14,7 +14,7 @@ int main()
 						{ '0','0','0','0','0','0','0','0'},
 					 };
 	launchPathResolution(6, 8, graph);
-    launchView();
+    launchView(6, 8, graph);
 	return 0;
 }
 
