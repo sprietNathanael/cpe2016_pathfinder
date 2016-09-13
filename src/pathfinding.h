@@ -72,10 +72,9 @@ void generateGraph(int numRow, int numCol, char graph[numRow][numCol]);
  *
  * @param[in]  numRow  The graph's number row
  * @param[in]  numCol  The graph's number col
- * @param      graph   The node graph
+ * @param      graph   The char graph
  */
-void launchPathResolution(int numRow, int numCol, Node graph[numRow][numCol]);
-
+void launchPathResolution(int numRow, int numCol, char graph[numRow][numCol]);
 /**
  * @brief      Displays the graph
  *
@@ -83,7 +82,7 @@ void launchPathResolution(int numRow, int numCol, Node graph[numRow][numCol]);
  * @param[in]  numCol  The matrix's number of columns
  * @param      graph   The matrix itself
  */
-void displayGraph(int numRow, int numCol, Node graph[numRow][numCol]);
+void displayGraph(int numRow, int numCol, char graph[numRow][numCol]);
 
 /**
  * @brief      Finds the coordinates of a given charater in a Node graph
@@ -96,18 +95,6 @@ void displayGraph(int numRow, int numCol, Node graph[numRow][numCol]);
  * @return     The coordinates of the character to find
  */
 Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char graph[numRow][numCol], char charToFind);
-
-/**
- * @brief      Finds the coordinates of a given charater in a character graph
- *
- * @param[in]  numRow      The matrix's number of rows
- * @param[in]  numCol      The matrix's number of columns
- * @param      graph       The matrix itself
- * @param[in]  charToFind  The character to find
- *
- * @return     The coordinates of the character to find
- */
-Coordinates findCoordinatesInNodeGraph(int numRow, int numCol, Node graph[numRow][numCol], char charToFind);
 
 /**
  * @brief      Calculates the "simple distance" between two coordinates.
@@ -145,7 +132,7 @@ void removeNodeFromList(int listLength, Node list[listLength], int indexOfNodeTo
  * @param      graph         The graph
  * @param[in]  currentNode   The current node
  */
-void analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, int numRow, int numCol, Node graph[numRow][numCol], Node currentNode);
+void analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, int numRow, int numCol, char graph[numRow][numCol], Node currentNode);
 
 
 /**

@@ -2,38 +2,11 @@
 
 void generateGraph(int numRow, int numCol, char graph[numRow][numCol])
 {
-	Node finalGraph[numRow][numCol];
-	/**
-	 * Search for the target's coordinates
-	 */
-	Coordinates targetCoordinates = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_TARGET);
-	int i = 0;
-	int j = 0;
-	int currentDistance;
-	Coordinates currentCoordinates;
-	/**
-	 * Browse each row of the graph
-	 */
-	for(i = 0; i < numRow; i++)
-	{
-		/**
-		 * Browse each column of the current row
-		 */
-		for(j = 0; j < numCol; j++)
-		{
-			currentCoordinates.x = j;
-			currentCoordinates.y = i;
-			currentDistance = computeSimpleDistanceBetweenCoordinates(currentCoordinates, targetCoordinates);
-			finalGraph[i][j].H = currentDistance;
-			finalGraph[i][j].type = graph[i][j];
-			finalGraph[i][j].coordinates = currentCoordinates;
-		}
-	}
-	displayGraph(numRow, numCol, finalGraph);
-	launchPathResolution(numRow, numCol, finalGraph);
+	displayGraph(numRow, numCol, graph);
+	launchPathResolution(numRow, numCol, graph);
 }
 
-void launchPathResolution(int numRow, int numCol, Node graph[numRow][numCol])
+void launchPathResolution(int numRow, int numCol, char graph[numRow][numCol])
 {
 	Node currentNode;
 	Coordinates zeroCoordinates = {0,0};
@@ -57,7 +30,7 @@ void launchPathResolution(int numRow, int numCol, Node graph[numRow][numCol])
 	/**
 	 * Search and initialise start Node
 	 */
-	Coordinates startCoordinates = findCoordinatesInNodeGraph(numRow, numCol, graph, TYPE_START);
+	Coordinates startCoordinates = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_START);
 	Node startNode = {0, 0, 0, TYPE_START, startCoordinates};
 
 	/**
@@ -101,12 +74,14 @@ void launchPathResolution(int numRow, int numCol, Node graph[numRow][numCol])
 	}
 }
 
-void analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, int numRow, int numCol, Node graph[numRow][numCol], Node currentNode)
+void analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, int numRow, int numCol, char graph[numRow][numCol], Node currentNode)
 {
 	Node neighbourNode;
 	int neighbourNodesHead = 0;
 	int deltaX = 0;
-	int deltaY = 0;	
+	int deltaY = 0;
+	Coordinates targetCoordinates = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_TARGET);
+	Coordinates currentCoordinates = {0,0};
 	/**
 	 * Browse all 8 possibilities of neighbours
 	 */
@@ -124,12 +99,20 @@ void analysingNeighbourNodes(int listLength, Node openList[listLength], int *ope
 				 */
 				if((currentNode.coordinates.y+deltaY >= 0 && currentNode.coordinates.y+deltaY < numRow) && (currentNode.coordinates.x+deltaX >= 0 && currentNode.coordinates.x+deltaX < numCol))
 				{
-					neighbourNode = graph[currentNode.coordinates.y+deltaY][currentNode.coordinates.x+deltaX];
 					/**
 					 * If the node is not a wall
 					 */
-					if(neighbourNode.type != TYPE_WALL)
+					if(graph[currentNode.coordinates.y+deltaY][currentNode.coordinates.x+deltaX] != TYPE_WALL)
 					{
+						/**
+						 * Get the coordinates
+						 */
+						neighbourNode.coordinates.x = currentNode.coordinates.x+deltaX;
+						neighbourNode.coordinates.y = currentNode.coordinates.y+deltaY;
+						/**
+						 * Compute the H parameter
+						 */
+						neighbourNode.H = computeSimpleDistanceBetweenCoordinates(neighbourNode.coordinates, targetCoordinates);
 						/**
 						 * If the neighbour is in a diagonal position
 						 * (if |Dx|+|Dy| > 1)
@@ -142,7 +125,13 @@ void analysingNeighbourNodes(int listLength, Node openList[listLength], int *ope
 						{
 							neighbourNode.G = SIMPLE_DISTANCE_FACTOR;
 						}
+						/**
+						 * Get the F parameter
+						 */
 						neighbourNode.F = neighbourNode.H + neighbourNode.G;
+						/**
+						 * Push the node into the open list
+						 */
 						openList[*openListHead] = neighbourNode;
 						*openListHead+=1;
 					}
@@ -187,41 +176,6 @@ Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char graph[numRow
 	return targetCoordinates;
 }
 
-Coordinates findCoordinatesInNodeGraph(int numRow, int numCol, Node graph[numRow][numCol], char charToFind)
-{
-	bool targetFound = false;
-	Coordinates targetCoordinates;
-	int i = 0, j = 0;
-	/**
-	 * Browses each row of the graph
-	 */
-	while(i < numRow && !targetFound)
-	{
-		j = 0;
-		/**
-		 * Browses each column of the current row
-		 */
-		while(j < numCol && !targetFound)
-		{
-			/**
-			 * If the content of the current cell matches the char to find
-			 */
-			if(graph[i][j].type == charToFind)
-			{
-				targetFound = true;
-				targetCoordinates.x = j;
-				targetCoordinates.y = i;
-			}
-			j++;
-		}
-		i++;
-	}
-	/**
-	 * Return the coordinates
-	 */
-	return targetCoordinates;
-}
-
 int computeSimpleDistanceBetweenCoordinates(Coordinates firstCoordinates, Coordinates secondCoordinates)
 {
 	/**
@@ -230,7 +184,7 @@ int computeSimpleDistanceBetweenCoordinates(Coordinates firstCoordinates, Coordi
 	return((abs(secondCoordinates.x - firstCoordinates.x) + abs(secondCoordinates.y - firstCoordinates.y)) * SIMPLE_DISTANCE_FACTOR);
 }
 
-void displayGraph(int numRow, int numCol, Node graph[numRow][numCol])
+void displayGraph(int numRow, int numCol, char graph[numRow][numCol])
 {
 	int i = 0;
 	int j = 0;
@@ -238,19 +192,19 @@ void displayGraph(int numRow, int numCol, Node graph[numRow][numCol])
     {
     	for(j = 0; j < numCol; j ++)
     	{
-    		if(graph[i][j].type == TYPE_NORMAL)
+    		if(graph[i][j] == TYPE_NORMAL)
     		{
     			printf(".");
     		}
-    		else if(graph[i][j].type == TYPE_START)
+    		else if(graph[i][j] == TYPE_START)
     		{
     			printf("S");
     		}
-    		else if(graph[i][j].type == TYPE_TARGET)
+    		else if(graph[i][j] == TYPE_TARGET)
     		{
     			printf("T");
     		}
-    		else if(graph[i][j].type == TYPE_WALL)
+    		else if(graph[i][j] == TYPE_WALL)
     		{
     			printf("X");
     		}
