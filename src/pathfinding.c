@@ -10,7 +10,7 @@ void launchPathResolution(int numRow, int numCol, char graph[numRow][numCol])
 {
 	Node currentNode;
 	Coordinates zeroCoordinates = {0,0};
-	Node zeroNode = {0,0,0,'\0',zeroCoordinates};
+	Node zeroNode = {0,0,0,'\0',zeroCoordinates, zeroCoordinates};
 
 	/**
 	 * Initialise lists
@@ -31,50 +31,51 @@ void launchPathResolution(int numRow, int numCol, char graph[numRow][numCol])
 	 * Search and initialise start Node
 	 */
 	Coordinates startCoordinates = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_START);
-	Node startNode = {0, 0, 0, TYPE_START, startCoordinates};
+	Node startNode = {0, 0, 0, TYPE_START, startCoordinates, zeroCoordinates};
 
 	/**
 	 * Push start Node into the open list
 	 */
 	openList[openListHead++] = startNode;
-	bool continuing = true;
+	int continuing = 2;
 	while(continuing)
 	{
+
 		/**
 		 * Take the first element of the open list = the element which has the lesser F
 		 */
 		currentNode = openList[0];
-		removeNodeFromList(listsLength, openList, 0);
-		openListHead = 0;
-		
+		removeNodeFromList(openListHead, openList, 0);
+		openListHead --;
 		/**
 		 * Push the current node into the close list
 		 */
 		closeList[closeListHead++] = currentNode;
 
-		analysingNeighbourNodes(listsLength, openList, &openListHead, numRow, numCol, graph, currentNode);
-		
-		printf("Open list ( %d )\n\n",openListHead);
-		for(i = 0; i < listsLength; i ++)
+		printf("\nClose list ( %d )\n",closeListHead);
+		for(i = 0; i < closeListHead; i ++)
 		{
-			printf("%d : (%d;%d) %d + %d = %d\n",i , openList[i].coordinates.x, openList[i].coordinates.y, openList[i].G, openList[i].H, openList[i].F);
+			printf("%d : (%d;%d) -> (%d;%d) %d + %d = %d\n",i , closeList[i].coordinates.x, closeList[i].coordinates.y,closeList[i].parentCoordinates.x, closeList[i].parentCoordinates.y, closeList[i].G, closeList[i].H, closeList[i].F);
 		}
 
+		analysingNeighbourNodes(listsLength, openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, currentNode);
+		
 		sortList(listsLength, openList, openListHead);
 
-		printf("Open list ( %d )\n\n",openListHead);
-		for(i = 0; i < listsLength; i ++)
+		printf("\nOpen list 2 ( %d )\n",openListHead);
+		for(i = 0; i < openListHead; i ++)
 		{
-			printf("%d : (%d;%d) %d + %d = %d\n",i , openList[i].coordinates.x, openList[i].coordinates.y, openList[i].G, openList[i].H, openList[i].F);
+			printf("%d : (%d;%d) -> (%d;%d) %d + %d = %d\n",i , openList[i].coordinates.x, openList[i].coordinates.y,openList[i].parentCoordinates.x, openList[i].parentCoordinates.y, openList[i].G, openList[i].H, openList[i].F);
 		}
 
-		continuing = false;
+
+		continuing --;
 		
 
 	}
 }
 
-void analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, int numRow, int numCol, char graph[numRow][numCol], Node currentNode)
+void analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, Node closeList[listLength], int closeListHead, int numRow, int numCol, char graph[numRow][numCol], Node currentNode)
 {
 	Node neighbourNode;
 	int neighbourNodesHead = 0;
@@ -95,7 +96,7 @@ void analysingNeighbourNodes(int listLength, Node openList[listLength], int *ope
 			if(deltaY != 0 || deltaX != 0)
 			{
 				/**
-				 * If the Node exists
+				 * If the Node exists in the graph
 				 */
 				if((currentNode.coordinates.y+deltaY >= 0 && currentNode.coordinates.y+deltaY < numRow) && (currentNode.coordinates.x+deltaX >= 0 && currentNode.coordinates.x+deltaX < numCol))
 				{
@@ -110,30 +111,59 @@ void analysingNeighbourNodes(int listLength, Node openList[listLength], int *ope
 						neighbourNode.coordinates.x = currentNode.coordinates.x+deltaX;
 						neighbourNode.coordinates.y = currentNode.coordinates.y+deltaY;
 						/**
-						 * Compute the H parameter
+						 * If the node does not exists in the close list
 						 */
-						neighbourNode.H = computeSimpleDistanceBetweenCoordinates(neighbourNode.coordinates, targetCoordinates);
-						/**
-						 * If the neighbour is in a diagonal position
-						 * (if |Dx|+|Dy| > 1)
-						 */
-						if((abs(deltaX) + abs(deltaY)) > 1)
+						if(getExistingNodeInList(listLength, closeList, closeListHead, neighbourNode.coordinates) == -1)
 						{
-							neighbourNode.G = DIAGONAL_DISTANCE_FACTOR;
+							/**
+							 * Get the parent's coordinates
+							 */
+							neighbourNode.parentCoordinates.x = currentNode.coordinates.x;
+							neighbourNode.parentCoordinates.y = currentNode.coordinates.y;
+							
+							
+							neighbourNode.H = computeSimpleDistanceBetweenCoordinates(neighbourNode.coordinates, targetCoordinates);							
+
+							/**
+							 * If the neighbour is in a diagonal position
+							 * (if |Dx|+|Dy| > 1)
+							 */
+							if((abs(deltaX) + abs(deltaY)) > 1)
+							{
+								neighbourNode.G = DIAGONAL_DISTANCE_FACTOR;
+							}
+							else
+							{
+								neighbourNode.G = SIMPLE_DISTANCE_FACTOR;
+							}
+							/**
+							 * Get the F parameter
+							 */
+							neighbourNode.F = neighbourNode.H + neighbourNode.G;
+
+							int alreadyInList = getExistingNodeInList(listLength, openList, *openListHead, neighbourNode.coordinates);
+							/**
+							 * If the node is already in the list
+							 */
+							if(alreadyInList != -1)
+							{
+								/**
+								 * If the node existing in list has a greater G, replace it by the new one
+								 */
+								if(openList[alreadyInList].G > neighbourNode.G)
+								{
+									openList[alreadyInList] = neighbourNode;								
+								}
+							}
+							else
+							{
+								/**
+								 * Push the node into the open list
+								 */
+								openList[*openListHead] = neighbourNode;
+								*openListHead+=1;
+							}
 						}
-						else
-						{
-							neighbourNode.G = SIMPLE_DISTANCE_FACTOR;
-						}
-						/**
-						 * Get the F parameter
-						 */
-						neighbourNode.F = neighbourNode.H + neighbourNode.G;
-						/**
-						 * Push the node into the open list
-						 */
-						openList[*openListHead] = neighbourNode;
-						*openListHead+=1;
 					}
 				}
 			}
@@ -213,13 +243,13 @@ void displayGraph(int numRow, int numCol, char graph[numRow][numCol])
     }
 }
 
-void removeNodeFromList(int listLength, Node list[listLength], int indexOfNodeToRemove)
+void removeNodeFromList(int listHead, Node* list, int indexOfNodeToRemove)
 {
 	int i = indexOfNodeToRemove;
 	/**
 	 * Browse the list until the end or the end of data (a type equals to '\0' means no data)
 	 */
-	while(i < listLength && list[i].type != '\0')
+	while(i < listHead)
 	{
 		list[i] = list[i+1];
 		i++;
@@ -270,4 +300,18 @@ void sortList(int listLength, Node list[listLength], int indexLimitation)
 		}
 
 	}
+}
+
+int getExistingNodeInList(int listLength, Node openList[listLength], int openListHead, Coordinates coordinatesToFind)
+{
+	int i = 0;
+	while(i < openListHead && (openList[i].coordinates.x != coordinatesToFind.x || openList[i].coordinates.y != coordinatesToFind.y))
+	{
+		i++;
+	}
+	if(i == openListHead)
+	{
+		i = -1;
+	}
+	return(i);
 }

@@ -46,6 +46,7 @@ struct Node
 	int F; /* The sum of H and G */
 	char type; /* The type of Node */
 	Coordinates coordinates; /* The coordinates of Node */
+	Coordinates parentCoordinates; /* The parent coordinates */
 };
 /**
  * A type defined over the Node structure
@@ -124,15 +125,17 @@ void removeNodeFromList(int listLength, Node list[listLength], int indexOfNodeTo
 /**
  * @brief      Analyses the 8 neighbour nodes of a given Node
  *
- * @param[in]  listLength    The list length
- * @param      openList      The open list
- * @param      openListHead  The open list head
- * @param[in]  numRow        The graph number row
- * @param[in]  numCol        The graph number col
- * @param      graph         The graph
- * @param[in]  currentNode   The current node
+ * @param[in]  listLength     The list length
+ * @param      openList       The open list
+ * @param      openListHead   The open list head
+ * @param      closeList      The close list
+ * @param[in]  closeListHead  The close list head
+ * @param[in]  numRow         The graph number row
+ * @param[in]  numCol         The graph number col
+ * @param      graph          The graph
+ * @param[in]  currentNode    The current node
  */
-void analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, int numRow, int numCol, char graph[numRow][numCol], Node currentNode);
+void analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, Node closeList[listLength], int closeListHead, int numRow, int numCol, char graph[numRow][numCol], Node currentNode);
 
 
 /**
@@ -157,6 +160,7 @@ int compareNodeByF (Node a, Node b);
  */
 void sortList(int listLength, Node list[listLength], int indexLimitation);
 
+int getExistingNodeInList(int listLength, Node openList[listLength], int openListHead, Coordinates coordinatesToFind);
 
 #define PATHFINDING_H
 #endif
