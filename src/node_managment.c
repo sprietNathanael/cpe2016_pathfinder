@@ -20,7 +20,7 @@ int compareNodeByF (Node a, Node b)
 	if ( a.F >  b.F ) return 1;
 }
 
-void sortList(int listLength, Node list[listLength], int indexLimitation)
+void sortList(Node* list, int indexLimitation)
 {
 	int min = 0;
 	Node inter;
@@ -59,7 +59,7 @@ void sortList(int listLength, Node list[listLength], int indexLimitation)
 	}
 }
 
-int getExistingNodeInList(int listLength, Node list[listLength], int listHead, Coordinates coordinatesToFind)
+int getExistingNodeInList(Node* list, int listHead, Coordinates coordinatesToFind)
 {
 	int i = 0;
 	while(i < listHead && (list[i].coordinates.x != coordinatesToFind.x || list[i].coordinates.y != coordinatesToFind.y))

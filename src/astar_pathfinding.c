@@ -1,10 +1,11 @@
 #include "astar_pathfinding.h"
 
-void launchPathResolution(int numRow, int numCol, char graph[numRow][numCol])
+int launchPathResolution(int numRow, int numCol, char graph[numRow][numCol], Coordinates finalPath[numRow*numCol])
 {
 	Node currentNode;
 	Coordinates zeroCoordinates = {0,0};
 	Node zeroNode = {0,0,0,'\0',zeroCoordinates, NULL};
+	int finalPathLength = 0;
 
 	/**
 	 * Initialise lists
@@ -45,22 +46,28 @@ void launchPathResolution(int numRow, int numCol, char graph[numRow][numCol])
 		 * Push the current node into the close list
 		 */
 		closeList[closeListHead] = currentNode;
-		targetFound = analysingNeighbourNodes(listsLength, openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead]);		
-		sortList(listsLength, openList, openListHead);
+		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead]);		
+		sortList(openList, openListHead);
 		closeListHead++;
 
 	}
 	Node* currentNodePointer = &currentNode;
+	/**
+	 * Display final path
+	 */
 	printf("Path : (%d;%d) ",currentNodePointer->coordinates.x, currentNodePointer->coordinates.y);
+	finalPath[finalPathLength++] = currentNodePointer->coordinates;
 	while(currentNodePointer->parent != NULL)
 	{
 		currentNodePointer = currentNodePointer->parent;
 		printf(" (%d;%d) ",currentNodePointer->coordinates.x, currentNodePointer->coordinates.y);		
+		finalPath[finalPathLength++] = currentNodePointer->coordinates;
 	}
 	printf("\n");
+	return finalPathLength;
 }
 
-int analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, Node closeList[listLength], int closeListHead, int numRow, int numCol, char graph[numRow][numCol], Node* currentNode)
+int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char graph[numRow][numCol], Node* currentNode)
 {
 	Node neighbourNode;
 	int neighbourNodesHead = 0;
@@ -98,7 +105,7 @@ int analysingNeighbourNodes(int listLength, Node openList[listLength], int *open
 						/**
 						 * If the node does not exists in the close list
 						 */
-						if(getExistingNodeInList(listLength, closeList, closeListHead, neighbourNode.coordinates) == -1)
+						if(getExistingNodeInList(closeList, closeListHead, neighbourNode.coordinates) == -1)
 						{
 							/**
 							 * Get the parent's coordinates
@@ -132,7 +139,7 @@ int analysingNeighbourNodes(int listLength, Node openList[listLength], int *open
 							 */
 							neighbourNode.F = neighbourNode.H + neighbourNode.G;
 
-							int alreadyInList = getExistingNodeInList(listLength, openList, *openListHead, neighbourNode.coordinates);
+							int alreadyInList = getExistingNodeInList(openList, *openListHead, neighbourNode.coordinates);
 							/**
 							 * If the node is already in the list
 							 */

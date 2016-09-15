@@ -36,11 +36,11 @@ struct Node
  * @brief      Pulls an element from a Node list and re-equals the indexes of
  *             the list
  *
- * @param      listLength           The list length
+ * @param[in]  listHead             The list head
  * @param      list                 The list
  * @param      indexOfNodeToRemove  The index of node to remove
  */
-void removeNodeFromList(int listLength, Node list[listLength], int indexOfNodeToRemove);
+void removeNodeFromList(int listHead, Node* list, int indexOfNodeToRemove);
 
 /**
  * @brief      Compares two nodes by their F parameter
@@ -58,22 +58,20 @@ int compareNodeByF (Node a, Node b);
 /**
  * @brief      Sort the first items (to indexLimitation) of the list increasingly by the nodes' F parameter
  *
- * @param[in]  listLength       The list length
  * @param      list             The list
  * @param[in]  indexLimitation  The index limitation
  */
-void sortList(int listLength, Node list[listLength], int indexLimitation);
+void sortList(Node* list, int indexLimitation);
 
 /**
  * @brief      Gets the index of existing node in list.
  *
- * @param[in]  listLength         The list length
  * @param      list           The list
  * @param[in]  listHead       The list head
  * @param[in]  coordinatesToFind  The coordinates to find
  *
  * @return     The index of node in list, -1 if not present.
  */
-int getExistingNodeInList(int listLength, Node list[listLength], int listHead, Coordinates coordinatesToFind);
+int getExistingNodeInList(Node* list, int listHead, Coordinates coordinatesToFind);
 
 #endif /* NODE_MANAGMENT_H */

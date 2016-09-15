@@ -6,12 +6,14 @@
 /**
  * @brief      Lauches the path resolution algorithm for the graph
  *
- * @param[in]  numRow  The graph's number row
- * @param[in]  numCol  The graph's number col
- * @param      graph   The char graph
+ * @param[in]  numRow     The graph's number row
+ * @param[in]  numCol     The graph's number col
+ * @param      graph      The char graph
+ * @param      finalPath  The final path to populate
+ *
+ * @return     the final path length
  */
-void launchPathResolution(int numRow, int numCol, char graph[numRow][numCol]);
-
+int launchPathResolution(int numRow, int numCol, char graph[numRow][numCol], Coordinates finalPath[numRow*numCol]);
 /**
  * @brief      Analyses the 8 neighbour nodes of a given Node
  *
@@ -27,7 +29,7 @@ void launchPathResolution(int numRow, int numCol, char graph[numRow][numCol]);
  *
  * @return     1 if it foud the target, 0 else
  */
-int analysingNeighbourNodes(int listLength, Node openList[listLength], int *openListHead, Node closeList[listLength], int closeListHead, int numRow, int numCol, char graph[numRow][numCol], Node* currentNode);
+int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char graph[numRow][numCol], Node* currentNode);
 
 /**
  * @brief      Determines ability to go to a given point.
