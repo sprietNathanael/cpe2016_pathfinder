@@ -33,8 +33,8 @@ void mainSDLLoop(int numRow, int numCol, char graph[numRow][numCol])
                 if(buttonAcivated && findPathButtonClicked(point))
                 {
                     finalPathLength = launchPathResolution(numRow, numCol, graph, finalPath);
-                    //drawFinalPath(finalPathLength, numRow, numCol, finalPath);
-                    buttonAcivated = 0;
+                    drawFinalPath(finalPathLength, numRow, numCol, finalPath);
+                    // buttonAcivated = 0;
                 }
 
             break;

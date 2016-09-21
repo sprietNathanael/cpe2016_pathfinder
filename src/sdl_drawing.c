@@ -12,15 +12,16 @@ int isPointInRectangle(SDL_Rect rect, Coordinates point)
 	}
 }
 
-void drawLineBetweenTwoNodes(SDL_Rect nodeA, SDL_Rect nodeB, SDL_Surface* surface)
+void drawLineBetweenTwoNodes(Coordinates nodeA, Coordinates nodeB, SDL_Surface* surface)
 {
-    Coordinates centerA;
-    Coordinates centerB;
-    centerA.x = nodeA.x+(nodeA.w/2);
-    centerA.y = nodeA.y+(nodeA.h/2);
-    centerB.x = nodeB.x+(nodeB.w/2);
-    centerB.y = nodeB.y+(nodeB.h/2);
-    ligne(centerA, centerB, 5, SDL_MapRGB(surface->format, 255, 255, 0), surface);
+    // Coordinates centerA;
+    // Coordinates centerB;
+    // centerA.x = nodeA.x+(nodeA.w/2);
+    // centerA.y = nodeA.y+(nodeA.h/2);
+    // centerB.x = nodeB.x+(nodeB.w/2);
+    // centerB.y = nodeB.y+(nodeB.h/2);
+    printf("(%d;%d)->(%d;%d)\n", nodeA.x, nodeA.y, nodeB.x, nodeB.y);
+    ligne(nodeA, nodeB, 5, SDL_MapRGB(surface->format, 255, 255, 0), surface);
 }
 
 void echangerEntiers(int* x, int* y)
@@ -125,10 +126,29 @@ void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Su
     }    
 }
 
+//
+//
+//
+//NOT WORKING !!!!!
+//
+//
+//
+
 void setPixelVerif(int x, int y, Uint32 coul, SDL_Surface* surface)
 {
+    if ( SDL_MUSTLOCK(surface) ) {
+        if ( SDL_LockSurface(surface) < 0 ) {
+            printf("Can't lock surface: %s\n", SDL_GetError());
+            return;
+        }
+    }
     if (x >= 0 && x < surface->w && y >= 0 && y < surface->h)
     {
-        *((Uint32*)(surface->pixels) + x + y * surface->w) = coul;
+        int bpp = surface->format->BytesPerPixel;
+        Uint8 *p = (Uint8*)(surface->pixels) + x * bpp + y * surface->pitch;
+        *(Uint32 *)p = coul;
+    }
+    if ( SDL_MUSTLOCK(surface) ) {
+        SDL_UnlockSurface(surface);
     }
 }

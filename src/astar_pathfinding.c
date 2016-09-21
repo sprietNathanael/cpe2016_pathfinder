@@ -1,5 +1,5 @@
 #include "astar_pathfinding.h"
-
+Coordinates targetCoordinates = {0,0};
 int launchPathResolution(int numRow, int numCol, char graph[numRow][numCol], Coordinates finalPath[numRow*numCol])
 {
 	Node currentNode;
@@ -29,10 +29,18 @@ int launchPathResolution(int numRow, int numCol, char graph[numRow][numCol], Coo
 	Node startNode = {0, 0, 0, TYPE_START, startCoordinates, NULL};
 
 	/**
+	 * Search and initialise target Node
+	 */
+	targetCoordinates = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_TARGET);
+
+	/**
 	 * Push start Node into the open list
 	 */
 	openList[openListHead++] = startNode;
 	int targetFound = 0;
+	/**
+	 * Main loop
+	 */
 	while(!targetFound)
 	{
 
@@ -51,11 +59,13 @@ int launchPathResolution(int numRow, int numCol, char graph[numRow][numCol], Coo
 		closeListHead++;
 
 	}
+	finalPath[finalPathLength++] = targetCoordinates;
+	printf("Path : (%d;%d) ",targetCoordinates.x, targetCoordinates.y);
 	Node* currentNodePointer = &currentNode;
 	/**
-	 * Display final path
+	 * Build and display final path
 	 */
-	printf("Path : (%d;%d) ",currentNodePointer->coordinates.x, currentNodePointer->coordinates.y);
+	printf(" (%d;%d) ",currentNodePointer->coordinates.x, currentNodePointer->coordinates.y);
 	finalPath[finalPathLength++] = currentNodePointer->coordinates;
 	while(currentNodePointer->parent != NULL)
 	{
@@ -73,7 +83,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 	int neighbourNodesHead = 0;
 	int deltaX = 0;
 	int deltaY = 0;
-	Coordinates targetCoordinates = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_TARGET);
+	
 	Coordinates currentCoordinates = {0,0};
 	/**
 	 * Browse all 8 possibilities of neighbours

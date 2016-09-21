@@ -12,9 +12,8 @@ void sdlInit()
 	/**
 	 * Screen creation
 	 */
-	ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE); // On tente d'ouvrir une fenêtre
-    if (ecran == NULL) // Si l'ouverture a échoué, on le note et on arrête
-    {
+	ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE);
+    if (ecran == NULL)    {
         fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
     }    
@@ -51,13 +50,22 @@ void createGraph(int numRow, int numCol, char graph[numRow][numCol])
 	int currentY = POS_START_Y;
 	int i = 0;
 	int j = 0;
+	/**
+	 * Graph browsing
+	 */
 	for(i = 0; i < numRow; i++)
 	{
 		for(j = 0; j < numCol; j++)
 		{
+			/**
+			 * For each cell of graph, creates a sdl rect
+			 */
 			rectangleGraph[i][j] = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_X, SIZE_Y, 32, 0, 0, 0, 0);
 			positionGraph[i][j].x = currentX;
     		positionGraph[i][j].y = currentY;
+    		/**
+    		 * Select the color according to the type of the cell
+    		 */
     		if(graph[i][j]== '0')
     		{
     			color = common;
@@ -90,14 +98,28 @@ void createGraph(int numRow, int numCol, char graph[numRow][numCol])
 }
 
 
-void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates finalPath[numRow][numCol])
+void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates finalPath[numRow*numCol])
 {
     int i = 0;
-    // Coordinates currentCoordinates = targetCoordinates;
-    for(i = finalPathLength;i >= 0;--i)
+    Coordinates secondCoordintates = {0,0};
+    Coordinates firstCoordinates = {0,0};
+    /**
+     * Browses the final path and draw a line between each nodes
+     */
+    for(i = finalPathLength-2;i >= 0;--i)
     {
-        // drawLineBetweenTwoNodes(positionGraph[currentCoordinates.y][currentCoordinates.x],positionGraph[finalPath[i].y][finalPath[i].x]);
-        // currentCoordinates = finalPath[i];
+    	Coordinates currentPosition = finalPath[i];
+    	firstCoordinates = computeSDLCoordinatesFromGraphPosition(currentPosition);
+    	secondCoordintates = computeSDLCoordinatesFromGraphPosition(finalPath[i+1]);
+    	printf("Test : i = %d : (%d;%d) : (%d;%d) -> (%d;%d) : (%d;%d)\n",i,currentPosition.x,currentPosition.y,firstCoordinates.x,firstCoordinates.y,finalPath[i+1].x,finalPath[i+1].y,secondCoordintates.x,secondCoordintates.y);
+        drawLineBetweenTwoNodes(firstCoordinates,secondCoordintates,ecran);
     }
-    // drawLineBetweenTwoNodes(positionGraph[currentCoordinates.y][currentCoordinates.x],positionGraph[startCoordinates.y][startCoordinates.x]);
+}
+
+Coordinates computeSDLCoordinatesFromGraphPosition(Coordinates cell)
+{
+	Coordinates sdlCoordinates = {0,0};
+	sdlCoordinates.x = POS_START_X+(cell.x * (OFFSET_X+SIZE_X))+(SIZE_X/2);
+	sdlCoordinates.y = POS_START_Y+(cell.y * (OFFSET_Y+SIZE_Y))+(SIZE_Y/2);
+	return sdlCoordinates;
 }
