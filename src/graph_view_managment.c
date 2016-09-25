@@ -37,10 +37,10 @@ int findPathButtonClicked(Coordinates cursorPosition)
 	return isPointInRectangle(findPathButton_position, cursorPosition);
 }
 
-void createGraph(int numRow, int numCol, char graph[numRow][numCol])
+void createGraph(int numRow, int numCol, char* graph)
 {
-	SDL_Surface *rectangleGraph[numRow][numCol];
-	SDL_Rect positionGraph[numRow][numCol];
+	SDL_Surface *rectangleGraph[numRow*numCol];
+	SDL_Rect positionGraph[numRow*numCol];
 	Uint32 common = SDL_MapRGB(ecran->format, 255, 255, 255);
 	Uint32 start = SDL_MapRGB(ecran->format, 0, 255, 0);
 	Uint32 target = SDL_MapRGB(ecran->format, 255, 0, 0);
@@ -60,35 +60,35 @@ void createGraph(int numRow, int numCol, char graph[numRow][numCol])
 			/**
 			 * For each cell of graph, creates a sdl rect
 			 */
-			rectangleGraph[i][j] = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_X, SIZE_Y, 32, 0, 0, 0, 0);
-			positionGraph[i][j].x = currentX;
-    		positionGraph[i][j].y = currentY;
+			rectangleGraph[(i*numCol)+j] = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_X, SIZE_Y, 32, 0, 0, 0, 0);
+			positionGraph[(i*numCol)+j].x = currentX;
+    		positionGraph[(i*numCol)+j].y = currentY;
     		/**
     		 * Select the color according to the type of the cell
     		 */
-    		if(graph[i][j]== '0')
+    		if(graph[(i*numCol)+j]== '0')
     		{
     			color = common;
     		}
-    		else if(graph[i][j] == 'W')
+    		else if(graph[(i*numCol)+j] == 'W')
     		{
                 color = wall;
             }
-            else if(graph[i][j] == 'S')
+            else if(graph[(i*numCol)+j] == 'S')
             {
                 color = start;
                 startCoordinates.x = j;
                 startCoordinates.y = i;
 
             }
-            else if(graph[i][j] == 'T')
+            else if(graph[(i*numCol)+j] == 'T')
             {
                 color = target;
                 targetCoordinates.x = j;
                 targetCoordinates.y = i;
             }
-            SDL_FillRect(rectangleGraph[i][j], NULL, color);                
-            SDL_BlitSurface(rectangleGraph[i][j], NULL, ecran, &positionGraph[i][j]); // Collage de la surface sur l'écran
+            SDL_FillRect(rectangleGraph[(i*numCol)+j], NULL, color);                
+            SDL_BlitSurface(rectangleGraph[(i*numCol)+j], NULL, ecran, &positionGraph[(i*numCol)+j]); // Collage de la surface sur l'écran
             currentX += SIZE_X+OFFSET_X;
         }
         currentX = POS_START_X;

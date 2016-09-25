@@ -6,7 +6,7 @@
 #include "graph_view_managment.h"
 // #include <SDL/SDL_ttf.h>
 
-void mainSDLLoop(int numRow, int numCol, char graph[numRow][numCol]);
-int launchView(int numRow, int numCol, char graph[numRow][numCol]);
+void mainSDLLoop(int numRow, int numCol, char* graph);
+int launchView(int numRow, int numCol, char* graph);
 
 #endif /* VIEW_H */

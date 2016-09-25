@@ -3,7 +3,7 @@ int buttonAcivated = 1;
 
 
 
-int launchView(int numRow, int numCol, char graph[numRow][numCol])
+int launchView(int numRow, int numCol, char* graph)
 {
 	sdlInit();
 	createGraph(numRow, numCol, graph);
@@ -13,7 +13,7 @@ int launchView(int numRow, int numCol, char graph[numRow][numCol])
 }	
 
 
-void mainSDLLoop(int numRow, int numCol, char graph[numRow][numCol])
+void mainSDLLoop(int numRow, int numCol, char* graph)
 {
     int continuer = 1;
     SDL_Event event;

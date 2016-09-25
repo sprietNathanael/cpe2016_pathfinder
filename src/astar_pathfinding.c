@@ -1,6 +1,6 @@
 #include "astar_pathfinding.h"
 Coordinates targetCoordinates = {0,0};
-int launchPathResolution(int numRow, int numCol, char graph[numRow][numCol], Coordinates finalPath[numRow*numCol])
+int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath)
 {
 	Node currentNode;
 	Coordinates zeroCoordinates = {0,0};
@@ -77,7 +77,7 @@ int launchPathResolution(int numRow, int numCol, char graph[numRow][numCol], Coo
 	return finalPathLength;
 }
 
-int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char graph[numRow][numCol], Node* currentNode)
+int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode)
 {
 	Node neighbourNode;
 	int neighbourNodesHead = 0;
@@ -103,7 +103,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 				if((currentNode->coordinates.y+deltaY >= 0 && currentNode->coordinates.y+deltaY < numRow) && (currentNode->coordinates.x+deltaX >= 0 && currentNode->coordinates.x+deltaX < numCol))
 				{
 					/**
-					 * If the node is not a wall
+					 * If the node is not a wall or is not surrounded by walls
 					 */
 					if(canGoToThisPoint(numRow, numCol, graph, currentNode, deltaX, deltaY))
 					{
@@ -180,12 +180,12 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 	return 0;
 }
 
-int canGoToThisPoint(int numRow, int numCol, char graph[numRow][numCol], Node* currentNode, int deltaX, int deltaY)
+int canGoToThisPoint(int numRow, int numCol, char* graph, Node* currentNode, int deltaX, int deltaY)
 {
 	/**
 	 * If the node-to-go is a wall
 	 */
-	if(graph[currentNode->coordinates.y+deltaY][currentNode->coordinates.x+deltaX] == TYPE_WALL)
+	if(graph[((currentNode->coordinates.y+deltaY)*numCol)+(currentNode->coordinates.x+deltaX)] == TYPE_WALL)
 	{
 		return 0;
 	}
@@ -198,11 +198,11 @@ int canGoToThisPoint(int numRow, int numCol, char graph[numRow][numCol], Node* c
 		 * Check the two adjacing nodes are not walls :
 		 * (current.x ; deltaY) and (deltaX ; current.y)
 		 */		
-		if(graph[currentNode->coordinates.y+deltaY][currentNode->coordinates.x] == TYPE_WALL)
+		if(graph[((currentNode->coordinates.y+deltaY)*numCol)+(currentNode->coordinates.x)] == TYPE_WALL)
 		{
 			return 0;
 		}
-		if(graph[currentNode->coordinates.y][currentNode->coordinates.x+deltaX] == TYPE_WALL)
+		if(graph[((currentNode->coordinates.y)*numCol)+(currentNode->coordinates.x+deltaX)] == TYPE_WALL)
 		{
 			return 0;
 		}

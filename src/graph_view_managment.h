@@ -28,7 +28,7 @@ void sdlInit();
  * @param[in]  numCol  The graph number of column
  * @param      graph   The graph itself
  */
-void createGraph(int numRow, int numCol, char graph[numRow][numCol]);
+void createGraph(int numRow, int numCol, char* graph);
 
 /**
  * @brief      Draws the final path.

@@ -1,6 +1,6 @@
 #include "graph_managment.h"
 
-Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char graph[numRow][numCol], char charToFind)
+Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char* graph, char charToFind)
 {
 	bool targetFound = false;
 	Coordinates targetCoordinates;
@@ -19,7 +19,7 @@ Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char graph[numRow
 			/**
 			 * If the content of the current cell matches the char to find
 			 */
-			if(graph[i][j] == charToFind)
+			if(graph[(i*numCol)+j] == charToFind)
 			{
 				targetFound = true;
 				targetCoordinates.x = j;

@@ -13,7 +13,7 @@
  *
  * @return     the final path length
  */
-int launchPathResolution(int numRow, int numCol, char graph[numRow][numCol], Coordinates finalPath[numRow*numCol]);
+int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath);
 /**
  * @brief      Analyses the 8 neighbour nodes of a given Node
  *
@@ -29,7 +29,7 @@ int launchPathResolution(int numRow, int numCol, char graph[numRow][numCol], Coo
  *
  * @return     1 if it foud the target, 0 else
  */
-int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char graph[numRow][numCol], Node* currentNode);
+int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode);
 
 /**
  * @brief      Determines ability to go to a given point.
@@ -43,6 +43,6 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
  *
  * @return     True if able to go to given point, False otherwise.
  */
-int canGoToThisPoint(int numRow, int numCol, char graph[numRow][numCol], Node* currentNode, int deltaX, int deltaY);
+int canGoToThisPoint(int numRow, int numCol, char* graph, Node* currentNode, int deltaX, int deltaY);
 
 #endif /* A_STAR_PATHFINDING_H */

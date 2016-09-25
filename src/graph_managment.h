@@ -58,7 +58,7 @@ void displayGraph(int numRow, int numCol, char graph[numRow][numCol]);
  *
  * @return     The coordinates of the character to find
  */
-Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char graph[numRow][numCol], char charToFind);
+Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char* graph, char charToFind);
 
 /**
  * @brief      Calculates the "simple distance" between two coordinates.
