@@ -14,13 +14,6 @@ int isPointInRectangle(SDL_Rect rect, Coordinates point)
 
 void drawLineBetweenTwoNodes(Coordinates nodeA, Coordinates nodeB, SDL_Surface* surface)
 {
-    // Coordinates centerA;
-    // Coordinates centerB;
-    // centerA.x = nodeA.x+(nodeA.w/2);
-    // centerA.y = nodeA.y+(nodeA.h/2);
-    // centerB.x = nodeB.x+(nodeB.w/2);
-    // centerB.y = nodeB.y+(nodeB.h/2);
-    printf("(%d;%d)->(%d;%d)\n", nodeA.x, nodeA.y, nodeB.x, nodeB.y);
     ligne(nodeA, nodeB, 5, SDL_MapRGB(surface->format, 255, 255, 0), surface);
 }
 
@@ -126,14 +119,6 @@ void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Su
     }    
 }
 
-//
-//
-//
-//NOT WORKING !!!!!
-//
-//
-//
-
 void setPixelVerif(int x, int y, Uint32 coul, SDL_Surface* surface)
 {
     if ( SDL_MUSTLOCK(surface) ) {
@@ -147,6 +132,7 @@ void setPixelVerif(int x, int y, Uint32 coul, SDL_Surface* surface)
         int bpp = surface->format->BytesPerPixel;
         Uint8 *p = (Uint8*)(surface->pixels) + x * bpp + y * surface->pitch;
         *(Uint32 *)p = coul;
+        SDL_Flip(surface);
     }
     if ( SDL_MUSTLOCK(surface) ) {
         SDL_UnlockSurface(surface);

@@ -111,7 +111,6 @@ void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates fina
     	Coordinates currentPosition = finalPath[i];
     	firstCoordinates = computeSDLCoordinatesFromGraphPosition(currentPosition);
     	secondCoordintates = computeSDLCoordinatesFromGraphPosition(finalPath[i+1]);
-    	printf("Test : i = %d : (%d;%d) : (%d;%d) -> (%d;%d) : (%d;%d)\n",i,currentPosition.x,currentPosition.y,firstCoordinates.x,firstCoordinates.y,finalPath[i+1].x,finalPath[i+1].y,secondCoordintates.x,secondCoordintates.y);
         drawLineBetweenTwoNodes(firstCoordinates,secondCoordintates,ecran);
     }
 }
