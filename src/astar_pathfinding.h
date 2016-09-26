@@ -1,4 +1,5 @@
 #include "node_managment.h"
+#include "graph_view_managment.h"
 
 #ifndef A_STAR_PATHFINDING_H
 #define A_STAR_PATHFINDING_H

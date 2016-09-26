@@ -1,5 +1,5 @@
 CC=gcc
-FLAGS=-W -Wall
+FLAGS=-W -Wall -g
 LDFLAGS=-lm -lSDL #Linker
 EXEC=pathfinder
 
@@ -8,7 +8,7 @@ all: $(EXEC)
 $(EXEC): astar_pathfinding.o main.o node_managment.o graph_managment.o view.o graph_view_managment.o sdl_drawing.o
 	$(CC) -o $(EXEC) astar_pathfinding.o main.o node_managment.o graph_managment.o view.o graph_view_managment.o sdl_drawing.o ${LDFLAGS}
 
-astar_pathfinding.o: astar_pathfinding.c node_managment.h
+astar_pathfinding.o: astar_pathfinding.c node_managment.h graph_view_managment.h
 	$(CC) -o astar_pathfinding.o -c astar_pathfinding.c $(FLAGS)
 
 node_managment.o: node_managment.c graph_managment.h
@@ -17,7 +17,7 @@ node_managment.o: node_managment.c graph_managment.h
 graph_managment.o: graph_managment.c
 	$(CC) -o graph_managment.o -c graph_managment.c $(FLAGS)
 
-view.o: view.c graph_view_managment.h astar_pathfinding.h
+view.o: view.c astar_pathfinding.h
 	$(CC) -o view.o -c view.c $(FLAGS)
 
 graph_view_managment.o: graph_view_managment.c sdl_drawing.h 

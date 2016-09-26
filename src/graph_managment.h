@@ -40,15 +40,6 @@ struct Coordinates
 */
 
 /**
- * @brief      Displays the graph in console mode
- *
- * @param[in]  numRow  The graph's number of rows
- * @param[in]  numCol  The graph's number of columns
- * @param      graph   The graph itself
- */
-void displayGraph(int numRow, int numCol, char graph[numRow][numCol]);
-
-/**
  * @brief      Finds the coordinates of a given charater in a char graph
  *
  * @param[in]  numRow      The graph's number of rows

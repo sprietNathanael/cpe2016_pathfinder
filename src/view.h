@@ -3,7 +3,6 @@
 
 
 #include "astar_pathfinding.h"
-#include "graph_view_managment.h"
 // #include <SDL/SDL_ttf.h>
 
 void mainSDLLoop(int numRow, int numCol, char* graph);

@@ -43,31 +43,3 @@ int computeSimpleDistanceBetweenCoordinates(Coordinates firstCoordinates, Coordi
 	return((abs(secondCoordinates.x - firstCoordinates.x) + abs(secondCoordinates.y - firstCoordinates.y)) * SIMPLE_DISTANCE_FACTOR);
 }
 
-void displayGraph(int numRow, int numCol, char graph[numRow][numCol])
-{
-	int i = 0;
-	int j = 0;
-    for(i = 0; i < numRow; i ++)
-    {
-    	for(j = 0; j < numCol; j ++)
-    	{
-    		if(graph[i][j] == TYPE_NORMAL)
-    		{
-    			printf(".");
-    		}
-    		else if(graph[i][j] == TYPE_START)
-    		{
-    			printf("S");
-    		}
-    		else if(graph[i][j] == TYPE_TARGET)
-    		{
-    			printf("T");
-    		}
-    		else if(graph[i][j] == TYPE_WALL)
-    		{
-    			printf("X");
-    		}
-    	}
-    	printf("\n");
-    }
-}

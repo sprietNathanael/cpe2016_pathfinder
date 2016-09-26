@@ -4,6 +4,8 @@ SDL_Surface* ecran = NULL;
 SDL_Rect findPathButton_position;
 Coordinates startCoordinates;
 Coordinates targetCoordinates;
+SDL_Surface** rectangleGraph;
+SDL_Rect* positionGraph;
 
 void sdlInit()
 {
@@ -39,8 +41,8 @@ int findPathButtonClicked(Coordinates cursorPosition)
 
 void createGraph(int numRow, int numCol, char* graph)
 {
-	SDL_Surface *rectangleGraph[numRow*numCol];
-	SDL_Rect positionGraph[numRow*numCol];
+    rectangleGraph = malloc((numRow*numCol) * sizeof(SDL_Surface*));
+    positionGraph = malloc((numRow*numCol) * sizeof(SDL_Rect));
 	Uint32 common = SDL_MapRGB(ecran->format, 255, 255, 255);
 	Uint32 start = SDL_MapRGB(ecran->format, 0, 255, 0);
 	Uint32 target = SDL_MapRGB(ecran->format, 255, 0, 0);
@@ -60,18 +62,18 @@ void createGraph(int numRow, int numCol, char* graph)
 			/**
 			 * For each cell of graph, creates a sdl rect
 			 */
-			rectangleGraph[(i*numCol)+j] = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_X, SIZE_Y, 32, 0, 0, 0, 0);
-			positionGraph[(i*numCol)+j].x = currentX;
-    		positionGraph[(i*numCol)+j].y = currentY;
-    		/**
-    		 * Select the color according to the type of the cell
-    		 */
-    		if(graph[(i*numCol)+j]== '0')
-    		{
-    			color = common;
-    		}
-    		else if(graph[(i*numCol)+j] == 'W')
-    		{
+            rectangleGraph[(i*numCol)+j] = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_X, SIZE_Y, 32, 0, 0, 0, 0);
+            positionGraph[(i*numCol)+j].x = currentX;
+            positionGraph[(i*numCol)+j].y = currentY;
+            /**
+             * Select the color according to the type of the cell
+             */
+            if(graph[(i*numCol)+j]== '0')
+            {
+                color = common;
+            }
+            else if(graph[(i*numCol)+j] == 'W')
+            {
                 color = wall;
             }
             else if(graph[(i*numCol)+j] == 'S')
@@ -121,4 +123,14 @@ Coordinates computeSDLCoordinatesFromGraphPosition(Coordinates cell)
 	sdlCoordinates.x = POS_START_X+(cell.x * (OFFSET_X+SIZE_X))+(SIZE_X/2);
 	sdlCoordinates.y = POS_START_Y+(cell.y * (OFFSET_Y+SIZE_Y))+(SIZE_Y/2);
 	return sdlCoordinates;
+}
+
+void changeRectangeColor(Coordinates graphPosition,int numCol, int r,int g,int b)
+{
+    int i = (graphPosition.y*numCol)+graphPosition.x;
+    Uint32 color = SDL_MapRGB(ecran->format, r, g, b);
+    rectangleGraph[i] = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_X, SIZE_Y, 32, 0, 0, 0, 0);
+    SDL_FillRect(rectangleGraph[i], NULL, color);                
+    SDL_BlitSurface(rectangleGraph[i], NULL, ecran, &positionGraph[i]); // Collage de la surface sur l'écran
+    SDL_Flip(ecran);
 }

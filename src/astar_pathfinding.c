@@ -53,6 +53,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		/**
 		 * Push the current node into the close list
 		 */
+		changeRectangeColor(currentNode.coordinates, numCol, 132,147,251);
 		closeList[closeListHead] = currentNode;
 		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead]);		
 		sortList(openList, openListHead);
@@ -169,6 +170,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 								 * Push the node into the open list
 								 */
 								openList[*openListHead] = neighbourNode;
+								changeRectangeColor(neighbourNode.coordinates, numCol, 224, 244, 204);
 								*openListHead+=1;
 							}
 						}

@@ -59,5 +59,7 @@ int findPathButtonClicked(Coordinates cursorPosition);
  * @return     The sdl coordinates from graph position.
  */
 Coordinates computeSDLCoordinatesFromGraphPosition(Coordinates cell);
+
+void changeRectangeColor(Coordinates graphPosition,int numCol, int r,int g,int b);
 #endif
 
