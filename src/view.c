@@ -48,6 +48,11 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
 				stayInLoop = 0;
 				continuer = 0;
 				break;
+			case SDL_MOUSEBUTTONDOWN:
+				point.x = event.button.x;
+				point.y = event.button.y;
+				Coordinates pointedNode = computeThePointedNodeCoordinatesFromSDL(numRow, numCol, point.x, point.y);
+				printf("(%d;%d)\n",pointedNode.x, pointedNode.y);
 		}
 	}
 }

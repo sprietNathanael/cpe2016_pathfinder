@@ -373,3 +373,29 @@ void changeRectangeColor(Coordinates graphPosition,int numCol, int r,int g,int b
     SDL_BlitSurface(rectangleGraph[i], NULL, ecran, &positionGraph[i]); // Collage de la surface sur l'écran
     SDL_Flip(ecran);
 }
+
+Coordinates computeThePointedNodeCoordinatesFromSDL(int numRow, int numCol, int x, int y)
+{
+    Coordinates pointedNode = {-1,-1};
+    Coordinates interNode = {x,y};
+    int testXMin = x < OFFSET_X;
+    int testXMax = x > OFFSET_X+(numCol*(SIZE_X+OFFSET_X));
+    int testYMin = y < OFFSET_Y;
+    int testYMax = y > OFFSET_Y+(numCol*(SIZE_Y+OFFSET_Y));
+    if((testXMin || testXMax) || (testYMin || testYMax))
+    {
+        return pointedNode;
+    }
+    int tempX = (x-OFFSET_X)/(SIZE_X+OFFSET_X);
+    int tempY = (y-OFFSET_Y)/(SIZE_Y+OFFSET_Y);
+    if(isPointInRectangle(positionGraph[(tempY*numRow)+tempX], interNode))
+    {
+        pointedNode.x = tempX;
+        pointedNode.y = tempY;
+        return pointedNode;
+    }
+    else
+    {
+        return pointedNode;
+    }
+}
