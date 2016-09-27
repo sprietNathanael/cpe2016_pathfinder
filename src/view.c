@@ -35,8 +35,11 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
 		switch(event.type)
 		{
 			case SDL_QUIT:
-				continuer = 0;
-				stayInLoop = 0;
+				if(clearButtonActivated)
+				{
+					continuer = 0;
+					stayInLoop = 0;
+				}
 			case SDL_MOUSEBUTTONDOWN:
 				point.x = event.button.x;
 				point.y = event.button.y;
