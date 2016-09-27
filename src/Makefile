@@ -1,6 +1,6 @@
 CC=gcc
 FLAGS=-W -Wall -g
-LDFLAGS=-lm -lSDL #Linker
+LDFLAGS=-lm -lSDL -lpthread
 EXEC=pathfinder
 
 all: $(EXEC)

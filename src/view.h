@@ -2,6 +2,7 @@
 #define VIEW_H
 
 
+#include <pthread.h>
 #include "astar_pathfinding.h"
 // #include <SDL/SDL_ttf.h>
 

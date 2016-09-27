@@ -6,18 +6,25 @@
 #define A_STAR_PATHFINDING_H
 
 /**
- * @brief      Lauches the path resolution algorithm for the graph
+ * @brief      Structure that helps in thread creation
+ */
+typedef struct {
+    int numRow;
+    int numCol;
+    char* graph;
+    Coordinates* finalPath;
+    int time;
+} launchPathResolution_args;
+
+/**
+ * @brief      Lauches the path resolution algorithm for the graph (param)
  *
- * @param[in]  numRow     The graph's number row
- * @param[in]  numCol     The graph's number col
- * @param      graph      The char graph
- * @param      finalPath  The final path to populate
- * @param      time       The time between each step
+ * @param      args  pointer to a lauchPathResolution_args structure
  *
  * @return     the final path length
  */
-int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time)
-;
+void* launchPathResolution(void* args);
+
 /**
  * @brief      Analyses the 8 neighbour nodes of a given Node
  *
