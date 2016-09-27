@@ -1,17 +1,8 @@
 #include "astar_pathfinding.h"
 Coordinates targetCoordinates = {0,0};
 int timeBetweenSteps = 0;
-void* launchPathResolution(void* args)
+int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time)
 {
-	/**
-	 * Get the arguments from structure
-	 */
-	launchPathResolution_args *actual_args = args;
-	int numRow = actual_args->numRow;
-	int numCol = actual_args->numCol;
-	char* graph = actual_args->graph;
-	Coordinates* finalPath = actual_args->finalPath;
-	int time = actual_args->time;
 	Node currentNode;
 	timeBetweenSteps = time;
 	Coordinates zeroCoordinates = {0,0};
@@ -87,8 +78,7 @@ void* launchPathResolution(void* args)
 		finalPath[finalPathLength++] = currentNodePointer->coordinates;
 	}
 	printf("\n");
-	free(actual_args);
-	return (void *)finalPathLength;
+	return finalPathLength;
 }
 
 int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode)

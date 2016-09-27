@@ -22,9 +22,9 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
     SDL_Event event;
     Coordinates point;
     Coordinates finalPath[numRow*numCol];
-    int finalPathLength = 0;
     pthread_t thread;
     void* status;
+    launchPathResolution_args *args = malloc(sizeof *args);
     while (continuer)
     {
         SDL_WaitEvent(&event);
@@ -41,19 +41,15 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
                     /**
                      * Creates the structure to pass the arguments to the function
                      */
-                    launchPathResolution_args *args = malloc(sizeof *args);
                     args->numRow = numRow;
                     args->numCol = numCol;
                     args->graph = graph;
-                    args->finalPath = finalPath;
                     args->time = 0;
                     /**
                      * Create the thread
                      */
-                    pthread_create(&thread, NULL, launchPathResolution, args);
-                    pthread_join(thread, &status);
-                    finalPathLength = (int)status;
-                    drawFinalPath(finalPathLength, numRow, numCol, finalPath);
+                    pthread_create(&thread, NULL, resolutionAndDrawing_thread, args);
+
                     findPathButtonsAcivated = 0;
                 }
                 if(findPathButtonsAcivated && slow_findPathButtonClicked(point))
@@ -61,19 +57,16 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
                     /**
                      * Creates the structure to pass the arguments to the function
                      */
-                    launchPathResolution_args *args = malloc(sizeof *args);
                     args->numRow = numRow;
                     args->numCol = numCol;
                     args->graph = graph;
-                    args->finalPath = finalPath;
                     args->time = SLOW_RESOLUTION_TIME;
                     /**
                      * Create the thread
                      */
-                    pthread_create(&thread, NULL, launchPathResolution, args);
-                    pthread_join(thread, &status);
-                    finalPathLength = (int)status;
-                    drawFinalPath(finalPathLength, numRow, numCol, finalPath);
+                    pthread_create(&thread, NULL, resolutionAndDrawing_thread, args);
+                    printf("Test2 ! \n");
+
                     findPathButtonsAcivated = 0;
                 }
                 else if(clearButtonClicked(point))
@@ -84,6 +77,22 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
             break;
         }
     }
+    free(args);
+    pthread_join(thread, &status);    
+}
+
+void * resolutionAndDrawing_thread(void* args)
+{
+    launchPathResolution_args *actual_args = (launchPathResolution_args*)args;
+    int numRow = actual_args->numRow;
+    int numCol = actual_args->numCol;
+    char* graph = actual_args->graph;
+    int time = actual_args->time;
+    int finalPathLength = 0;
+    Coordinates finalPath[numRow*numCol];
+    finalPathLength = launchPathResolution(numRow, numCol, graph, finalPath, time);
+    drawFinalPath(finalPathLength, numRow, numCol, finalPath);
+    pthread_exit(0);
 }
 
 
