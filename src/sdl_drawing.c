@@ -12,10 +12,7 @@ int isPointInRectangle(SDL_Rect rect, Coordinates point)
 	}
 }
 
-void drawLineBetweenTwoNodes(Coordinates nodeA, Coordinates nodeB, SDL_Surface* surface)
-{
-    ligne(nodeA, nodeB, 5, SDL_MapRGB(surface->format, 255, 255, 0), surface);
-}
+
 
 void echangerEntiers(int* x, int* y)
 {

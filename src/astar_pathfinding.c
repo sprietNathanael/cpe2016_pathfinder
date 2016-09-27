@@ -56,7 +56,20 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		/**
 		 * Push the current node into the close list
 		 */
+		/**
+		 * If the resolution is in step by step mode, wait until the
+		 * function continueToNextStep has been called
+		 */
+		while(stepByStep && !canContinueToNextStep);
+		canContinueToNextStep = 0;
 		changeRectangeColor(currentNode.coordinates, numCol, 253,255,16);
+		/**
+		 * Draw a line between the current Node and its parent
+		 */
+		if(currentNode.parent != NULL)
+		{
+        	drawLineBetweenTwoNodes(currentNode.coordinates,currentNode.parent->coordinates, 0, 0, 0);
+        }
 		closeList[closeListHead] = currentNode;
 		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead], stepByStep);		
 		sortList(openList, openListHead);

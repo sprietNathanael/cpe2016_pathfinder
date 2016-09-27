@@ -163,11 +163,17 @@ void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates fina
      */
     for(i = finalPathLength-2;i >= 0;--i)
     {
-    	Coordinates currentPosition = finalPath[i];
-    	firstCoordinates = computeSDLCoordinatesFromGraphPosition(currentPosition);
-    	secondCoordintates = computeSDLCoordinatesFromGraphPosition(finalPath[i+1]);
-        drawLineBetweenTwoNodes(firstCoordinates,secondCoordintates,ecran);
+        drawLineBetweenTwoNodes(finalPath[i],finalPath[i+1], 255, 255, 0);
     }
+}
+
+void drawLineBetweenTwoNodes(Coordinates nodeA, Coordinates nodeB,int r,int g,int b)
+{
+    printf("(%d;%d) : (%d;%d) -> ",nodeA.x, nodeA.y,nodeB.x,nodeB.y);
+    Coordinates firstCoordinates = computeSDLCoordinatesFromGraphPosition(nodeA);
+    Coordinates secondCoordintates = computeSDLCoordinatesFromGraphPosition(nodeB);
+    printf("(%d;%d) : (%d;%d)\n", firstCoordinates.x,firstCoordinates.y,secondCoordintates.x,secondCoordintates.y);
+    ligne(firstCoordinates, secondCoordintates, 5, SDL_MapRGB(ecran->format, r, g, b), ecran);
 }
 
 Coordinates computeSDLCoordinatesFromGraphPosition(Coordinates cell)

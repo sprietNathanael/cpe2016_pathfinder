@@ -94,5 +94,12 @@ int nextStepButtonClicked(Coordinates cursorPosition);
 Coordinates computeSDLCoordinatesFromGraphPosition(Coordinates cell);
 
 void changeRectangeColor(Coordinates graphPosition,int numCol, int r,int g,int b);
+/**
+ * @brief      Draws line between two nodes.
+ *
+ * @param[in]  nodeA    The node a
+ * @param[in]  nodeB    The node b
+ */
+void drawLineBetweenTwoNodes(Coordinates nodeA, Coordinates nodeB,int r,int g,int b);
 #endif
 

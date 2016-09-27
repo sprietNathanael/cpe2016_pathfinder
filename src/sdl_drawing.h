@@ -16,15 +16,6 @@
 int isPointInRectangle(SDL_Rect rect, Coordinates point);
 
 /**
- * @brief      Draws line between two nodes.
- *
- * @param[in]  nodeA    The node a
- * @param[in]  nodeB    The node b
- * @param      surface  The surface
- */
-void drawLineBetweenTwoNodes(Coordinates nodeA, Coordinates nodeB, SDL_Surface* surface);
-
-/**
  * Code found here : http://anomaly.developpez.com/tutoriel/sdl/partie2/
  */
 
