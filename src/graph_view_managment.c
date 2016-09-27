@@ -5,6 +5,7 @@ SDL_Rect findPathButton_position;
 SDL_Rect clearButton_position;
 SDL_Rect slow_findPathButton_position;
 SDL_Rect nextStepButton_position;
+SDL_Rect buildButton_position;
 Coordinates startCoordinates;
 Coordinates targetCoordinates;
 SDL_Surface** rectangleGraph;
@@ -12,14 +13,14 @@ SDL_Rect* positionGraph;
 int graphHeight;
 int graphWidth;
 
-void sdlInit(int numRow, int numCol)
+void sdlResolvInit(int numRow, int numCol)
 {
 	SDL_Init(SDL_INIT_VIDEO);
     int height;
 	/**
 	 * Screen creation
 	 */
-    graphHeight = numRow*(SIZE_Y+OFFSET_Y);
+    graphHeight = numRow*(SIZE_Y+OFFSET_Y)+OFFSET_Y;
     if(graphHeight < MIN_WINDOW_HEIGHT)
     {
         height = MIN_WINDOW_HEIGHT;
@@ -153,12 +154,69 @@ void sdlInit(int numRow, int numCol)
     SDL_BlitSurface(debugIcon, NULL, nextStepButton, &debugIconPosition);
     SDL_BlitSurface(nextStepButton, NULL, ecran, &nextStepButton_position);
 
+    /**
+     ************************ Creates Build button
+    */
+    /**
+     * Initialise the button
+     */
+    SDL_Surface *buildButton = NULL;
+    buildButton_position.x = graphWidth+POS_BUTTON_X_BASE;
+    buildButton_position.y = POS_BUILD_STEP_BUTTON_Y;
+    buildButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
+    SDL_FillRect(buildButton, NULL, SDL_MapRGB(ecran->format, 60,108,238));
+    /**
+     * Initialise the icon
+     */
+    SDL_Surface *buildIcon = NULL;
+    SDL_Rect buildIconPosition;
+    buildIconPosition.x = 10;
+    buildIconPosition.y = 0;
+    buildIcon = SDL_LoadBMP("icons/build.bmp");
+    /**
+     * Set the color transparancy
+     */
+    SDL_SetColorKey(buildIcon, SDL_SRCCOLORKEY, SDL_MapRGB(buildIcon->format, 255,255,255));
+    /**
+     * Display the button and the icon
+     */
+    SDL_BlitSurface(buildIcon, NULL, buildButton, &debugIconPosition);
+    SDL_BlitSurface(buildButton, NULL, ecran, &buildButton_position);
+
 
     SDL_Flip(ecran);
 
 }
 
-void changeDebuButtonIcon()
+void sdlCreationInit(int numRow, int numCol)
+{
+    SDL_Init(SDL_INIT_VIDEO);
+    int height;
+    /**
+     * Screen creation
+     */
+    graphHeight = numRow*(SIZE_Y+OFFSET_Y)+OFFSET_Y;
+    if(graphHeight < MIN_WINDOW_HEIGHT)
+    {
+        height = MIN_WINDOW_HEIGHT;
+    }
+    else
+    {
+        height = graphHeight;
+    }
+    graphWidth = numCol*(SIZE_X+OFFSET_X);
+    int width = MIN_WINDOW_WIDTH+graphWidth;
+    ecran = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE);
+    if (ecran == NULL)    {
+        fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
+        exit(EXIT_FAILURE);
+    }    
+    SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 204, 204, 204));
+    SDL_Flip(ecran);
+
+}
+
+void changeDebugButtonIcon()
 {
     /**
      ************************ Creates Next Step button
@@ -209,6 +267,11 @@ int clearButtonClicked(Coordinates cursorPosition)
 int nextStepButtonClicked(Coordinates cursorPosition)
 {
     return isPointInRectangle(nextStepButton_position, cursorPosition);
+}
+
+int buildButtonClicked(Coordinates cursorPosition)
+{
+    return isPointInRectangle(buildButton_position, cursorPosition);
 }
 
 void createGraph(int numRow, int numCol, char* graph)

@@ -19,8 +19,10 @@ typedef struct {
     int stepByStep;
 } launchPathResolution_args;
 
-void mainSDLLoop(int numRow, int numCol, char* graph);
-int launchView(int numRow, int numCol, char* graph);
+void mainResolvLoop(int numRow, int numCol, char* graph, int* state);
+void mainCreationLoop(int numRow, int numCol, char* graph);
+int launchResolveView(int numRow, int numCol, char* graph);
+void launchCreationView(int numRow, int numCol, char* graph);
 void * resolutionAndDrawing_thread(void* args);
 
 #endif /* VIEW_H */

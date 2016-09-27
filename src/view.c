@@ -4,29 +4,61 @@ int stayInLoop = 1;
 int stepByStepLaunched = 0;
 int clearButtonActivated = 1;
 
-int launchView(int numRow, int numCol, char* graph)
+int launchResolveView(int numRow, int numCol, char* graph)
 {
+	int state = 0;
+	stayInLoop = 1;
 	while(stayInLoop)
 	{
-		sdlInit(numRow, numCol);
+		sdlResolvInit(numRow, numCol);
 		findPathButtonsAcivated = 1;
 		stepByStepLaunched = 0;
 		clearButtonActivated = 1;
 		createGraph(numRow, numCol, graph);
-		mainSDLLoop(numRow, numCol, graph);
+		mainResolvLoop(numRow, numCol, graph, &state);
 		SDL_Quit();
 	}
-	return EXIT_SUCCESS;
+	return state;
 }   
 
+void launchCreationView(int numRow, int numCol, char* graph)
+{
+	stayInLoop = 1;
+	while(stayInLoop)
+	{
+		sdlCreationInit(numRow, numCol);
+		createGraph(numRow, numCol, graph);
+		mainCreationLoop(numRow, numCol, graph);
+		SDL_Quit();
+	}
+}   
 
-void mainSDLLoop(int numRow, int numCol, char* graph)
+void mainCreationLoop(int numRow, int numCol, char* graph)
 {
 	int continuer = 1;
 	SDL_Event event;
 	Coordinates point;
 	Coordinates finalPath[numRow*numCol];
-	pthread_t thread;
+	while (continuer)
+	{
+		SDL_WaitEvent(&event);
+		switch(event.type)
+		{
+			case SDL_QUIT:
+				stayInLoop = 0;
+				continuer = 0;
+				break;
+		}
+	}
+}
+
+void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
+{
+	int continuer = 1;
+	SDL_Event event;
+	Coordinates point;
+	Coordinates finalPath[numRow*numCol];
+	pthread_t thread = 0;
 	void* status;
 	launchPathResolution_args *args = malloc(sizeof *args);
 	while (continuer)
@@ -39,6 +71,7 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
 				{
 					continuer = 0;
 					stayInLoop = 0;
+					*state = 0;
 				}
 			case SDL_MOUSEBUTTONDOWN:
 				point.x = event.button.x;
@@ -88,7 +121,7 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
 					}
 					else if(findPathButtonsAcivated)
 					{
-						changeDebuButtonIcon();
+						changeDebugButtonIcon();
 						/**
 						 * Creates the structure to pass the arguments to the function
 						 */
@@ -105,6 +138,12 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
 						stepByStepLaunched = 1;
 					}
 					
+				}
+				else if(clearButtonActivated && buildButtonClicked(point))
+				{
+					continuer = 0;
+					stayInLoop = 0;
+					*state = 1;
 				}
 
 			break;

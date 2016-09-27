@@ -16,10 +16,11 @@
 #define POS_SLOW_FIND_PATH_BUTTON_Y POS_FIND_PATH_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
 #define POS_CLEAR_BUTTON_Y POS_SLOW_FIND_PATH_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
 #define POS_NEXT_STEP_BUTTON_Y POS_CLEAR_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
+#define POS_BUILD_STEP_BUTTON_Y POS_NEXT_STEP_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
 #define SIZE_BUTTON_X 60
 #define SIZE_BUTTON_Y 40
 
-#define MIN_WINDOW_HEIGHT POS_NEXT_STEP_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
+#define MIN_WINDOW_HEIGHT POS_BUILD_STEP_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
 #define MIN_WINDOW_WIDTH (POS_BUTTON_X_BASE*2)+SIZE_BUTTON_X
 
 /**
@@ -28,7 +29,9 @@
  * @param[in]  numRow  The number row
  * @param[in]  numCol  The number col
  */
-void sdlInit(int numRow, int numCol);
+void sdlResolvInit(int numRow, int numCol);
+
+void sdlCreationInit(int numRow, int numCol);
 
 /**
  * @brief      Creates a graph.
@@ -53,7 +56,7 @@ void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates fina
 /**
  * @brief      Just exchange the debug icon of debug button for next step icon
  */
-void changeDebuButtonIcon();
+void changeDebugButtonIcon();
 
 /**
  * @brief      Check if the given cursor position is in the "find path" button
@@ -91,6 +94,14 @@ int clearButtonClicked(Coordinates cursorPosition);
  */
 int nextStepButtonClicked(Coordinates cursorPosition);
 
+/**
+ * @brief      Check if the given cursor position is in the "build" button
+ *
+ * @param[in]  cursorPosition  The cursor position
+ *
+ * @return     1 if the cursor position is in the button, 0 else
+ */
+int buildButtonClicked(Coordinates cursorPosition);
 
 /**
  * @brief      Calculates the sdl coordinates from graph position.
