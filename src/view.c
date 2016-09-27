@@ -8,7 +8,7 @@ int launchView(int numRow, int numCol, char* graph)
 {
 	while(stayInLoop)
 	{
-		sdlInit();
+		sdlInit(numRow, numCol);
 		findPathButtonsAcivated = 1;
 		stepByStepLaunched = 0;
 		clearButtonActivated = 1;

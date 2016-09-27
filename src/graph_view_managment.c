@@ -9,15 +9,28 @@ Coordinates startCoordinates;
 Coordinates targetCoordinates;
 SDL_Surface** rectangleGraph;
 SDL_Rect* positionGraph;
+int graphHeight;
+int graphWidth;
 
-void sdlInit()
+void sdlInit(int numRow, int numCol)
 {
 	SDL_Init(SDL_INIT_VIDEO);
-
+    int height;
 	/**
 	 * Screen creation
 	 */
-	ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE);
+    graphHeight = numRow*(SIZE_Y+OFFSET_Y);
+    if(graphHeight < MIN_WINDOW_HEIGHT)
+    {
+        height = MIN_WINDOW_HEIGHT;
+    }
+    else
+    {
+        height = graphHeight;
+    }
+    graphWidth = numCol*(SIZE_X+OFFSET_X);
+    int width = MIN_WINDOW_WIDTH+graphWidth;
+	ecran = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE);
     if (ecran == NULL)    {
         fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
@@ -34,7 +47,7 @@ void sdlInit()
      * Initialise the button
      */
     SDL_Surface *findPathButton = NULL;
-    findPathButton_position.x = POS_FIND_PATH_BUTTON_X;
+    findPathButton_position.x = graphWidth+POS_BUTTON_X_BASE;
     findPathButton_position.y = POS_FIND_PATH_BUTTON_Y;
     findPathButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
     SDL_FillRect(findPathButton, NULL, SDL_MapRGB(ecran->format, 141,242,23));
@@ -62,7 +75,7 @@ void sdlInit()
      * Initialise the button
      */
     SDL_Surface *slow_findPathButton = NULL;
-    slow_findPathButton_position.x = POS_SLOW_FIND_PATH_BUTTON_X;
+    slow_findPathButton_position.x = graphWidth+POS_BUTTON_X_BASE;
     slow_findPathButton_position.y = POS_SLOW_FIND_PATH_BUTTON_Y;
     slow_findPathButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
     SDL_FillRect(slow_findPathButton, NULL, SDL_MapRGB(ecran->format, 253,255,16));
@@ -90,7 +103,7 @@ void sdlInit()
      * Initialise the button
      */
     SDL_Surface *clearButton = NULL;
-    clearButton_position.x = POS_CLEAR_BUTTON_X;
+    clearButton_position.x = graphWidth+POS_BUTTON_X_BASE;
     clearButton_position.y = POS_CLEAR_BUTTON_Y;
     clearButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
     SDL_FillRect(clearButton, NULL, SDL_MapRGB(ecran->format, 255,0,0));
@@ -118,7 +131,7 @@ void sdlInit()
      * Initialise the button
      */
     SDL_Surface *nextStepButton = NULL;
-    nextStepButton_position.x = POS_NEXT_STEP_BUTTON_X;
+    nextStepButton_position.x = graphWidth+POS_BUTTON_X_BASE;
     nextStepButton_position.y = POS_NEXT_STEP_BUTTON_Y;
     nextStepButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
     SDL_FillRect(nextStepButton, NULL, SDL_MapRGB(ecran->format, 141,242,23));

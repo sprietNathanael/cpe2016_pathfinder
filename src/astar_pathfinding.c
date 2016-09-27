@@ -65,6 +65,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		{
         	drawLineBetweenTwoNodes(currentNode.coordinates,currentNode.parent->coordinates, 0, 0, 0);
         }
+        usleep(timeBetweenSteps);
 		/**
 		 * If the resolution is in step by step mode, wait until the
 		 * function continueToNextStep has been called

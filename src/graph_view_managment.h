@@ -10,22 +10,25 @@
 #define SIZE_Y 25
 #define OFFSET_X 5
 #define OFFSET_Y 5
-#define POS_FIND_PATH_BUTTON_X 300
-#define POS_FIND_PATH_BUTTON_Y 50
-#define POS_SLOW_FIND_PATH_BUTTON_X 300
-#define POS_SLOW_FIND_PATH_BUTTON_Y 120
-#define POS_CLEAR_BUTTON_X 300
-#define POS_CLEAR_BUTTON_Y 190
-#define POS_NEXT_STEP_BUTTON_X 300
-#define POS_NEXT_STEP_BUTTON_Y 260
+#define POS_BUTTON_X_BASE 20
+#define BUTTON_Y_MARGE 5
+#define POS_FIND_PATH_BUTTON_Y BUTTON_Y_MARGE
+#define POS_SLOW_FIND_PATH_BUTTON_Y POS_FIND_PATH_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
+#define POS_CLEAR_BUTTON_Y POS_SLOW_FIND_PATH_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
+#define POS_NEXT_STEP_BUTTON_Y POS_CLEAR_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
 #define SIZE_BUTTON_X 60
 #define SIZE_BUTTON_Y 40
 
+#define MIN_WINDOW_HEIGHT POS_NEXT_STEP_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
+#define MIN_WINDOW_WIDTH (POS_BUTTON_X_BASE*2)+SIZE_BUTTON_X
 
 /**
  * @brief      Create the screen
+ *
+ * @param[in]  numRow  The number row
+ * @param[in]  numCol  The number col
  */
-void sdlInit();
+void sdlInit(int numRow, int numCol);
 
 /**
  * @brief      Creates a graph.
