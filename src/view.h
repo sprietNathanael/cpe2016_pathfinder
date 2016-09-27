@@ -16,7 +16,7 @@ typedef struct {
     char* graph;
     Coordinates* finalPath;
     int time;
-    int* finalPathLength;
+    int stepByStep;
 } launchPathResolution_args;
 
 void mainSDLLoop(int numRow, int numCol, char* graph);

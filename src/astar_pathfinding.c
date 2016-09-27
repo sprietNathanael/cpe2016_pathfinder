@@ -1,7 +1,8 @@
 #include "astar_pathfinding.h"
 Coordinates targetCoordinates = {0,0};
 int timeBetweenSteps = 0;
-int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time)
+int canContinueToNextStep = 1;
+int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time, int stepByStep)
 {
 	Node currentNode;
 	timeBetweenSteps = time;
@@ -57,7 +58,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		 */
 		changeRectangeColor(currentNode.coordinates, numCol, 253,255,16);
 		closeList[closeListHead] = currentNode;
-		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead]);		
+		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead], stepByStep);		
 		sortList(openList, openListHead);
 		changeRectangeColor(currentNode.coordinates, numCol, 132,147,251);
 		closeListHead++;
@@ -81,7 +82,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 	return finalPathLength;
 }
 
-int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode)
+int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode, int stepByStep)
 {
 	Node neighbourNode;
 	int neighbourNodesHead = 0;
@@ -176,6 +177,12 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 								changeRectangeColor(neighbourNode.coordinates, numCol, 224, 244, 204);
 								*openListHead+=1;
 								usleep(timeBetweenSteps);
+								/**
+								 * If the resolution is in step by step mode, wait until the
+								 * function continueToNextStep has been called
+								 */
+								while(stepByStep && !canContinueToNextStep);
+								canContinueToNextStep = 0;
 							}
 						}
 					}
@@ -215,4 +222,9 @@ int canGoToThisPoint(int numRow, int numCol, char* graph, Node* currentNode, int
 
 	}
 	return 1;
+}
+
+void continueToNextStep()
+{
+	canContinueToNextStep = 1;
 }

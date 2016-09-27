@@ -4,6 +4,7 @@ SDL_Surface* ecran = NULL;
 SDL_Rect findPathButton_position;
 SDL_Rect clearButton_position;
 SDL_Rect slow_findPathButton_position;
+SDL_Rect nextStepButton_position;
 Coordinates startCoordinates;
 Coordinates targetCoordinates;
 SDL_Surface** rectangleGraph;
@@ -55,6 +56,17 @@ void sdlInit()
     clearButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
     SDL_FillRect(clearButton, NULL, SDL_MapRGB(ecran->format, 255,0,0));
     SDL_BlitSurface(clearButton, NULL, ecran, &clearButton_position);
+    /**
+     * Creates Next Step button
+    */
+    SDL_Surface *nextStepButton = NULL;
+    SDL_Flip(ecran);
+    nextStepButton_position.x = POS_NEXT_STEP_BUTTON_X;
+    nextStepButton_position.y = POS_NEXT_STEP_BUTTON_Y;
+    nextStepButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
+    SDL_FillRect(nextStepButton, NULL, SDL_MapRGB(ecran->format, 141,242,23));
+    SDL_BlitSurface(nextStepButton, NULL, ecran, &nextStepButton_position);
+
 
     SDL_Flip(ecran);
 
@@ -73,6 +85,11 @@ int slow_findPathButtonClicked(Coordinates cursorPosition)
 int clearButtonClicked(Coordinates cursorPosition)
 {
     return isPointInRectangle(clearButton_position, cursorPosition);
+}
+
+int nextStepButtonClicked(Coordinates cursorPosition)
+{
+    return isPointInRectangle(nextStepButton_position, cursorPosition);
 }
 
 void createGraph(int numRow, int numCol, char* graph)

@@ -16,6 +16,8 @@
 #define POS_SLOW_FIND_PATH_BUTTON_Y 120
 #define POS_CLEAR_BUTTON_X 300
 #define POS_CLEAR_BUTTON_Y 190
+#define POS_NEXT_STEP_BUTTON_X 300
+#define POS_NEXT_STEP_BUTTON_Y 260
 #define SIZE_BUTTON_X 80
 #define SIZE_BUTTON_Y 40
 
@@ -71,6 +73,15 @@ int slow_findPathButtonClicked(Coordinates cursorPosition);
  * @return     1 if the cursor position is in the button, 0 else
  */
 int clearButtonClicked(Coordinates cursorPosition);
+
+/**
+ * @brief      Check if the given cursor position is in the "next step" button
+ *
+ * @param[in]  cursorPosition  The cursor position
+ *
+ * @return     1 if the cursor position is in the button, 0 else
+ */
+int nextStepButtonClicked(Coordinates cursorPosition);
 
 
 /**

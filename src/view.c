@@ -1,6 +1,8 @@
 #include "view.h"
 int findPathButtonsAcivated = 1;
 int stayInLoop = 1;
+int stepByStepLaunched = 0;
+int clearButtonActivated = 1;
 
 int launchView(int numRow, int numCol, char* graph)
 {
@@ -45,6 +47,7 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
                     args->numCol = numCol;
                     args->graph = graph;
                     args->time = 0;
+                    args->stepByStep = 0;
                     /**
                      * Create the thread
                      */
@@ -52,7 +55,7 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
 
                     findPathButtonsAcivated = 0;
                 }
-                if(findPathButtonsAcivated && slow_findPathButtonClicked(point))
+                else if(findPathButtonsAcivated && slow_findPathButtonClicked(point))
                 {
                     /**
                      * Creates the structure to pass the arguments to the function
@@ -61,17 +64,41 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
                     args->numCol = numCol;
                     args->graph = graph;
                     args->time = SLOW_RESOLUTION_TIME;
+                    args->stepByStep = 0;
                     /**
                      * Create the thread
                      */
                     pthread_create(&thread, NULL, resolutionAndDrawing_thread, args);
-                    printf("Test2 ! \n");
-
                     findPathButtonsAcivated = 0;
                 }
-                else if(clearButtonClicked(point))
+                else if(clearButtonActivated && clearButtonClicked(point))
                 {
                     continuer = 0;
+                }
+                else if(nextStepButtonClicked(point))
+                {
+                    if(stepByStepLaunched)
+                    {
+                        continueToNextStep();
+                    }
+                    else if(findPathButtonsAcivated)
+                    {
+                        /**
+                         * Creates the structure to pass the arguments to the function
+                         */
+                        args->numRow = numRow;
+                        args->numCol = numCol;
+                        args->graph = graph;
+                        args->time = SLOW_RESOLUTION_TIME;
+                        args->stepByStep = 1;
+                        /**
+                         * Create the thread
+                         */
+                        pthread_create(&thread, NULL, resolutionAndDrawing_thread, args);
+                        findPathButtonsAcivated = 0;
+                        stepByStepLaunched = 1;
+                    }
+                    
                 }
 
             break;
@@ -83,15 +110,18 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
 
 void * resolutionAndDrawing_thread(void* args)
 {
+    clearButtonActivated = 0;
     launchPathResolution_args *actual_args = (launchPathResolution_args*)args;
     int numRow = actual_args->numRow;
     int numCol = actual_args->numCol;
+    int stepByStep = actual_args->stepByStep;
     char* graph = actual_args->graph;
     int time = actual_args->time;
     int finalPathLength = 0;
     Coordinates finalPath[numRow*numCol];
-    finalPathLength = launchPathResolution(numRow, numCol, graph, finalPath, time);
+    finalPathLength = launchPathResolution(numRow, numCol, graph, finalPath, time, stepByStep);
     drawFinalPath(finalPathLength, numRow, numCol, finalPath);
+    clearButtonActivated = 1;
     pthread_exit(0);
 }
 

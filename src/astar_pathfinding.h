@@ -8,15 +8,16 @@
 /**
  * @brief      Lauches the path resolution algorithm for the graph
  *
- * @param[in]  numRow     The graph's number row
- * @param[in]  numCol     The graph's number col
- * @param      graph      The char graph
- * @param      finalPath  The final path to populate
- * @param      time       The time between each step
+ * @param[in]  numRow      The graph's number row
+ * @param[in]  numCol      The graph's number col
+ * @param      graph       The char graph
+ * @param      finalPath   The final path to populate
+ * @param      time        The time between each step
+ * @param[in]  stepByStep  Whether the resolution has to be step by step or not
  *
  * @return     the final path length
  */
-int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time);
+int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time, int stepByStep);
 /**
  * @brief      Analyses the 8 neighbour nodes of a given Node
  *
@@ -29,10 +30,11 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
  * @param[in]  numCol         The graph number col
  * @param      graph          The graph
  * @param[in]  currentNode    Pointer to the parent Node in the close list
+ * @param[in]  stepByStep  Whether the resolution has to be step by step or not
  *
  * @return     1 if it foud the target, 0 else
  */
-int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode);
+int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode, int stepByStep);
 
 /**
  * @brief      Determines ability to go to a given point.
@@ -47,5 +49,10 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
  * @return     True if able to go to given point, False otherwise.
  */
 int canGoToThisPoint(int numRow, int numCol, char* graph, Node* currentNode, int deltaX, int deltaY);
+
+/**
+ * @brief      Simply pass the canContinueToNextStep variable to true
+ */
+void continueToNextStep();
 
 #endif /* A_STAR_PATHFINDING_H */
