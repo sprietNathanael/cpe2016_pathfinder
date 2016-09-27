@@ -56,7 +56,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		/**
 		 * Push the current node into the close list
 		 */
-		changeRectangeColor(currentNode.coordinates, numCol, 253,255,16);
+		changeNodeColor(currentNode, 1, numCol, 253,255,16);
 		/**
 		 * Draw a line between the current Node and its parent
 		 */
@@ -73,7 +73,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		closeList[closeListHead] = currentNode;
 		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead], stepByStep);		
 		sortList(openList, openListHead);
-		changeRectangeColor(currentNode.coordinates, numCol, 132,147,251);
+		changeNodeColor(currentNode, 1, numCol, 132,147,251);
 		closeListHead++;
 
 	}
@@ -187,7 +187,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 								 * Push the node into the open list
 								 */
 								openList[*openListHead] = neighbourNode;
-								changeRectangeColor(neighbourNode.coordinates, numCol, 224, 244, 204);
+								changeNodeColor(neighbourNode, 0, numCol, 224, 244, 204);
 								*openListHead+=1;
 								usleep(timeBetweenSteps);
 								/**
@@ -240,4 +240,13 @@ int canGoToThisPoint(int numRow, int numCol, char* graph, Node* currentNode, int
 void continueToNextStep()
 {
 	canContinueToNextStep = 1;
+}
+
+void changeNodeColor(Node nodeToChange, int drawLineBetweenNodeAndParent, int numCol, int r, int g, int b)
+{
+	changeRectangeColor(nodeToChange.coordinates, numCol, r, g, b);
+	if(drawLineBetweenNodeAndParent && nodeToChange.parent != NULL)
+	{
+		drawLineBetweenTwoNodes(nodeToChange.coordinates,nodeToChange.parent->coordinates, 0, 0, 0);
+	}
 }

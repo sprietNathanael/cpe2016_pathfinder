@@ -55,4 +55,17 @@ int canGoToThisPoint(int numRow, int numCol, char* graph, Node* currentNode, int
  */
 void continueToNextStep();
 
+/**
+ * @brief      Change the color of a Node and redraw the line between the node
+ *             and its parent if needed
+ *
+ * @param[in]  nodeToChange                  The node to change
+ * @param[in]  drawLineBetweenNodeAndParent  Draw the draw line between node and parent if 1
+ * @param[in]  numCol                        The number of colums
+ * @param[in]  r                             red
+ * @param[in]  g                             green
+ * @param[in]  b                             blue
+ */
+void changeNodeColor(Node nodeToChange, int drawLineBetweenNodeAndParent, int numCol, int r, int g, int b);
+
 #endif /* A_STAR_PATHFINDING_H */
