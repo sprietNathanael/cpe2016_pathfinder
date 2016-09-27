@@ -44,7 +44,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 	/**
 	 * Main loop
 	 */
-	while(!targetFound)
+	while(!targetFound && openListHead > 0)
 	{
 
 		/**
@@ -57,6 +57,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		 * Push the current node into the close list
 		 */
 		changeNodeColor(currentNode, 1, numCol, 253,255,16);
+		closeList[closeListHead] = currentNode;
 		/**
 		 * Draw a line between the current Node and its parent
 		 */
@@ -70,28 +71,38 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		 */
 		while(stepByStep && !canContinueToNextStep);
 		canContinueToNextStep = 0;
-		closeList[closeListHead] = currentNode;
+		/**
+		 * Analyse all the neighbour nodes
+		 */
 		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead], stepByStep);		
 		sortList(openList, openListHead);
 		changeNodeColor(currentNode, 1, numCol, 132,147,251);
 		closeListHead++;
 
 	}
-	finalPath[finalPathLength++] = targetCoordinates;
-	printf("Path : (%d;%d) ",targetCoordinates.x, targetCoordinates.y);
-	Node* currentNodePointer = &currentNode;
-	/**
-	 * Build and display final path
-	 */
-	printf(" (%d;%d) ",currentNodePointer->coordinates.x, currentNodePointer->coordinates.y);
-	finalPath[finalPathLength++] = currentNodePointer->coordinates;
-	while(currentNodePointer->parent != NULL)
+	if(targetFound)
 	{
-		currentNodePointer = currentNodePointer->parent;
-		printf(" (%d;%d) ",currentNodePointer->coordinates.x, currentNodePointer->coordinates.y);		
+		finalPath[finalPathLength++] = targetCoordinates;
+		printf("Path : (%d;%d) ",targetCoordinates.x, targetCoordinates.y);
+		Node* currentNodePointer = &currentNode;
+		/**
+		 * Build and display final path
+		 */
+		printf(" (%d;%d) ",currentNodePointer->coordinates.x, currentNodePointer->coordinates.y);
 		finalPath[finalPathLength++] = currentNodePointer->coordinates;
+		while(currentNodePointer->parent != NULL)
+		{
+			currentNodePointer = currentNodePointer->parent;
+			printf(" (%d;%d) ",currentNodePointer->coordinates.x, currentNodePointer->coordinates.y);		
+			finalPath[finalPathLength++] = currentNodePointer->coordinates;
+		}
+		printf("\n");
 	}
-	printf("\n");
+	else
+	{
+		printf("No path found !\n");
+		finalPathLength = 0;
+	}
 	return finalPathLength;
 }
 
