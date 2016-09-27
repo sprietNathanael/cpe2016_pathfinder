@@ -1,5 +1,5 @@
 #include "view.h"
-int findPathButtonAcivated = 1;
+int findPathButtonsAcivated = 1;
 int stayInLoop = 1;
 
 
@@ -8,8 +8,9 @@ int launchView(int numRow, int numCol, char* graph)
     while(stayInLoop)
     {
 	   sdlInit();
-	   createGraph(numRow, numCol, graph);
-	   mainSDLLoop(numRow, numCol, graph);
+       findPathButtonsAcivated = 1;
+       createGraph(numRow, numCol, graph);
+       mainSDLLoop(numRow, numCol, graph);
        SDL_Quit();
     }
     return EXIT_SUCCESS;
@@ -34,11 +35,17 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
             case SDL_MOUSEBUTTONDOWN:
                 point.x = event.button.x;
                 point.y = event.button.y;
-                if(findPathButtonAcivated && findPathButtonClicked(point))
+                if(findPathButtonsAcivated && findPathButtonClicked(point))
                 {
-                    finalPathLength = launchPathResolution(numRow, numCol, graph, finalPath);
+                    finalPathLength = launchPathResolution(numRow, numCol, graph, finalPath,0);
                     drawFinalPath(finalPathLength, numRow, numCol, finalPath);
-                    findPathButtonAcivated = 0;
+                    findPathButtonsAcivated = 0;
+                }
+                if(findPathButtonsAcivated && slow_findPathButtonClicked(point))
+                {
+                    finalPathLength = launchPathResolution(numRow, numCol, graph, finalPath,SLOW_RESOLUTION_TIME);
+                    drawFinalPath(finalPathLength, numRow, numCol, finalPath);
+                    findPathButtonsAcivated = 0;
                 }
                 else if(clearButtonClicked(point))
                 {

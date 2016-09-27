@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include "node_managment.h"
 #include "graph_view_managment.h"
 
@@ -11,10 +12,12 @@
  * @param[in]  numCol     The graph's number col
  * @param      graph      The char graph
  * @param      finalPath  The final path to populate
+ * @param      time       The time between each step
  *
  * @return     the final path length
  */
-int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath);
+int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time)
+;
 /**
  * @brief      Analyses the 8 neighbour nodes of a given Node
  *

@@ -11,9 +11,11 @@
 #define OFFSET_X 5
 #define OFFSET_Y 5
 #define POS_FIND_PATH_BUTTON_X 300
-#define POS_FIND_PATH_BUTTON_Y 300
+#define POS_FIND_PATH_BUTTON_Y 50
+#define POS_SLOW_FIND_PATH_BUTTON_X 300
+#define POS_SLOW_FIND_PATH_BUTTON_Y 120
 #define POS_CLEAR_BUTTON_X 300
-#define POS_CLEAR_BUTTON_Y 370
+#define POS_CLEAR_BUTTON_Y 190
 #define SIZE_BUTTON_X 80
 #define SIZE_BUTTON_Y 40
 
@@ -51,6 +53,15 @@ void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates fina
  * @return     1 if the cursor position is in the button, 0 else
  */
 int findPathButtonClicked(Coordinates cursorPosition);
+
+/**
+ * @brief      Check if the given cursor position is in the "slow find path" button
+ *
+ * @param[in]  cursorPosition  The cursor position
+ *
+ * @return     1 if the cursor position is in the button, 0 else
+ */
+int slow_findPathButtonClicked(Coordinates cursorPosition);
 
 /**
  * @brief      Check if the given cursor position is in the "clear" button

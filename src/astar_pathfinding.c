@@ -1,8 +1,10 @@
 #include "astar_pathfinding.h"
 Coordinates targetCoordinates = {0,0};
-int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath)
+int timeBetweenSteps = 0;
+int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time)
 {
 	Node currentNode;
+	timeBetweenSteps = time;
 	Coordinates zeroCoordinates = {0,0};
 	Node zeroNode = {0,0,0,'\0',zeroCoordinates, NULL};
 	int finalPathLength = 0;
@@ -172,6 +174,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 								openList[*openListHead] = neighbourNode;
 								changeRectangeColor(neighbourNode.coordinates, numCol, 224, 244, 204);
 								*openListHead+=1;
+								usleep(timeBetweenSteps);
 							}
 						}
 					}
