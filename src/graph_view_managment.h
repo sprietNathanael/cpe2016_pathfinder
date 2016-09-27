@@ -18,7 +18,7 @@
 #define POS_CLEAR_BUTTON_Y 190
 #define POS_NEXT_STEP_BUTTON_X 300
 #define POS_NEXT_STEP_BUTTON_Y 260
-#define SIZE_BUTTON_X 80
+#define SIZE_BUTTON_X 60
 #define SIZE_BUTTON_Y 40
 
 
@@ -46,6 +46,11 @@ void createGraph(int numRow, int numCol, char* graph);
  */
 void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates finalPath[numRow*numCol]);
 
+
+/**
+ * @brief      Just exchange the debug icon of debug button for next step icon
+ */
+void changeDebuButtonIcon();
 
 /**
  * @brief      Check if the given cursor position is in the "find path" button

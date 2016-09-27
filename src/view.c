@@ -85,6 +85,7 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
 					}
 					else if(findPathButtonsAcivated)
 					{
+						changeDebuButtonIcon();
 						/**
 						 * Creates the structure to pass the arguments to the function
 						 */

@@ -28,48 +28,154 @@ void sdlInit()
      ***************************** Buttons creation *************************
     */
     /**
-     * Creates Find Path button
+     ************************ Creates Find Path button
     */
+    /**
+     * Initialise the button
+     */
     SDL_Surface *findPathButton = NULL;
     findPathButton_position.x = POS_FIND_PATH_BUTTON_X;
     findPathButton_position.y = POS_FIND_PATH_BUTTON_Y;
     findPathButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
     SDL_FillRect(findPathButton, NULL, SDL_MapRGB(ecran->format, 141,242,23));
+    /**
+     * Initialise the icon
+     */
+    SDL_Surface *startIcon = NULL;
+    SDL_Rect startIconPosition;
+    startIconPosition.x = 10;
+    startIconPosition.y = 0;
+    startIcon = SDL_LoadBMP("icons/start.bmp");
+    /**
+     * Set the color transparancy
+     */
+    SDL_SetColorKey(startIcon, SDL_SRCCOLORKEY, SDL_MapRGB(startIcon->format, 255, 255, 255));
+    /**
+     * Display the button and the icon
+     */
+    SDL_BlitSurface(startIcon, NULL, findPathButton, &startIconPosition);
     SDL_BlitSurface(findPathButton, NULL, ecran, &findPathButton_position);
     /**
-     * Creates Find Path Slow button
+     ************************ Creates Find Path Slow button
     */
+    /**
+     * Initialise the button
+     */
     SDL_Surface *slow_findPathButton = NULL;
-    SDL_Flip(ecran);
     slow_findPathButton_position.x = POS_SLOW_FIND_PATH_BUTTON_X;
     slow_findPathButton_position.y = POS_SLOW_FIND_PATH_BUTTON_Y;
     slow_findPathButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
     SDL_FillRect(slow_findPathButton, NULL, SDL_MapRGB(ecran->format, 253,255,16));
+    /**
+     * Initialise the icon
+     */
+    SDL_Surface *slowIcon = NULL;
+    SDL_Rect slowIconPosition;
+    slowIconPosition.x = 10;
+    slowIconPosition.y = 0;
+    slowIcon = SDL_LoadBMP("icons/slow.bmp");
+    /**
+     * Set the color transparancy
+     */
+    SDL_SetColorKey(slowIcon, SDL_SRCCOLORKEY, SDL_MapRGB(slowIcon->format, 255, 255, 255));
+    /**
+     * Display the button and the icon
+     */
+    SDL_BlitSurface(slowIcon, NULL, slow_findPathButton, &slowIconPosition);
     SDL_BlitSurface(slow_findPathButton, NULL, ecran, &slow_findPathButton_position);
     /**
-     * Creates Clear button
+     ************************ Creates Clear button
     */
+    /**
+     * Initialise the button
+     */
     SDL_Surface *clearButton = NULL;
-    SDL_Flip(ecran);
     clearButton_position.x = POS_CLEAR_BUTTON_X;
     clearButton_position.y = POS_CLEAR_BUTTON_Y;
     clearButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
     SDL_FillRect(clearButton, NULL, SDL_MapRGB(ecran->format, 255,0,0));
+    /**
+     * Initialise the icon
+     */
+    SDL_Surface *clearIcon = NULL;
+    SDL_Rect clearIconPosition;
+    clearIconPosition.x = 10;
+    clearIconPosition.y = 0;
+    clearIcon = SDL_LoadBMP("icons/clear.bmp");
+    /**
+     * Set the color transparancy
+     */
+    SDL_SetColorKey(clearIcon, SDL_SRCCOLORKEY, SDL_MapRGB(clearIcon->format, 255, 255, 255));
+    /**
+     * Display the button and the icon
+     */
+    SDL_BlitSurface(clearIcon, NULL, clearButton, &clearIconPosition);
     SDL_BlitSurface(clearButton, NULL, ecran, &clearButton_position);
     /**
-     * Creates Next Step button
+     ************************ Creates Next Step button
     */
+    /**
+     * Initialise the button
+     */
     SDL_Surface *nextStepButton = NULL;
-    SDL_Flip(ecran);
     nextStepButton_position.x = POS_NEXT_STEP_BUTTON_X;
     nextStepButton_position.y = POS_NEXT_STEP_BUTTON_Y;
     nextStepButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
     SDL_FillRect(nextStepButton, NULL, SDL_MapRGB(ecran->format, 141,242,23));
+    /**
+     * Initialise the icon
+     */
+    SDL_Surface *debugIcon = NULL;
+    SDL_Rect debugIconPosition;
+    debugIconPosition.x = 10;
+    debugIconPosition.y = 0;
+    debugIcon = SDL_LoadBMP("icons/debug.bmp");
+    /**
+     * Set the color transparancy
+     */
+    SDL_SetColorKey(debugIcon, SDL_SRCCOLORKEY, SDL_MapRGB(debugIcon->format, 255, 255, 255));
+    /**
+     * Display the button and the icon
+     */
+    SDL_BlitSurface(debugIcon, NULL, nextStepButton, &debugIconPosition);
     SDL_BlitSurface(nextStepButton, NULL, ecran, &nextStepButton_position);
 
 
     SDL_Flip(ecran);
 
+}
+
+void changeDebuButtonIcon()
+{
+    /**
+     ************************ Creates Next Step button
+    */
+    /**
+     * Initialise the button
+     */
+    SDL_Surface *nextStepButton = NULL;
+    nextStepButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
+    SDL_FillRect(nextStepButton, NULL, SDL_MapRGB(ecran->format, 141,242,23));
+    /**
+     * Initialise the icon
+     */
+    SDL_Surface *debugIcon = NULL;
+    SDL_Rect debugIconPosition;
+    debugIconPosition.x = 10;
+    debugIconPosition.y = 0;
+    debugIcon = SDL_LoadBMP("icons/next.bmp");
+    /**
+     * Set the color transparancy
+     */
+    SDL_SetColorKey(debugIcon, SDL_SRCCOLORKEY, SDL_MapRGB(debugIcon->format, 255, 255, 255));
+    /**
+     * Display the button and the icon
+     */
+    SDL_BlitSurface(debugIcon, NULL, nextStepButton, &debugIconPosition);
+    SDL_BlitSurface(nextStepButton, NULL, ecran, &nextStepButton_position);
+
+
+    SDL_Flip(ecran);
 }
 
 int findPathButtonClicked(Coordinates cursorPosition)
@@ -169,10 +275,8 @@ void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates fina
 
 void drawLineBetweenTwoNodes(Coordinates nodeA, Coordinates nodeB,int r,int g,int b)
 {
-    printf("(%d;%d) : (%d;%d) -> ",nodeA.x, nodeA.y,nodeB.x,nodeB.y);
     Coordinates firstCoordinates = computeSDLCoordinatesFromGraphPosition(nodeA);
     Coordinates secondCoordintates = computeSDLCoordinatesFromGraphPosition(nodeB);
-    printf("(%d;%d) : (%d;%d)\n", firstCoordinates.x,firstCoordinates.y,secondCoordintates.x,secondCoordintates.y);
     ligne(firstCoordinates, secondCoordintates, 5, SDL_MapRGB(ecran->format, r, g, b), ecran);
 }
 

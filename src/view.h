@@ -5,7 +5,7 @@
 #include "astar_pathfinding.h"
 // #include <SDL/SDL_ttf.h>
 
-#define SLOW_RESOLUTION_TIME 100*1000
+#define SLOW_RESOLUTION_TIME 400*1000
 
 /**
  * @brief      Structure that helps in thread creation
