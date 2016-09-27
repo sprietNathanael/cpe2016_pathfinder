@@ -111,7 +111,10 @@ void mainSDLLoop(int numRow, int numCol, char* graph)
 		}
 	}
 	free(args);
-	pthread_join(thread, &status);    
+	if(thread != 0)
+	{
+		pthread_join(thread, &status);
+	}
 }
 
 void * resolutionAndDrawing_thread(void* args)
