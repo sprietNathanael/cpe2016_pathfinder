@@ -3,7 +3,7 @@
 Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char* graph, char charToFind)
 {
 	bool targetFound = false;
-	Coordinates targetCoordinates;
+	Coordinates targetCoordinates = {-1,-1};
 	int i = 0, j = 0;
 	/**
 	 * Browses each row of the graph

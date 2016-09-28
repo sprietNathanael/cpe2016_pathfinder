@@ -56,6 +56,21 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
                 {
 				    printf("(%d;%d)\n",pointedNode.x, pointedNode.y);
                     changeTypeColorOfGivenNode(pointedNode,choosedType, numCol);
+                    /**
+                     * Replace old T or S by a simple node
+                     */
+                    if(choosedType == 'T' || choosedType == 'S')
+                    {
+                        Coordinates oldCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, choosedType);
+                        /**
+                         * If there was a T or a S
+                         */
+                        if(oldCoordinate.x != -1 && oldCoordinate.y != -1)
+                        {
+                            changeTypeColorOfGivenNode(oldCoordinate,'0', numCol);
+                            graph[(numRow*oldCoordinate.y)+oldCoordinate.x] = '0';
+                        }
+                    }
                     graph[(numRow*pointedNode.y)+pointedNode.x] = choosedType;
                 }
                 else if(chooseStartButtonClicked(point))
@@ -213,8 +228,3 @@ void * resolutionAndDrawing_thread(void* args)
 	clearButtonActivated = 1;
 	pthread_exit(0);
 }
-
-
-
-
-
