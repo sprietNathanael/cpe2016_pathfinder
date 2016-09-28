@@ -52,10 +52,8 @@ int main()
 			memset(graph, '0', height*width);
 			launchCreationView(height, width, graph);
 		}
-		free(graph);
-		state = 0;
-
 	}
+	free(graph);			
 	return 0;
 }
 
