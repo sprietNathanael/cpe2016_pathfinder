@@ -20,6 +20,12 @@
 #define SIZE_BUTTON_X 60
 #define SIZE_BUTTON_Y 40
 
+#define START_BUTTON_CHOICE_Y BUTTON_Y_MARGE
+#define TARGET_BUTTON_CHOICE_Y START_BUTTON_CHOICE_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
+#define WALL_BUTTON_CHOICE_Y TARGET_BUTTON_CHOICE_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
+#define BLANK_BUTTON_CHOICE_Y WALL_BUTTON_CHOICE_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
+#define CHOICE_INDICATOR_Y BLANK_BUTTON_CHOICE_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
+
 #define MIN_WINDOW_HEIGHT POS_BUILD_STEP_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
 #define MIN_WINDOW_WIDTH (POS_BUTTON_X_BASE*2)+SIZE_BUTTON_X
 
@@ -52,6 +58,13 @@ void createGraph(int numRow, int numCol, char* graph);
  */
 void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates finalPath[numRow*numCol]);
 
+/**
+ * @brief      Change the color of the color indicator according to the given
+ *             type
+ *
+ * @param[in]  type  The type
+ */
+void changeColorIndicator(char type);
 
 /**
  * @brief      Just exchange the debug icon of debug button for next step icon
@@ -104,6 +117,43 @@ int nextStepButtonClicked(Coordinates cursorPosition);
 int buildButtonClicked(Coordinates cursorPosition);
 
 /**
+ * @brief      Check if the given cursor position is in the "chooseStartButton" button
+ *
+ * @param[in]  cursorPosition  The cursor position
+ *
+ * @return     1 if the cursor position is in the button, 0 else
+ */
+int chooseStartButtonClicked(Coordinates cursorPosition);
+
+/**
+ * @brief      Check if the given cursor position is in the "chooseTargetButton" button
+ *
+ * @param[in]  cursorPosition  The cursor position
+ *
+ * @return     1 if the cursor position is in the button, 0 else
+ */
+int chooseTargetButtonClicked(Coordinates cursorPosition);
+
+/**
+ * @brief      Check if the given cursor position is in the "chooseWallButton" button
+ *
+ * @param[in]  cursorPosition  The cursor position
+ *
+ * @return     1 if the cursor position is in the button, 0 else
+ */
+int chooseWallButtonClicked(Coordinates cursorPosition);
+
+/**
+ * @brief      Check if the given cursor position is in the "chooseBlankButton" button
+ *
+ * @param[in]  cursorPosition  The cursor position
+ *
+ * @return     1 if the cursor position is in the button, 0 else
+ */
+int chooseBlankButtonClicked(Coordinates cursorPosition);
+
+
+/**
  * @brief      Calculates the sdl coordinates from graph position.
  *
  * @param[in]  cell  The graph cell
@@ -122,5 +172,14 @@ void changeRectangeColor(Coordinates graphPosition,int numCol, int r,int g,int b
 void drawLineBetweenTwoNodes(Coordinates nodeA, Coordinates nodeB,int r,int g,int b);
 
 Coordinates computeThePointedNodeCoordinatesFromSDL(int numRow, int numCol, int x, int y);
+
+/**
+ * @brief      Change the color of a given node according to the given type
+ *
+ * @param[in]  node    The node
+ * @param[in]  type    The type
+ * @param[in]  numCol  The number col
+ */
+void changeTypeColorOfGivenNode(Coordinates node, char type, int numCol);
 #endif
 

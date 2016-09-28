@@ -38,11 +38,15 @@ int main()
 		printf("state : %d\n",state);
 		if(state)
 		{
-			printf("Hauteur voulue : ");
-			scanf("%d",&height);
-			printf("Largeur voulue : ");
-			scanf("%d",&width);
-			printf("(%d;%d)\n",width, height);
+			height = 0;
+			width = 0;
+			while((height <= 0 || height > HEIGHT_MAX) || (width <= 0 || width > WIDTH_MAX))
+			{
+				printf("Hauteur voulue (0 -> %d ) : ",HEIGHT_MAX);
+				scanf("%d",&height);
+				printf("Largeur voulue (0 -> %d ) : ",WIDTH_MAX);
+				scanf("%d",&width);
+			}
 			free(graph);
 			graph = malloc(height*width*sizeof(char));
 			memset(graph, '0', height*width);

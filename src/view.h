@@ -6,6 +6,8 @@
 // #include <SDL/SDL_ttf.h>
 
 #define SLOW_RESOLUTION_TIME 400*1000
+#define HEIGHT_MAX 25
+#define WIDTH_MAX 25
 
 /**
  * @brief      Structure that helps in thread creation
