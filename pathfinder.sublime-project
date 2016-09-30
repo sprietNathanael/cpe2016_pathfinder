@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+            "name": "Sources",
+			"path": "src",
+            "file_exclude_patterns": ["*.o"]
+		},
+        {
+            "name": "Documentations",
+            "path": "doc"
+        },
+        {
+            "name": "Divers",
+            "path": ".",
+            "folder_exclude_patterns": ["doc","src"]
+        }
+	]
+}
