@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "view.h"
+#include "resolutionView.h"
+#include "creationView.h"
 
 int main()
 {

@@ -1,13 +1,11 @@
-#ifndef VIEW_H
-#define VIEW_H
+#ifndef RESOLUTION_VIEW_H
+#define RESOLUTION_VIEW_H
 
 #include <pthread.h>
 #include "astar_pathfinding.h"
 // #include <SDL/SDL_ttf.h>
 
 #define SLOW_RESOLUTION_TIME 400*1000
-#define HEIGHT_MAX 25
-#define WIDTH_MAX 25
 
 /**
  * @brief      Structure that helps in thread creation
@@ -22,9 +20,7 @@ typedef struct {
 } launchPathResolution_args;
 
 void mainResolvLoop(int numRow, int numCol, char* graph, int* state);
-void mainCreationLoop(int numRow, int numCol, char* graph);
 int launchResolveView(int numRow, int numCol, char* graph);
-void launchCreationView(int numRow, int numCol, char* graph);
 void * resolutionAndDrawing_thread(void* args);
 
-#endif /* VIEW_H */
+#endif /* RESOLUTION_VIEW_H */
