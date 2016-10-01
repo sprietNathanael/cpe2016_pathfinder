@@ -15,5 +15,20 @@
             "path": ".",
             "folder_exclude_patterns": ["doc","src"]
         }
-	]
+	],
+    "build_systems":
+    [
+        {
+            "name": "Custom Make",
+            "cmd": ["make","-j","8"],
+            "working_dir": "${project_path:${folder}}/src",
+            "file_regex": "^(\\w+\\.\\w+):([0-9]*):([0-9]*): (.*)",
+           },
+        {
+            "name": "Custom Clean",
+            "cmd": ["make","-j","8","mrproper"],
+            "working_dir": "${project_path:${folder}}/src",
+        }
+
+    ]
 }
