@@ -41,11 +41,11 @@ int main()
 		{
 			height = 0;
 			width = 0;
-			while((height <= 0 || height > HEIGHT_MAX) || (width <= 0 || width > WIDTH_MAX))
+			while(((height <= 0 || height > HEIGHT_MAX) || (width <= 0 || width > WIDTH_MAX)) || width+height <= 2)
 			{
-				printf("Hauteur voulue (0 -> %d ) : ",HEIGHT_MAX);
+				printf("Hauteur voulue (1 -> %d ) : ",HEIGHT_MAX);
 				scanf("%d",&height);
-				printf("Largeur voulue (0 -> %d ) : ",WIDTH_MAX);
+				printf("Largeur voulue (1 -> %d ) : ",WIDTH_MAX);
 				scanf("%d",&width);
 			}
 			free(graph);
