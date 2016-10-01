@@ -30,6 +30,7 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 	pthread_t thread = 0;
 	void* status;
 	launchPathResolution_args *args = malloc(sizeof *args);
+	int djikstra = 0;
 	while (continuer)
 	{
 		SDL_WaitEvent(&event);
@@ -55,7 +56,7 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 					args->graph = graph;
 					args->time = 0;
 					args->stepByStep = 0;
-					args->djikstra = 0;
+					args->djikstra = djikstra;
 					/**
 					 * Create the thread
 					 */
@@ -73,7 +74,7 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 					args->graph = graph;
 					args->time = SLOW_RESOLUTION_TIME;
 					args->stepByStep = 0;
-					args->djikstra = 0;
+					args->djikstra = djikstra;
 					/**
 					 * Create the thread
 					 */
@@ -101,7 +102,7 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 						args->graph = graph;
 						args->time = SLOW_RESOLUTION_TIME;
 						args->stepByStep = 1;
-						args->djikstra = 0;
+						args->djikstra = djikstra;
 						/**
 						 * Create the thread
 						 */
@@ -116,6 +117,11 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 					continuer = 0;
 					stayInResolutionLoop = 0;
 					*state = 1;
+				}
+				else if(clearButtonActivated && algoSelectionButtonClicked(point))
+				{
+					djikstra = !djikstra;
+					changeAlgoSelectionButtonIcon(djikstra);
 				}
 
 			break;

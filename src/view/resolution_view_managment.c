@@ -4,6 +4,7 @@ SDL_Rect findPathButton_position;
 SDL_Rect clearButton_position;
 SDL_Rect slow_findPathButton_position;
 SDL_Rect nextStepButton_position;
+SDL_Rect algoSelectButton_position;
 SDL_Rect buildButton_position;
 
 void sdlResolvInit(int numRow, int numCol)
@@ -150,6 +151,35 @@ void sdlResolvInit(int numRow, int numCol)
     SDL_BlitSurface(nextStepButton, NULL, ecran, &nextStepButton_position);
 
     /**
+     ************************ Creates Algo Selection button
+    */
+    /**
+     * Initialise the button
+     */
+    SDL_Surface *algoSelectButton = NULL;
+    algoSelectButton_position.x = graphWidth+POS_BUTTON_X_BASE;
+    algoSelectButton_position.y = POS_ALGO_SELECTOR_Y;
+    algoSelectButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
+    SDL_FillRect(algoSelectButton, NULL, SDL_MapRGB(ecran->format,147,82,180));
+    /**
+     * Initialise the icon
+     */
+    SDL_Surface *algoSelectIcon = NULL;
+    SDL_Rect algoSelectIconPosition;
+    algoSelectIconPosition.x = 10;
+    algoSelectIconPosition.y = 0;
+    algoSelectIcon = SDL_LoadBMP("view/icons/astar.bmp");
+    /**
+     * Set the color transparancy
+     */
+    SDL_SetColorKey(algoSelectIcon, SDL_SRCCOLORKEY, SDL_MapRGB(algoSelectIcon->format, 255, 255, 255));
+    /**
+     * Display the button and the icon
+     */
+    SDL_BlitSurface(algoSelectIcon, NULL, algoSelectButton, &algoSelectIconPosition);
+    SDL_BlitSurface(algoSelectButton, NULL, ecran, &algoSelectButton_position);
+
+    /**
      ************************ Creates Build button
     */
     /**
@@ -216,6 +246,47 @@ void changeDebugButtonIcon()
     SDL_Flip(ecran);
 }
 
+void changeAlgoSelectionButtonIcon(int djikstra)
+{
+    /**
+     ************************ Creates Algo Selection button
+    */
+    /**
+     * Initialise the button
+     */
+    SDL_Surface *algoSelectButton = NULL;
+    algoSelectButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
+    SDL_Surface *algoSelectIcon = NULL;
+    if(djikstra)
+    {
+        SDL_FillRect(algoSelectButton, NULL, SDL_MapRGB(ecran->format,98,82,180));        
+        algoSelectIcon = SDL_LoadBMP("view/icons/djikstra.bmp");
+    }
+    else
+    {
+        SDL_FillRect(algoSelectButton, NULL, SDL_MapRGB(ecran->format,147,82,180));
+        algoSelectIcon = SDL_LoadBMP("view/icons/astar.bmp");
+    }
+    /**
+     * Initialise the icon
+     */
+    SDL_Rect algoSelectIconPosition;
+    algoSelectIconPosition.x = 10;
+    algoSelectIconPosition.y = 0;
+    /**
+     * Set the color transparancy
+     */
+    SDL_SetColorKey(algoSelectIcon, SDL_SRCCOLORKEY, SDL_MapRGB(algoSelectIcon->format, 255, 255, 255));
+    /**
+     * Display the button and the icon
+     */
+    SDL_BlitSurface(algoSelectIcon, NULL, algoSelectButton, &algoSelectIconPosition);
+    SDL_BlitSurface(algoSelectButton, NULL, ecran, &algoSelectButton_position);
+
+
+    SDL_Flip(ecran);
+}
+
 void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates finalPath[numRow*numCol])
 {
     int i = 0;
@@ -255,4 +326,8 @@ int buildButtonClicked(Coordinates cursorPosition)
     return isPointInRectangle(buildButton_position, cursorPosition);
 }
 
+int algoSelectionButtonClicked(Coordinates cursorPosition)
+{
+    return isPointInRectangle(algoSelectButton_position, cursorPosition);
+}
 
