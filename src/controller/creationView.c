@@ -19,14 +19,21 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
 	SDL_Event event;
 	Coordinates point;
     char choosedType = 'W';
+    Coordinates startCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'S');
+    Coordinates targetCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'T');
 	while (continuer)
 	{
 		SDL_WaitEvent(&event);
 		switch(event.type)
 		{
-			case SDL_QUIT:
-				stayInCreationLoop = 0;
-				continuer = 0;
+			case SDL_QUIT :
+                startCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'S');
+                targetCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'T');
+                if(targetCoordinate.x != -1 && targetCoordinate.y != -1 && startCoordinate.x != -1 && startCoordinate.y != -1)
+                {
+				    stayInCreationLoop = 0;
+				    continuer = 0;
+                }
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				point.x = event.button.x;
@@ -49,6 +56,7 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
                         {
                             changeTypeColorOfGivenNode(oldCoordinate,'0', numCol);
                             graph[(numRow*oldCoordinate.y)+oldCoordinate.x] = '0';
+
                         }
                     }
                     graph[(numRow*pointedNode.y)+pointedNode.x] = choosedType;
