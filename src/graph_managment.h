@@ -1,9 +1,15 @@
+#ifndef GRAPH_MANAGMENT_H
+#define GRAPH_MANAGMENT_H
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 
-#ifndef GRAPH_MANAGMENT_H
-#define GRAPH_MANAGMENT_H
+#ifndef GRAPH_MANAGMENT_C
+#define PUBLIC extern
+#else
+#define PUBLIC
+#endif
 
 /*
  **************************** Constants *************************
@@ -49,7 +55,7 @@ struct Coordinates
  *
  * @return     The coordinates of the character to find
  */
-Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char* graph, char charToFind);
+PUBLIC Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char* graph, char charToFind);
 
 /**
  * @brief      Calculates the "simple distance" between two coordinates.
@@ -62,6 +68,7 @@ Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char* graph, char
  *
  * @return     The simple distance between the coordinates.
  */
-int computeSimpleDistanceBetweenCoordinates(Coordinates firstCoordinates, Coordinates secondCoordinates);
+PUBLIC int computeSimpleDistanceBetweenCoordinates(Coordinates firstCoordinates, Coordinates secondCoordinates);
 
+#undef PUBLIC
 #endif /* GRAPH_MANAGMENT_H */

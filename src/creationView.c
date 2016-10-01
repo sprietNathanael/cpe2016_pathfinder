@@ -1,4 +1,6 @@
+#define CREATION_VIEW_C
 #include "creationView.h"
+
 int stayInCreationLoop = 1;
 
 void launchCreationView(int numRow, int numCol, char* graph)
@@ -11,7 +13,7 @@ void launchCreationView(int numRow, int numCol, char* graph)
 		mainCreationLoop(numRow, numCol, graph);
 		SDL_Quit();
 	}
-}  
+}
 
 void mainCreationLoop(int numRow, int numCol, char* graph)
 {
@@ -57,7 +59,7 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
                 {
                     choosedType = 'S';
                     changeColorIndicator(choosedType);
-                }   
+                }
                 else if(chooseTargetButtonClicked(point))
                 {
                     choosedType = 'T';
@@ -82,7 +84,7 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
     {
         for(j = 0; j < numCol; j++)
         {
-            printf("%c ",graph[(numRow*i)+j]);            
+            printf("%c ",graph[(numRow*i)+j]);
         }
         printf("\n");
     }

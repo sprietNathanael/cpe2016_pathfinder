@@ -1,3 +1,4 @@
+#define SDL_DRAWING_C
 #include "sdl_drawing.h"
 
 int isPointInRectangle(SDL_Rect rect, Coordinates point)
@@ -20,19 +21,19 @@ void echangerEntiers(int* x, int* y)
     *x = *y;
     *y = t;
 }
- 
+
 void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Surface* surface)
 {
     int d, dx, dy, aincr, bincr, xincr, yincr, x, y;
     int weightIncr = 0;
- 
+
     /**
      * If the line has to be browsed verically
      */
     if (abs(nodeB.x - nodeA.x) < abs(nodeB.y - nodeA.y))
     {
 
-        if (nodeA.y > nodeB.y) 
+        if (nodeA.y > nodeB.y)
         {
             echangerEntiers(&nodeA.x, &nodeB.x);
             echangerEntiers(&nodeA.y, &nodeB.y);
@@ -60,7 +61,7 @@ void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Su
             {
                 x += xincr;
                 d += aincr;
-            } 
+            }
             else
             {
                 d += bincr;
@@ -113,7 +114,7 @@ void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Su
                 setPixelVerif(x, y+weightIncr, coul, surface);
             }
         }
-    }    
+    }
 }
 
 void setPixelVerif(int x, int y, Uint32 coul, SDL_Surface* surface)

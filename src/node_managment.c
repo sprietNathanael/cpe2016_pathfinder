@@ -1,3 +1,4 @@
+#define NODE_MANAGMENT_C
 #include "node_managment.h"
 
 void removeNodeFromList(int listHead, Node* list, int indexOfNodeToRemove)

@@ -1,3 +1,4 @@
+#define CREATION_VIEW_MANAGMENT_C
 #include "resolution_view_managment.h"
 
 SDL_Rect findPathButton_position;
@@ -30,7 +31,7 @@ void sdlResolvInit(int numRow, int numCol)
     if (ecran == NULL)    {
         fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
-    }    
+    }
     SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 204, 204, 204));
 
     /*

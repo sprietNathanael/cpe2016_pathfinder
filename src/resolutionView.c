@@ -1,4 +1,6 @@
+#define RESOLUTION_VIEW_C
 #include "resolutionView.h"
+
 int findPathButtonsAcivated = 1;
 int stayInResolutionLoop = 1;
 int stepByStepLaunched = 0;
@@ -19,7 +21,7 @@ int launchResolveView(int numRow, int numCol, char* graph)
 		SDL_Quit();
 	}
 	return state;
-} 
+}
 
 void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 {
@@ -106,7 +108,7 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 						findPathButtonsAcivated = 0;
 						stepByStepLaunched = 1;
 					}
-					
+
 				}
 				else if(clearButtonActivated && buildButtonClicked(point))
 				{

@@ -3,7 +3,7 @@
 #include "resolutionView.h"
 #include "creationView.h"
 
-int main()
+int main(int argc, char *argv[])
 {
 	int height = 8;
 	int width = 8;

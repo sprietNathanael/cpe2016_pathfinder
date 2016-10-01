@@ -1,3 +1,4 @@
+#define GRAPH_VIEW_MANAGMENT_C
 #include "graph_view_managment.h"
 
 SDL_Surface* ecran = NULL;
@@ -57,7 +58,7 @@ void createGraph(int numRow, int numCol, char* graph)
                 targetCoordinates.x = j;
                 targetCoordinates.y = i;
             }
-            SDL_FillRect(rectangleGraph[(i*numCol)+j], NULL, color);                
+            SDL_FillRect(rectangleGraph[(i*numCol)+j], NULL, color);
             SDL_BlitSurface(rectangleGraph[(i*numCol)+j], NULL, ecran, &positionGraph[(i*numCol)+j]); // Collage de la surface sur l'écran
             currentX += SIZE_X+OFFSET_X;
         }
@@ -87,7 +88,7 @@ void changeRectangeColor(Coordinates graphPosition,int numCol, int r,int g,int b
     int i = (graphPosition.y*numCol)+graphPosition.x;
     Uint32 color = SDL_MapRGB(ecran->format, r, g, b);
     rectangleGraph[i] = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_X, SIZE_Y, 32, 0, 0, 0, 0);
-    SDL_FillRect(rectangleGraph[i], NULL, color);                
+    SDL_FillRect(rectangleGraph[i], NULL, color);
     SDL_BlitSurface(rectangleGraph[i], NULL, ecran, &positionGraph[i]); // Collage de la surface sur l'écran
     SDL_Flip(ecran);
 }
