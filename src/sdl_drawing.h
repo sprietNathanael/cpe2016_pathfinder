@@ -1,9 +1,15 @@
-#ifndef SDL_DRAWING
-#define SDL_DRAWING
+#ifndef SDL_DRAWING_H
+#define SDL_DRAWING_H
 
 #include <SDL/SDL.h>
 #include <math.h>
 #include "graph_managment.h"
+
+#ifndef SDL_DRAWING_C
+#define PUBLIC extern
+#else
+#define PUBLIC
+#endif
 
 /**
  * @brief      Determines if a given point is in a given SDL rectangle.
@@ -13,7 +19,7 @@
  *
  * @return     1 if the point is in rectangle, 0 otherwise.
  */
-int isPointInRectangle(SDL_Rect rect, Coordinates point);
+PUBLIC int isPointInRectangle(SDL_Rect rect, Coordinates point);
 
 /**
  * Code found here : http://anomaly.developpez.com/tutoriel/sdl/partie2/
@@ -25,7 +31,7 @@ int isPointInRectangle(SDL_Rect rect, Coordinates point);
  * @param      x
  * @param      y
  */
-void echangerEntiers(int* x, int* y);
+PUBLIC void echangerEntiers(int* x, int* y);
 
 
 /**
@@ -37,7 +43,7 @@ void echangerEntiers(int* x, int* y);
  * @param[in]  coul     The color
  * @param      surface  The surface
  */
-void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Surface* surface);
+PUBLIC void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Surface* surface);
 
 
 /**
@@ -48,6 +54,7 @@ void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Su
  * @param[in]  coul     The color
  * @param      surface  The surface
  */
-void setPixelVerif(int x, int y, Uint32 coul, SDL_Surface* surface);
+PUBLIC void setPixelVerif(int x, int y, Uint32 coul, SDL_Surface* surface);
 
+#undef PUBLIC
 #endif

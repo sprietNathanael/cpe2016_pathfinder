@@ -1,7 +1,10 @@
+#define A_STAR_PATHFINDING_C
 #include "astar_pathfinding.h"
+
 Coordinates targetCoordinates = {0,0};
 int timeBetweenSteps = 0;
 int canContinueToNextStep = 1;
+
 int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time, int stepByStep)
 {
 	Node currentNode;
@@ -75,7 +78,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		/**
 		 * Analyse all the neighbour nodes
 		 */
-		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead], stepByStep);		
+		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead], stepByStep);
 		sortList(openList, openListHead);
 		changeNodeColor(currentNode, 1, numCol, 132,147,251);
 		closeListHead++;
@@ -94,7 +97,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		while(currentNodePointer->parent != NULL)
 		{
 			currentNodePointer = currentNodePointer->parent;
-			printf(" (%d;%d) ",currentNodePointer->coordinates.x, currentNodePointer->coordinates.y);		
+			printf(" (%d;%d) ",currentNodePointer->coordinates.x, currentNodePointer->coordinates.y);
 			finalPath[finalPathLength++] = currentNodePointer->coordinates;
 		}
 		printf("\n");
@@ -113,7 +116,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 	int neighbourNodesHead = 0;
 	int deltaX = 0;
 	int deltaY = 0;
-	
+
 	Coordinates currentCoordinates = {0,0};
 	/**
 	 * Browse all 8 possibilities of neighbours
@@ -152,8 +155,8 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 							 */
 							neighbourNode.parent = currentNode;
 
-							
-							neighbourNode.H = computeSimpleDistanceBetweenCoordinates(neighbourNode.coordinates, targetCoordinates);							
+
+							neighbourNode.H = computeSimpleDistanceBetweenCoordinates(neighbourNode.coordinates, targetCoordinates);
 							/**
 							 * If H == 0, it means the Node is the target
 							 */
@@ -190,7 +193,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 								 */
 								if(openList[alreadyInList].G > neighbourNode.G)
 								{
-									openList[alreadyInList] = neighbourNode;								
+									openList[alreadyInList] = neighbourNode;
 								}
 							}
 							else
@@ -235,7 +238,7 @@ int canGoToThisPoint(int numRow, int numCol, char* graph, Node* currentNode, int
 		/**
 		 * Check the two adjacing nodes are not walls :
 		 * (current.x ; deltaY) and (deltaX ; current.y)
-		 */		
+		 */
 		if(graph[((currentNode->coordinates.y+deltaY)*numCol)+(currentNode->coordinates.x)] == TYPE_WALL)
 		{
 			return 0;

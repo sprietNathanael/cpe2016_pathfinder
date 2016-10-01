@@ -1,7 +1,13 @@
-#include "graph_managment.h"
-
 #ifndef NODE_MANAGMENT_H
 #define NODE_MANAGMENT_H
+
+#include "graph_managment.h"
+
+#ifndef NODE_MANAGMENT_C
+#define PUBLIC extern
+#else
+#define PUBLIC
+#endif
 
 /*
  ***************************** Structures *************************
@@ -40,7 +46,7 @@ struct Node
  * @param      list                 The list
  * @param      indexOfNodeToRemove  The index of node to remove
  */
-void removeNodeFromList(int listHead, Node* list, int indexOfNodeToRemove);
+PUBLIC void removeNodeFromList(int listHead, Node* list, int indexOfNodeToRemove);
 
 /**
  * @brief      Compares two nodes by their F parameter
@@ -53,7 +59,7 @@ void removeNodeFromList(int listHead, Node* list, int indexOfNodeToRemove);
  * 			   0 if a == b
  * 			   1 if a > b
  */
-int compareNodeByF (Node a, Node b);
+PUBLIC int compareNodeByF (Node a, Node b);
 
 /**
  * @brief      Sort the first items (to indexLimitation) of the list increasingly by the nodes' F parameter
@@ -61,7 +67,7 @@ int compareNodeByF (Node a, Node b);
  * @param      list             The list
  * @param[in]  indexLimitation  The index limitation
  */
-void sortList(Node* list, int indexLimitation);
+PUBLIC void sortList(Node* list, int indexLimitation);
 
 /**
  * @brief      Gets the index of existing node in list.
@@ -72,6 +78,7 @@ void sortList(Node* list, int indexLimitation);
  *
  * @return     The index of node in list, -1 if not present.
  */
-int getExistingNodeInList(Node* list, int listHead, Coordinates coordinatesToFind);
+PUBLIC int getExistingNodeInList(Node* list, int listHead, Coordinates coordinatesToFind);
 
+#undef PUBLIC
 #endif /* NODE_MANAGMENT_H */

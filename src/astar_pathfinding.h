@@ -1,9 +1,16 @@
+#ifndef A_STAR_PATHFINDING_H
+#define A_STAR_PATHFINDING_H
+
 #include <unistd.h>
+
 #include "node_managment.h"
 #include "resolution_view_managment.h"
 
-#ifndef A_STAR_PATHFINDING_H
-#define A_STAR_PATHFINDING_H
+#ifndef A_STAR_PATHFINDING_C
+#define PUBLIC extern
+#else
+#define PUBLIC
+#endif
 
 /**
  * @brief      Lauches the path resolution algorithm for the graph
@@ -17,7 +24,7 @@
  *
  * @return     the final path length
  */
-int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time, int stepByStep);
+PUBLIC int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time, int stepByStep);
 /**
  * @brief      Analyses the 8 neighbour nodes of a given Node
  *
@@ -34,7 +41,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
  *
  * @return     1 if it foud the target, 0 else
  */
-int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode, int stepByStep);
+PUBLIC int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode, int stepByStep);
 
 /**
  * @brief      Determines ability to go to a given point.
@@ -48,12 +55,12 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
  *
  * @return     True if able to go to given point, False otherwise.
  */
-int canGoToThisPoint(int numRow, int numCol, char* graph, Node* currentNode, int deltaX, int deltaY);
+PUBLIC int canGoToThisPoint(int numRow, int numCol, char* graph, Node* currentNode, int deltaX, int deltaY);
 
 /**
  * @brief      Simply pass the canContinueToNextStep variable to true
  */
-void continueToNextStep();
+PUBLIC void continueToNextStep();
 
 /**
  * @brief      Change the color of a Node and redraw the line between the node
@@ -66,6 +73,7 @@ void continueToNextStep();
  * @param[in]  g                             green
  * @param[in]  b                             blue
  */
-void changeNodeColor(Node nodeToChange, int drawLineBetweenNodeAndParent, int numCol, int r, int g, int b);
+PUBLIC void changeNodeColor(Node nodeToChange, int drawLineBetweenNodeAndParent, int numCol, int r, int g, int b);
 
+#undef PUBLIC
 #endif /* A_STAR_PATHFINDING_H */

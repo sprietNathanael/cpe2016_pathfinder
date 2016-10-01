@@ -1,3 +1,4 @@
+#define CREATION_VIEW_MANAGMENT_C
 #include "creation_view_managment.h"
 
 SDL_Rect chooseStartButton_position;
@@ -30,7 +31,7 @@ void sdlCreationInit(int numRow, int numCol)
     if (ecran == NULL)    {
         fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
-    }    
+    }
     SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 204, 204, 204));
     /*
      ***************************** Buttons creation *************************
@@ -113,7 +114,7 @@ void sdlCreationInit(int numRow, int numCol)
     SDL_BlitSurface(choiceIndicator, NULL, ecran, &choiceIndicator_position);
     SDL_Flip(ecran);
 
-    
+
 
 }
 
@@ -126,16 +127,16 @@ void changeColorIndicator(char type)
     }
     else if(type == 'T')
     {
-        color = SDL_MapRGB(ecran->format, 255, 0, 0);        
+        color = SDL_MapRGB(ecran->format, 255, 0, 0);
     }
     else if(type == 'W')
     {
-        color = SDL_MapRGB(ecran->format, 0, 0, 0);       
-        
+        color = SDL_MapRGB(ecran->format, 0, 0, 0);
+
     }
     else if(type == '0')
     {
-        color = SDL_MapRGB(ecran->format, 255, 255, 255);      
+        color = SDL_MapRGB(ecran->format, 255, 255, 255);
     }
     SDL_Surface *choiceIndicator = NULL;
     choiceIndicator = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
@@ -155,16 +156,16 @@ void changeTypeColorOfGivenNode(Coordinates node, char type, int numCol)
     }
     else if(type == 'T')
     {
-        changeRectangeColor(node, numCol, 255, 0, 0);        
+        changeRectangeColor(node, numCol, 255, 0, 0);
     }
     else if(type == 'W')
     {
-        changeRectangeColor(node, numCol, 0, 0, 0);       
-        
+        changeRectangeColor(node, numCol, 0, 0, 0);
+
     }
     else if(type == '0')
     {
-        changeRectangeColor(node, numCol, 255, 255, 255);      
+        changeRectangeColor(node, numCol, 255, 255, 255);
     }
 
 }

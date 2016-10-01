@@ -3,6 +3,12 @@
 
 #include "sdl_drawing.h"
 
+#ifndef GRAPH_VIEW_MANAGMENT_C
+#define PUBLIC extern
+#else
+#define PUBLIC
+#endif
+
 extern SDL_Surface* ecran;
 
 #define POS_START_X 5
@@ -23,7 +29,7 @@ extern SDL_Surface* ecran;
  * @param[in]  numCol  The graph number of column
  * @param      graph   The graph itself
  */
-void createGraph(int numRow, int numCol, char* graph);
+PUBLIC void createGraph(int numRow, int numCol, char* graph);
 
 /**
  * @brief      Calculates the sdl coordinates from graph position.
@@ -32,9 +38,9 @@ void createGraph(int numRow, int numCol, char* graph);
  *
  * @return     The sdl coordinates from graph position.
  */
-Coordinates computeSDLCoordinatesFromGraphPosition(Coordinates cell);
+PUBLIC Coordinates computeSDLCoordinatesFromGraphPosition(Coordinates cell);
 
-void changeRectangeColor(Coordinates graphPosition,int numCol, int r,int g,int b);
+PUBLIC void changeRectangeColor(Coordinates graphPosition,int numCol, int r,int g,int b);
 
 /**
  * @brief      Draws line between two nodes.
@@ -42,8 +48,9 @@ void changeRectangeColor(Coordinates graphPosition,int numCol, int r,int g,int b
  * @param[in]  nodeA    The node a
  * @param[in]  nodeB    The node b
  */
-void drawLineBetweenTwoNodes(Coordinates nodeA, Coordinates nodeB,int r,int g,int b);
+PUBLIC void drawLineBetweenTwoNodes(Coordinates nodeA, Coordinates nodeB,int r,int g,int b);
 
-Coordinates computeThePointedNodeCoordinatesFromSDL(int numRow, int numCol, int x, int y);
+PUBLIC Coordinates computeThePointedNodeCoordinatesFromSDL(int numRow, int numCol, int x, int y);
+
+#undef PUBLIC
 #endif
-

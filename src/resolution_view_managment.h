@@ -3,6 +3,11 @@
 
 #include "graph_view_managment.h"
 
+#ifndef CREATION_VIEW_MANAGMENT_C
+#define PUBLIC extern
+#else
+#define PUBLIC
+#endif
 
 #define POS_FIND_PATH_BUTTON_Y BUTTON_Y_MARGE
 #define POS_SLOW_FIND_PATH_BUTTON_Y POS_FIND_PATH_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
@@ -19,7 +24,7 @@
  * @param[in]  numRow  The number row
  * @param[in]  numCol  The number col
  */
-void sdlResolvInit(int numRow, int numCol);
+PUBLIC void sdlResolvInit(int numRow, int numCol);
 
 /**
  * @brief      Draws the final path.
@@ -29,12 +34,12 @@ void sdlResolvInit(int numRow, int numCol);
  * @param[in]  numCol           The graph number of col
  * @param      finalPath        The final path itself
  */
-void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates finalPath[numRow*numCol]);
+PUBLIC void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates finalPath[numRow*numCol]);
 
 /**
  * @brief      Just exchange the debug icon of debug button for next step icon
  */
-void changeDebugButtonIcon();
+PUBLIC void changeDebugButtonIcon();
 
 /**
  * @brief      Check if the given cursor position is in the "find path" button
@@ -43,7 +48,7 @@ void changeDebugButtonIcon();
  *
  * @return     1 if the cursor position is in the button, 0 else
  */
-int findPathButtonClicked(Coordinates cursorPosition);
+PUBLIC int findPathButtonClicked(Coordinates cursorPosition);
 
 /**
  * @brief      Check if the given cursor position is in the "slow find path" button
@@ -52,7 +57,7 @@ int findPathButtonClicked(Coordinates cursorPosition);
  *
  * @return     1 if the cursor position is in the button, 0 else
  */
-int slow_findPathButtonClicked(Coordinates cursorPosition);
+PUBLIC int slow_findPathButtonClicked(Coordinates cursorPosition);
 
 /**
  * @brief      Check if the given cursor position is in the "clear" button
@@ -61,7 +66,7 @@ int slow_findPathButtonClicked(Coordinates cursorPosition);
  *
  * @return     1 if the cursor position is in the button, 0 else
  */
-int clearButtonClicked(Coordinates cursorPosition);
+PUBLIC int clearButtonClicked(Coordinates cursorPosition);
 
 /**
  * @brief      Check if the given cursor position is in the "next step" button
@@ -70,7 +75,7 @@ int clearButtonClicked(Coordinates cursorPosition);
  *
  * @return     1 if the cursor position is in the button, 0 else
  */
-int nextStepButtonClicked(Coordinates cursorPosition);
+PUBLIC int nextStepButtonClicked(Coordinates cursorPosition);
 
 /**
  * @brief      Check if the given cursor position is in the "build" button
@@ -79,7 +84,8 @@ int nextStepButtonClicked(Coordinates cursorPosition);
  *
  * @return     1 if the cursor position is in the button, 0 else
  */
-int buildButtonClicked(Coordinates cursorPosition);
+PUBLIC int buildButtonClicked(Coordinates cursorPosition);
 
+#undef PUBLIC
 #endif
 

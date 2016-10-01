@@ -3,7 +3,13 @@
 
 #include <pthread.h>
 #include "astar_pathfinding.h"
-// #include <SDL/SDL_ttf.h>
+
+#ifndef RESOLUTION_VIEW_C
+#define PUBLIC extern
+#else
+#define PUBLIC
+#endif
+
 
 #define SLOW_RESOLUTION_TIME 400*1000
 
@@ -19,8 +25,9 @@ typedef struct {
     int stepByStep;
 } launchPathResolution_args;
 
-void mainResolvLoop(int numRow, int numCol, char* graph, int* state);
-int launchResolveView(int numRow, int numCol, char* graph);
-void * resolutionAndDrawing_thread(void* args);
+PUBLIC void mainResolvLoop(int numRow, int numCol, char* graph, int* state);
+PUBLIC int launchResolveView(int numRow, int numCol, char* graph);
+PUBLIC void * resolutionAndDrawing_thread(void* args);
 
+#undef RESOLUTION_VIEW
 #endif /* RESOLUTION_VIEW_H */

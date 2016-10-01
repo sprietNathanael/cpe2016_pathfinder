@@ -1,3 +1,4 @@
+#define GRAPH_MANAGMENT_C
 #include "graph_managment.h"
 
 Coordinates findCoordinatesInCharGraph(int numRow, int numCol, char* graph, char charToFind)
