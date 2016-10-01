@@ -5,6 +5,10 @@ SDL_Rect chooseTargetButton_position;
 SDL_Rect chooseWallButton_position;
 SDL_Rect chooseBlankButton_position;
 SDL_Rect choiceIndicator_position;
+SDL_Rect saveButton_position;
+SDL_Rect saveIconPosition;
+SDL_Rect closeButton_position;
+SDL_Rect closeIconPosition;
 
 void sdlCreationInit(int numRow, int numCol)
 {
@@ -111,6 +115,65 @@ void sdlCreationInit(int numRow, int numCol)
      * Display the button
      */
     SDL_BlitSurface(choiceIndicator, NULL, ecran, &choiceIndicator_position);
+    /**
+     ************************ Creates Save button
+    */
+    /**
+     * Initialise the button
+     */
+    SDL_Surface *saveButton = NULL;
+    saveButton_position.x = graphWidth+SECOND_COL_BUTTONS_X;
+    saveButton_position.y = SAVE_BUTTON_Y;
+    saveButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
+    SDL_FillRect(saveButton, NULL, SDL_MapRGB(ecran->format, 141,242,23));
+    /**
+     * Initialise the icon
+     */
+    SDL_Surface *saveIcon = NULL;
+    SDL_Rect saveIconPosition;
+    saveIconPosition.x = 10;
+    saveIconPosition.y = 0;
+    saveIcon = SDL_LoadBMP("view/icons/save.bmp");
+    /**
+     * Set the color transparancy
+     */
+    SDL_SetColorKey(saveIcon, SDL_SRCCOLORKEY, SDL_MapRGB(saveIcon->format, 255, 255, 255));
+    /**
+     * Display the button and the icon
+     */
+    SDL_BlitSurface(saveIcon, NULL, saveButton, &saveIconPosition);
+    SDL_BlitSurface(saveButton, NULL, ecran, &saveButton_position);
+    /**
+     ************************ Creates Close button
+    */
+    /**
+     * Initialise the button
+     */
+    SDL_Surface *closeButton = NULL;
+    closeButton_position.x = graphWidth+SECOND_COL_BUTTONS_X;
+    closeButton_position.y = CLOSE_BUTTON_Y;
+    closeButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
+    SDL_FillRect(closeButton, NULL, SDL_MapRGB(ecran->format, 255,0,0));
+    /**
+     * Initialise the icon
+     */
+    SDL_Surface *closeIcon = NULL;
+    SDL_Rect closeIconPosition;
+    closeIconPosition.x = 10;
+    closeIconPosition.y = 0;
+    closeIcon = SDL_LoadBMP("view/icons/close.bmp");
+    /**
+     * Set the color transparancy
+     */
+    SDL_SetColorKey(closeIcon, SDL_SRCCOLORKEY, SDL_MapRGB(closeIcon->format, 255, 255, 255));
+    /**
+     * Display the button and the icon
+     */
+    SDL_BlitSurface(closeIcon, NULL, closeButton, &closeIconPosition);
+    SDL_BlitSurface(closeButton, NULL, ecran, &closeButton_position);
+    /**
+     * Refresh the screen
+     */
     SDL_Flip(ecran);
 
     
