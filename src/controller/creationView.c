@@ -36,12 +36,11 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
                 }
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				point.x = event.button.x;
-				point.y = event.button.y;
+                point.x = event.button.x;
+                point.y = event.button.y;
 				Coordinates pointedNode = computeThePointedNodeCoordinatesFromSDL(numRow, numCol, point.x, point.y);
                 if(pointedNode.x != -1 && pointedNode.y != -1)
                 {
-				    printf("(%d;%d)\n",pointedNode.x, pointedNode.y);
                     changeTypeColorOfGivenNode(pointedNode,choosedType, numCol);
                     /**
                      * Replace old T or S by a simple node
@@ -55,11 +54,11 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
                         if(oldCoordinate.x != -1 && oldCoordinate.y != -1)
                         {
                             changeTypeColorOfGivenNode(oldCoordinate,'0', numCol);
-                            graph[(numRow*oldCoordinate.y)+oldCoordinate.x] = '0';
+                            graph[(oldCoordinate.y*numCol)+oldCoordinate.x] = '0';
 
                         }
                     }
-                    graph[(numRow*pointedNode.y)+pointedNode.x] = choosedType;
+                    graph[(numCol*pointedNode.y)+pointedNode.x] = choosedType;
                 }
                 else if(chooseStartButtonClicked(point))
                 {
@@ -90,7 +89,7 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
     {
         for(j = 0; j < numCol; j++)
         {
-            printf("%c ",graph[(numRow*i)+j]);            
+            printf("%c ",graph[(numCol*i)+j]);            
         }
         printf("\n");
     }

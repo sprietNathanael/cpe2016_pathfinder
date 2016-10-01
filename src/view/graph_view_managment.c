@@ -106,7 +106,7 @@ Coordinates computeThePointedNodeCoordinatesFromSDL(int numRow, int numCol, int 
     }
     int tempX = (x-OFFSET_X)/(SIZE_X+OFFSET_X);
     int tempY = (y-OFFSET_Y)/(SIZE_Y+OFFSET_Y);
-    if(isPointInRectangle(positionGraph[(tempY*numRow)+tempX], interNode))
+    if(isPointInRectangle(positionGraph[(tempY*numCol)+tempX], interNode))
     {
         pointedNode.x = tempX;
         pointedNode.y = tempY;
