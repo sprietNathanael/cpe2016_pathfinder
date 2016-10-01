@@ -1,46 +1,42 @@
+# Declare all modules
+include controller/Makefile
+include model/Makefile
+include pathfinding/Makefile
+include view/Makefile
+
 CC=gcc
 FLAGS=-W -Wall -g
 LDFLAGS=-lm -lSDL -lpthread
 EXEC=pathfinder
 
-all: $(EXEC)
+ALL_BINARIES := pathfinder
 
-$(EXEC): astar_pathfinding.o main.o node_managment.o graph_managment.o resolutionView.o creationView.o graph_view_managment.o sdl_drawing.o resolution_view_managment.o creation_view_managment.o
-	$(CC) -o $(EXEC) astar_pathfinding.o main.o node_managment.o graph_managment.o resolutionView.o creationView.o graph_view_managment.o sdl_drawing.o resolution_view_managment.o creation_view_managment.o ${LDFLAGS}
+MAIN_PACKAGE := main.o
 
-astar_pathfinding.o: astar_pathfinding.c node_managment.h resolution_view_managment.h
-	$(CC) -o astar_pathfinding.o -c astar_pathfinding.c $(FLAGS)
+ALL_OBJECTS :=
+ALL_OBJECTS += $(CONTROLLER_PACKAGE)
+ALL_OBJECTS += $(MODEL_PACKAGE)
+ALL_OBJECTS += $(PATHFINDING_PACKAGE)
+ALL_OBJECTS += $(VIEW_PACKAGE)
+ALL_OBJECTS += $(VIEW_PACKAGE)
+ALL_OBJECTS += $(MAIN_PACKAGE)
 
-node_managment.o: node_managment.c graph_managment.h
-	$(CC) -o node_managment.o -c node_managment.c $(FLAGS)
+all: $(ALL_BINARIES)
 
-graph_managment.o: graph_managment.c
-	$(CC) -o graph_managment.o -c graph_managment.c $(FLAGS)
-
-resolutionView.o: resolutionView.c astar_pathfinding.h
-	$(CC) -o resolutionView.o -c resolutionView.c $(FLAGS)
-
-creationView.o: creationView.c creation_view_managment.h
-	$(CC) -o creationView.o -c creationView.c $(FLAGS)
-
-graph_view_managment.o: graph_view_managment.c sdl_drawing.h 
-	$(CC) -o graph_view_managment.o -c graph_view_managment.c $(FLAGS)
-
-resolution_view_managment.o: resolution_view_managment.c graph_view_managment.h 
-	$(CC) -o resolution_view_managment.o -c resolution_view_managment.c $(FLAGS)
-
-creation_view_managment.o: creation_view_managment.c graph_view_managment.h 
-	$(CC) -o creation_view_managment.o -c creation_view_managment.c $(FLAGS)
-
-sdl_drawing.o: sdl_drawing.c graph_managment.h
-	$(CC) -o sdl_drawing.o -c sdl_drawing.c $(FLAGS)
+$(ALL_BINARIES): $(CONTROLLER_PACKAGE) $(MODEL_PACKAGE)	$(PATHFINDING_PACKAGE) $(VIEW_PACKAGE) $(MAIN_PACKAGE)
+	$(CC) $^ $(FLAGS) $(LDFLAGS) -o $@
 
 
-main.o: main.c astar_pathfinding.h resolutionView.h creationView.h
-	$(CC) -o main.o -c main.c $(FLAGS)
 
+# Remove all the object files
 clean:
-	rm -rf *.o
+	@rm -f $(ALL_OBJECTS)
 
-mrproper: clean
-	rm -rf $(EXEC)
+# Remove all the binaries and objects files
+mrproper:
+	@rm -f $(ALL_OBJECTS)
+	@rm -f $(ALL_BINARIES)
+
+# Default command to produce object files with C sources.
+%.o: %.c
+	@$(CC) $(FLAGS) $(LDFLAGS) -o $@ -c $<

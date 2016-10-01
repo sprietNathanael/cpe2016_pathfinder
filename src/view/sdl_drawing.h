@@ -3,7 +3,7 @@
 
 #include <SDL/SDL.h>
 #include <math.h>
-#include "graph_managment.h"
+#include "../model/graph_managment.h"
 
 /**
  * @brief      Determines if a given point is in a given SDL rectangle.

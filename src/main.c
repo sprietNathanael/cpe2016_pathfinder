@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "resolutionView.h"
-#include "creationView.h"
+#include "controller/resolutionView.h"
+#include "controller/creationView.h"
 
 int main()
 {

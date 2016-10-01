@@ -1,6 +1,6 @@
 #include <unistd.h>
-#include "node_managment.h"
-#include "resolution_view_managment.h"
+#include "../model/node_managment.h"
+#include "../view/resolution_view_managment.h"
 
 #ifndef A_STAR_PATHFINDING_H
 #define A_STAR_PATHFINDING_H

@@ -1,7 +1,7 @@
 #ifndef CREATION_VIEW_H
 #define CREATION_VIEW_H
 
-#include "creation_view_managment.h"
+#include "../view/creation_view_managment.h"
 
 #define HEIGHT_MAX 25
 #define WIDTH_MAX 25

@@ -54,7 +54,7 @@ void sdlResolvInit(int numRow, int numCol)
     SDL_Rect startIconPosition;
     startIconPosition.x = 10;
     startIconPosition.y = 0;
-    startIcon = SDL_LoadBMP("icons/start.bmp");
+    startIcon = SDL_LoadBMP("view/icons/start.bmp");
     /**
      * Set the color transparancy
      */
@@ -82,7 +82,7 @@ void sdlResolvInit(int numRow, int numCol)
     SDL_Rect slowIconPosition;
     slowIconPosition.x = 10;
     slowIconPosition.y = 0;
-    slowIcon = SDL_LoadBMP("icons/slow.bmp");
+    slowIcon = SDL_LoadBMP("view/icons/slow.bmp");
     /**
      * Set the color transparancy
      */
@@ -110,7 +110,7 @@ void sdlResolvInit(int numRow, int numCol)
     SDL_Rect clearIconPosition;
     clearIconPosition.x = 10;
     clearIconPosition.y = 0;
-    clearIcon = SDL_LoadBMP("icons/clear.bmp");
+    clearIcon = SDL_LoadBMP("view/icons/clear.bmp");
     /**
      * Set the color transparancy
      */
@@ -138,7 +138,7 @@ void sdlResolvInit(int numRow, int numCol)
     SDL_Rect debugIconPosition;
     debugIconPosition.x = 10;
     debugIconPosition.y = 0;
-    debugIcon = SDL_LoadBMP("icons/debug.bmp");
+    debugIcon = SDL_LoadBMP("view/icons/debug.bmp");
     /**
      * Set the color transparancy
      */
@@ -167,7 +167,7 @@ void sdlResolvInit(int numRow, int numCol)
     SDL_Rect buildIconPosition;
     buildIconPosition.x = 10;
     buildIconPosition.y = 0;
-    buildIcon = SDL_LoadBMP("icons/build.bmp");
+    buildIcon = SDL_LoadBMP("view/icons/build.bmp");
     /**
      * Set the color transparancy
      */
@@ -201,7 +201,7 @@ void changeDebugButtonIcon()
     SDL_Rect debugIconPosition;
     debugIconPosition.x = 10;
     debugIconPosition.y = 0;
-    debugIcon = SDL_LoadBMP("icons/next.bmp");
+    debugIcon = SDL_LoadBMP("view/icons/next.bmp");
     /**
      * Set the color transparancy
      */

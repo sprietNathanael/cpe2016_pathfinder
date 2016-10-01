@@ -2,7 +2,7 @@
 #define RESOLUTION_VIEW_H
 
 #include <pthread.h>
-#include "astar_pathfinding.h"
+#include "../pathfinding/astar_pathfinding.h"
 // #include <SDL/SDL_ttf.h>
 
 #define SLOW_RESOLUTION_TIME 400*1000
