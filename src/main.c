@@ -2,14 +2,27 @@
 #include <stdlib.h>
 #include "controller/resolutionView.h"
 #include "controller/creationView.h"
+#include "fileManager/importGraph.h"
 
 char* initialGraph(int* width, int* height);
 
-int main()
+int main(int argc, char const *argv[])
 {
 	int width;
 	int height;
-	char* graph = initialGraph(&width, &height);
+	char* graph;
+	if(argc > 1)
+	{
+		graph = importGraphFromFile(argv[1], &height, &width);
+		if(graph == NULL)
+		{
+			graph = initialGraph(&width, &height);			
+		}
+	}
+	else
+	{
+		graph = initialGraph(&width, &height);
+	}
 	
 	
 	int state = 1;
@@ -17,7 +30,6 @@ int main()
 	while(state)
 	{
 		state = launchResolveView(height,width, graph);
-		printf("state : %d\n",state);
 		if(state)
 		{
 			height = 0;
