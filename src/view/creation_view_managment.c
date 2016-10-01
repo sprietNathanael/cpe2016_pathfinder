@@ -248,5 +248,13 @@ int chooseBlankButtonClicked(Coordinates cursorPosition)
 {
     return isPointInRectangle(chooseBlankButton_position, cursorPosition);
 }
+int saveButtonClicked(Coordinates cursorPosition)
+{
+    return isPointInRectangle(saveButton_position, cursorPosition);
+}
+int closeButtonClicked(Coordinates cursorPosition)
+{
+    return isPointInRectangle(closeButton_position, cursorPosition);
+}
 
 

@@ -65,6 +65,24 @@ int chooseWallButtonClicked(Coordinates cursorPosition);
 int chooseBlankButtonClicked(Coordinates cursorPosition);
 
 /**
+ * @brief      Check if the given cursor position is in the "saveButton" button
+ *
+ * @param[in]  cursorPosition  The cursor position
+ *
+ * @return     1 if the cursor position is in the button, 0 else
+ */
+int saveButtonClicked(Coordinates cursorPosition);
+
+/**
+ * @brief      Check if the given cursor position is in the "closeButton" button
+ *
+ * @param[in]  cursorPosition  The cursor position
+ *
+ * @return     1 if the cursor position is in the button, 0 else
+ */
+int closeButtonClicked(Coordinates cursorPosition);
+
+/**
  * @brief      Change the color of a given node according to the given type
  *
  * @param[in]  node    The node

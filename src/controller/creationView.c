@@ -1,19 +1,21 @@
 #include "creationView.h"
 int stayInCreationLoop = 1;
 
-void launchCreationView(int numRow, int numCol, char* graph)
+int launchCreationView(int numRow, int numCol, char* graph)
 {
 	stayInCreationLoop = 1;
+    int state;
 	while(stayInCreationLoop)
 	{
 		sdlCreationInit(numRow, numCol);
 		createGraph(numRow, numCol, graph);
-		mainCreationLoop(numRow, numCol, graph);
+		state = mainCreationLoop(numRow, numCol, graph);
 		SDL_Quit();
 	}
+    return state;
 }  
 
-void mainCreationLoop(int numRow, int numCol, char* graph)
+int mainCreationLoop(int numRow, int numCol, char* graph)
 {
 	int continuer = 1;
 	SDL_Event event;
@@ -27,13 +29,9 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
 		switch(event.type)
 		{
 			case SDL_QUIT :
-                startCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'S');
-                targetCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'T');
-                if(targetCoordinate.x != -1 && targetCoordinate.y != -1 && startCoordinate.x != -1 && startCoordinate.y != -1)
-                {
-				    stayInCreationLoop = 0;
-				    continuer = 0;
-                }
+                stayInCreationLoop = 0;
+				continuer = 0;
+                return 0;                
 				break;
 			case SDL_MOUSEBUTTONDOWN:
                 point.x = event.button.x;
@@ -80,6 +78,30 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
                     choosedType = '0';
                     changeColorIndicator(choosedType);
                 }
+                else if(saveButtonClicked(point))
+                {
+                    /**
+                     * Check if there is a start and a target
+                     */
+                    startCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'S');
+                    targetCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'T');
+                    if(targetCoordinate.x != -1 && targetCoordinate.y != -1 && startCoordinate.x != -1 && startCoordinate.y != -1)
+                    {
+                        char fileName[255];
+                        printf("Nom du fichier : ");
+                        scanf("%s",fileName);
+                        exportGraphToFile(numRow,numCol,graph, fileName);
+                    }
+                    else
+                    {
+                        printf("Can not save a graph without a start and a target !\n");
+                    }
+                }
+                else if(closeButtonClicked(point))
+                {
+                    stayInCreationLoop = 0;
+                    continuer = 0;
+                }
 
                 break;
         }
@@ -93,4 +115,5 @@ void mainCreationLoop(int numRow, int numCol, char* graph)
         }
         printf("\n");
     }
+    return 1;
 }
