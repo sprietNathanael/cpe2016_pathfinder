@@ -17,6 +17,7 @@ typedef struct {
     Coordinates* finalPath;
     int time;
     int stepByStep;
+    int djikstra;
 } launchPathResolution_args;
 
 void mainResolvLoop(int numRow, int numCol, char* graph, int* state);

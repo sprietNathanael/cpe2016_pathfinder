@@ -55,6 +55,7 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 					args->graph = graph;
 					args->time = 0;
 					args->stepByStep = 0;
+					args->djikstra = 0;
 					/**
 					 * Create the thread
 					 */
@@ -72,6 +73,7 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 					args->graph = graph;
 					args->time = SLOW_RESOLUTION_TIME;
 					args->stepByStep = 0;
+					args->djikstra = 0;
 					/**
 					 * Create the thread
 					 */
@@ -99,6 +101,7 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 						args->graph = graph;
 						args->time = SLOW_RESOLUTION_TIME;
 						args->stepByStep = 1;
+						args->djikstra = 0;
 						/**
 						 * Create the thread
 						 */
@@ -132,11 +135,12 @@ void * resolutionAndDrawing_thread(void* args)
 	int numRow = actual_args->numRow;
 	int numCol = actual_args->numCol;
 	int stepByStep = actual_args->stepByStep;
+	int djikstra = actual_args->djikstra;
 	char* graph = actual_args->graph;
 	int time = actual_args->time;
 	int finalPathLength = 0;
 	Coordinates finalPath[numRow*numCol];
-	finalPathLength = launchPathResolution(numRow, numCol, graph, finalPath, time, stepByStep);
+	finalPathLength = launchPathResolution(numRow, numCol, graph, finalPath, time, stepByStep, djikstra);
 	drawFinalPath(finalPathLength, numRow, numCol, finalPath);
 	clearButtonActivated = 1;
 	pthread_exit(0);

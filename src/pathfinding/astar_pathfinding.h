@@ -17,7 +17,7 @@
  *
  * @return     the final path length
  */
-int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time, int stepByStep);
+int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time, int stepByStep, int djikstra);
 /**
  * @brief      Analyses the 8 neighbour nodes of a given Node
  *
@@ -34,7 +34,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
  *
  * @return     1 if it foud the target, 0 else
  */
-int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode, int stepByStep);
+int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode, int stepByStep, int djikstra);
 
 /**
  * @brief      Determines ability to go to a given point.

@@ -2,7 +2,7 @@
 Coordinates targetCoordinates = {0,0};
 int timeBetweenSteps = 0;
 int canContinueToNextStep = 1;
-int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time, int stepByStep)
+int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time, int stepByStep, int djikstra)
 {
 	Node currentNode;
 	timeBetweenSteps = time;
@@ -75,7 +75,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		/**
 		 * Analyse all the neighbour nodes
 		 */
-		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead], stepByStep);		
+		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead], stepByStep, djikstra);		
 		sortList(openList, openListHead);
 		changeNodeColor(currentNode, 1, numCol, 132,147,251);
 		closeListHead++;
@@ -107,7 +107,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 	return finalPathLength;
 }
 
-int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode, int stepByStep)
+int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode, int stepByStep, int djikstra)
 {
 	Node neighbourNode;
 	int neighbourNodesHead = 0;
@@ -177,7 +177,14 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 							/**
 							 * Get the F parameter
 							 */
-							neighbourNode.F = neighbourNode.H + neighbourNode.G;
+							if(djikstra)
+							{
+								neighbourNode.F = neighbourNode.G;								
+							}
+							else
+							{
+								neighbourNode.F = neighbourNode.H + neighbourNode.G;								
+							}
 
 							int alreadyInList = getExistingNodeInList(openList, *openListHead, neighbourNode.coordinates);
 							/**
