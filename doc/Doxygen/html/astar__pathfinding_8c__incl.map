@@ -1,0 +1,8 @@
+<map id="pathfinding/astar_pathfinding.c" name="pathfinding/astar_pathfinding.c">
+<area shape="rect" id="node2" href="$astar__pathfinding_8h.html" title="Compute A* or Djikstra algorithm on a char graph. " alt="" coords="57,80,189,107"/>
+<area shape="rect" id="node4" href="$node__managment_8h.html" title="Tools to manage nodes and node graph. " alt="" coords="5,244,192,271"/>
+<area shape="rect" id="node9" href="$resolution__view__managment_8h.html" title="Create a resolution window. " alt="" coords="209,155,351,196"/>
+<area shape="rect" id="node5" href="$graph__managment_8h.html" title="Tools to manage a char graph. " alt="" coords="70,393,210,420"/>
+<area shape="rect" id="node10" href="$graph__view__managment_8h.html" title="Create a graph into a window. " alt="" coords="217,244,391,271"/>
+<area shape="rect" id="node11" href="$sdl__drawing_8h.html" title="Tools to draw with SDL. " alt="" coords="247,319,350,345"/>
+</map>

@@ -1,3 +1,9 @@
+/**
+ * @file sdl_drawing.h
+ * @brief      Tools to draw with SDL
+ * @author     Nathanaël SPRIET
+ */
+
 #ifndef SDL_DRAWING
 #define SDL_DRAWING
 
@@ -16,26 +22,23 @@
 int isPointInRectangle(SDL_Rect rect, Coordinates point);
 
 /**
- * Code found here : http://anomaly.developpez.com/tutoriel/sdl/partie2/
- */
-
-/**
  * @brief      Exchange two integers
  *
- * @param      x
- * @param      y
+ * @param[in]  x     First integer to exchange
+ * @param[in]  y     Second integer to exchange
  */
 void echangerEntiers(int* x, int* y);
 
 
 /**
- * @brief      Draw a line between two points
+ * @brief      Draw a line between two points (code found here : Code found here
+ *             : http://anomaly.developpez.com/tutoriel/sdl/partie2/ )
  *
  * @param[in]  nodeA    The node a
  * @param[in]  nodeB    The node b
  * @param[in]  weight   The weight of the line
  * @param[in]  coul     The color
- * @param      surface  The surface
+ * @param[in]  surface  The SDL_Surface to draw
  */
 void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Surface* surface);
 
@@ -46,7 +49,7 @@ void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Su
  * @param[in]  x        x coordinate of the pixel
  * @param[in]  y        y coordinate of the pixel
  * @param[in]  coul     The color
- * @param      surface  The surface
+ * @param[in]  surface  The SDL_Surface to draw
  */
 void setPixelVerif(int x, int y, Uint32 coul, SDL_Surface* surface);
 

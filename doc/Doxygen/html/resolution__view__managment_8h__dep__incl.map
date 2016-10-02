@@ -1,0 +1,8 @@
+<map id="view/resolution_view_managment.h" name="view/resolution_view_managment.h">
+<area shape="rect" id="node2" href="$astar__pathfinding_8h.html" title="Compute A* or Djikstra algorithm on a char graph. " alt="" coords="169,102,368,129"/>
+<area shape="rect" id="node7" href="$resolution__view__managment_8c.html" title="Create a resolution window. " alt="" coords="392,95,535,136"/>
+<area shape="rect" id="node3" href="$resolution_view_8h.html" title="Create a resolution window. " alt="" coords="76,184,251,211"/>
+<area shape="rect" id="node6" href="$astar__pathfinding_8c.html" title="Compute A* or Djikstra algorithm on a char graph. " alt="" coords="275,184,473,211"/>
+<area shape="rect" id="node4" href="$resolution_view_8c.html" title="Create a resolution window. " alt="" coords="5,259,180,285"/>
+<area shape="rect" id="node5" href="$main_8c.html" title="Contains the main loop of the program. " alt="" coords="205,259,266,285"/>
+</map>

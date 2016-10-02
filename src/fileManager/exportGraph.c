@@ -1,20 +1,23 @@
+/**
+ * @file exportGraph.c
+ * @brief      Tools to export a char graph to a file
+ * @author     Nathanaël SPRIET
+ */
+
 #include "exportGraph.h"
 
 void exportGraphToFile(int numRow, int numCol, char* graph, char* fileName)
 {
 	FILE* fileToWrite = NULL;
+	/* Try to open the file in w+ mode */
 	fileToWrite = fopen(fileName, "w+");
 	char stringBuffer[4];
 	if(fileToWrite != NULL)
 	{
-		/**
-		 * Put the numRow in the file followed by an '\n'
-		 */
+		/* Put the numRow in the file followed by an '\n' */
 		sprintf(stringBuffer,"%d\n",numRow);
 		fputs(stringBuffer,fileToWrite);
-		/**
-		 * Put the numCol in the file followed by an '\n'
-		 */
+		/* Put the numCol in the file followed by an '\n' */
 		sprintf(stringBuffer,"%d\n",numCol);
 		fputs(stringBuffer,fileToWrite);
 		int i = 0;

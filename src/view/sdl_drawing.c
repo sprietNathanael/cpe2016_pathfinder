@@ -1,3 +1,9 @@
+/**
+ * @file sdl_drawing.c
+ * @brief      Tools to draw with SDL
+ * @author     Nathanaël SPRIET
+ */
+
 #include "sdl_drawing.h"
 
 int isPointInRectangle(SDL_Rect rect, Coordinates point)
@@ -26,9 +32,7 @@ void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Su
     int d, dx, dy, aincr, bincr, xincr, yincr, x, y;
     int weightIncr = 0;
  
-    /**
-     * If the line has to be browsed verically
-     */
+    /* If the line has to be browsed verically */
     if (abs(nodeB.x - nodeA.x) < abs(nodeB.y - nodeA.y))
     {
 
@@ -38,9 +42,7 @@ void ligne(Coordinates nodeA, Coordinates nodeB, int weight, Uint32 coul, SDL_Su
             echangerEntiers(&nodeA.y, &nodeB.y);
         }
 
-        /**
-         * Determine the direction
-         */
+        /* Determine the direction */
         xincr = nodeB.x > nodeA.x ? 1 : -1;
         dy = nodeB.y - nodeA.y;
         dx = abs(nodeB.x - nodeA.x);

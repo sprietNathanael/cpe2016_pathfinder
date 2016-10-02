@@ -1,0 +1,6 @@
+<map id="pathfinding/astar_pathfinding.h" name="pathfinding/astar_pathfinding.h">
+<area shape="rect" id="node2" href="$resolution_view_8h.html" title="Create a resolution window. " alt="" coords="76,80,251,107"/>
+<area shape="rect" id="node5" href="$astar__pathfinding_8c.html" title="Compute A* or Djikstra algorithm on a char graph. " alt="" coords="275,80,473,107"/>
+<area shape="rect" id="node3" href="$resolution_view_8c.html" title="Create a resolution window. " alt="" coords="5,155,180,181"/>
+<area shape="rect" id="node4" href="$main_8c.html" title="Contains the main loop of the program. " alt="" coords="205,155,266,181"/>
+</map>

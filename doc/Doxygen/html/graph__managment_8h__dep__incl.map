@@ -1,0 +1,20 @@
+<map id="model/graph_managment.h" name="model/graph_managment.h">
+<area shape="rect" id="node2" href="$sdl__drawing_8h.html" title="Tools to draw with SDL. " alt="" coords="533,80,667,107"/>
+<area shape="rect" id="node17" href="$node__managment_8h.html" title="Tools to manage nodes and node graph. " alt="" coords="691,80,866,107"/>
+<area shape="rect" id="node19" href="$graph__managment_8c.html" title="Tools to manage a char graph. " alt="" coords="891,80,1069,107"/>
+<area shape="rect" id="node3" href="$graph__view__managment_8h.html" title="Create a graph into a window. " alt="" coords="321,155,527,181"/>
+<area shape="rect" id="node16" href="$sdl__drawing_8c.html" title="Tools to draw with SDL. " alt="" coords="551,155,684,181"/>
+<area shape="rect" id="node4" href="$creation__view__managment_8h.html" title="Create a creation window. " alt="" coords="195,229,328,271"/>
+<area shape="rect" id="node9" href="$resolution__view__managment_8h.html" title="Create a resolution window. " alt="" coords="353,229,495,271"/>
+<area shape="rect" id="node15" href="$graph__view__managment_8c.html" title="Create a graph into a window. " alt="" coords="520,237,725,263"/>
+<area shape="rect" id="node5" href="$creation_view_8h.html" title="Create a creation window. " alt="" coords="5,326,171,353"/>
+<area shape="rect" id="node8" href="$creation__view__managment_8c.html" title="Create a creation window. " alt="" coords="195,319,328,360"/>
+<area shape="rect" id="node6" href="$creation_view_8c.html" title="Create a creation window. " alt="" coords="5,408,171,435"/>
+<area shape="rect" id="node7" href="$main_8c.html" title="Contains the main loop of the program. " alt="" coords="200,483,261,509"/>
+<area shape="rect" id="node10" href="$astar__pathfinding_8h.html" title="Compute A* or Djikstra algorithm on a char graph. " alt="" coords="519,326,718,353"/>
+<area shape="rect" id="node14" href="$resolution__view__managment_8c.html" title="Create a resolution window. " alt="" coords="353,319,495,360"/>
+<area shape="rect" id="node11" href="$resolution_view_8h.html" title="Create a resolution window. " alt="" coords="293,408,467,435"/>
+<area shape="rect" id="node13" href="$astar__pathfinding_8c.html" title="Compute A* or Djikstra algorithm on a char graph. " alt="" coords="519,408,718,435"/>
+<area shape="rect" id="node12" href="$resolution_view_8c.html" title="Create a resolution window. " alt="" coords="293,483,467,509"/>
+<area shape="rect" id="node18" href="$node__managment_8c.html" title="Tools to manage nodes and node graph. " alt="" coords="801,155,975,181"/>
+</map>

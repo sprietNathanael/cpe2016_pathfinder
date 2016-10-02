@@ -1,9 +1,23 @@
+/**
+ * @file main.c
+ * @brief      Contains the main loop of the program
+ * @author     Nathanaël SPRIET
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "controller/resolutionView.h"
 #include "controller/creationView.h"
 #include "fileManager/importGraph.h"
 
+/**
+ * @brief      Set the graph to the initial graph
+ *
+ * @param[out] width   The width of the new graph
+ * @param[out] height  The height of the new graph
+ *
+ * @return     A pointer to the created graph
+ */
 char* initialGraph(int* width, int* height);
 
 int main(int argc, char const *argv[])

@@ -1,0 +1,13 @@
+<map id="main.c" name="main.c">
+<area shape="rect" id="node4" href="$resolution_view_8h.html" title="Create a resolution window. " alt="" coords="145,80,319,107"/>
+<area shape="rect" id="node16" href="$creation_view_8h.html" title="Create a creation window. " alt="" coords="364,162,529,189"/>
+<area shape="rect" id="node19" href="$import_graph_8h.html" title="Tools to import a char graph from a file. " alt="" coords="625,483,799,509"/>
+<area shape="rect" id="node6" href="$astar__pathfinding_8h.html" title="Compute A* or Djikstra algorithm on a char graph. " alt="" coords="167,155,297,196"/>
+<area shape="rect" id="node8" href="$node__managment_8h.html" title="Tools to manage nodes and node graph. " alt="" coords="43,333,229,360"/>
+<area shape="rect" id="node11" href="$resolution__view__managment_8h.html" title="Create a resolution window. " alt="" coords="187,244,330,285"/>
+<area shape="rect" id="node9" href="$graph__managment_8h.html" title="Tools to manage a char graph. " alt="" coords="49,483,189,509"/>
+<area shape="rect" id="node12" href="$graph__view__managment_8h.html" title="Create a graph into a window. " alt="" coords="254,333,429,360"/>
+<area shape="rect" id="node13" href="$sdl__drawing_8h.html" title="Tools to draw with SDL. " alt="" coords="242,408,345,435"/>
+<area shape="rect" id="node17" href="$creation__view__managment_8h.html" title="Create a creation window. " alt="" coords="354,244,499,285"/>
+<area shape="rect" id="node18" href="$export_graph_8h.html" title="Tools to export a char graph to a file. " alt="" coords="413,483,600,509"/>
+</map>

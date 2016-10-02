@@ -1,0 +1,14 @@
+<map id="view/graph_view_managment.h" name="view/graph_view_managment.h">
+<area shape="rect" id="node2" href="$creation__view__managment_8h.html" title="Create a creation window. " alt="" coords="240,80,373,121"/>
+<area shape="rect" id="node7" href="$resolution__view__managment_8h.html" title="Create a resolution window. " alt="" coords="426,80,569,121"/>
+<area shape="rect" id="node13" href="$graph__view__managment_8c.html" title="Create a graph into a window. " alt="" coords="593,87,799,114"/>
+<area shape="rect" id="node3" href="$creation_view_8h.html" title="Create a creation window. " alt="" coords="51,177,216,203"/>
+<area shape="rect" id="node6" href="$creation__view__managment_8c.html" title="Create a creation window. " alt="" coords="240,169,373,211"/>
+<area shape="rect" id="node4" href="$creation_view_8c.html" title="Create a creation window. " alt="" coords="5,259,171,285"/>
+<area shape="rect" id="node5" href="$main_8c.html" title="Contains the main loop of the program. " alt="" coords="177,333,239,360"/>
+<area shape="rect" id="node8" href="$astar__pathfinding_8h.html" title="Compute A* or Djikstra algorithm on a char graph. " alt="" coords="398,177,597,203"/>
+<area shape="rect" id="node12" href="$resolution__view__managment_8c.html" title="Create a resolution window. " alt="" coords="621,169,763,211"/>
+<area shape="rect" id="node9" href="$resolution_view_8h.html" title="Create a resolution window. " alt="" coords="254,259,429,285"/>
+<area shape="rect" id="node11" href="$astar__pathfinding_8c.html" title="Compute A* or Djikstra algorithm on a char graph. " alt="" coords="453,259,651,285"/>
+<area shape="rect" id="node10" href="$resolution_view_8c.html" title="Create a resolution window. " alt="" coords="263,333,438,360"/>
+</map>

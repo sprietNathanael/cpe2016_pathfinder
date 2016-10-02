@@ -1,0 +1,7 @@
+<map id="pathfinding/astar_pathfinding.h" name="pathfinding/astar_pathfinding.h">
+<area shape="rect" id="node3" href="$node__managment_8h.html" title="Tools to manage nodes and node graph. " alt="" coords="5,169,192,196"/>
+<area shape="rect" id="node8" href="$resolution__view__managment_8h.html" title="Create a resolution window. " alt="" coords="209,80,351,121"/>
+<area shape="rect" id="node4" href="$graph__managment_8h.html" title="Tools to manage a char graph. " alt="" coords="70,319,210,345"/>
+<area shape="rect" id="node9" href="$graph__view__managment_8h.html" title="Create a graph into a window. " alt="" coords="217,169,391,196"/>
+<area shape="rect" id="node10" href="$sdl__drawing_8h.html" title="Tools to draw with SDL. " alt="" coords="247,244,350,271"/>
+</map>

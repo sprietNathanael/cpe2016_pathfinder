@@ -1,0 +1,31 @@
+\hypertarget{main_8c}{}\section{main.\+c File Reference}
+\label{main_8c}\index{main.\+c@{main.\+c}}
+
+
+Contains the main loop of the program.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}controller/resolution\+View.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}controller/creation\+View.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}file\+Manager/import\+Graph.\+h\char`\"{}}\\*
+Include dependency graph for main.\+c\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ {\bfseries initial\+Graph} (int $\ast$width, int $\ast$height)\hypertarget{main_8c_a95cfcc35e928cf9a461f0c4fad388fab}{}\label{main_8c_a95cfcc35e928cf9a461f0c4fad388fab}
+
+\item 
+int {\bfseries main} (int argc, char const $\ast$argv\mbox{[}$\,$\mbox{]})\hypertarget{main_8c_abf9e6b7e6f15df4b525a2e7705ba3089}{}\label{main_8c_abf9e6b7e6f15df4b525a2e7705ba3089}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Contains the main loop of the program. 
+
+\begin{DoxyAuthor}{Author}
+Nathanaël S\+P\+R\+I\+ET 
+\end{DoxyAuthor}

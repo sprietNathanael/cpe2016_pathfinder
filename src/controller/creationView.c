@@ -1,5 +1,23 @@
+/**
+ * @file creationView.c
+ * @brief      Create a creation window
+ * @author     Nathanaël SPRIET
+ */
+
 #include "creationView.h"
+
+/*
+ **************************** Globals *************************
+*/
+/**
+ * @brief      Voolean variable that controls the loop state
+ */
 int stayInCreationLoop = 1;
+
+
+/*
+ **************************** Core *************************
+*/
 
 int launchCreationView(int numRow, int numCol, char* graph)
 {
@@ -20,15 +38,16 @@ int mainCreationLoop(int numRow, int numCol, char* graph)
 	int continuer = 1;
 	SDL_Event event;
 	Coordinates point;
-    char choosedType = 'W';
-    Coordinates startCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'S');
-    Coordinates targetCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'T');
+    char choosedType = TYPE_WALL;
+    Coordinates startCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_START);
+    Coordinates targetCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_TARGET);
 	while (continuer)
 	{
 		SDL_WaitEvent(&event);
 		switch(event.type)
 		{
 			case SDL_QUIT :
+                /* Get out of the loop and return -1 */
                 stayInCreationLoop = 0;
 				continuer = 0;
                 return -1;                
@@ -40,19 +59,15 @@ int mainCreationLoop(int numRow, int numCol, char* graph)
                 if(pointedNode.x != -1 && pointedNode.y != -1)
                 {
                     changeTypeColorOfGivenNode(pointedNode,choosedType, numCol);
-                    /**
-                     * Replace old T or S by a simple node
-                     */
-                    if(choosedType == 'T' || choosedType == 'S')
+                    /* Replace old T or S by a simple node */
+                    if(choosedType == TYPE_TARGET || choosedType == TYPE_START)
                     {
                         Coordinates oldCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, choosedType);
-                        /**
-                         * If there was a T or a S
-                         */
+                        /* If there was a T or a S */
                         if(oldCoordinate.x != -1 && oldCoordinate.y != -1)
                         {
-                            changeTypeColorOfGivenNode(oldCoordinate,'0', numCol);
-                            graph[(oldCoordinate.y*numCol)+oldCoordinate.x] = '0';
+                            changeTypeColorOfGivenNode(oldCoordinate,TYPE_NORMAL, numCol);
+                            graph[(oldCoordinate.y*numCol)+oldCoordinate.x] = TYPE_NORMAL;
 
                         }
                     }
@@ -60,31 +75,29 @@ int mainCreationLoop(int numRow, int numCol, char* graph)
                 }
                 else if(chooseStartButtonClicked(point))
                 {
-                    choosedType = 'S';
+                    choosedType = TYPE_START;
                     changeColorIndicator(choosedType);
                 }   
                 else if(chooseTargetButtonClicked(point))
                 {
-                    choosedType = 'T';
+                    choosedType = TYPE_TARGET;
                     changeColorIndicator(choosedType);
                 }
                 else if(chooseWallButtonClicked(point))
                 {
-                    choosedType = 'W';
+                    choosedType = TYPE_WALL;
                     changeColorIndicator(choosedType);
                 }
                 else if(chooseBlankButtonClicked(point))
                 {
-                    choosedType = '0';
+                    choosedType = TYPE_NORMAL;
                     changeColorIndicator(choosedType);
                 }
                 else if(saveButtonClicked(point))
                 {
-                    /**
-                     * Check if there is a start and a target
-                     */
-                    startCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'S');
-                    targetCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'T');
+                    /* Check if there is a start and a target */
+                    startCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_START);
+                    targetCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_TARGET);
                     if(targetCoordinate.x != -1 && targetCoordinate.y != -1 && startCoordinate.x != -1 && startCoordinate.y != -1)
                     {
                         char fileName[255];
@@ -105,11 +118,9 @@ int mainCreationLoop(int numRow, int numCol, char* graph)
                 }
                 else if(validateButtonClicked(point))
                 {
-                    /**
-                     * Check if there is a start and a target
-                     */
-                    startCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'S');
-                    targetCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'T');
+                    /* Check if there is a start and a target */
+                    startCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_START);
+                    targetCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_TARGET);
                     if(targetCoordinate.x != -1 && targetCoordinate.y != -1 && startCoordinate.x != -1 && startCoordinate.y != -1)
                     {
                         stayInCreationLoop = 0;
@@ -124,6 +135,7 @@ int mainCreationLoop(int numRow, int numCol, char* graph)
                 break;
         }
 	}
+    /* Displays the graph in console */
     int i = 0, j = 0;
     for(i = 0; i < numRow; i++)
     {

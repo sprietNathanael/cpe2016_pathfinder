@@ -1,8 +1,33 @@
+/**
+ * @file resolutionView.c
+ * @brief      Create a resolution window
+ * @author     Nathanaël SPRIET
+ */
+
 #include "resolutionView.h"
+/*
+ **************************** Globals *************************
+*/
+/**
+ * @brief      Boolean value that controls if the path buttons state
+ */
 int findPathButtonsAcivated = 1;
+/**
+ * @brief      Boolean value that controls the loop
+ */
 int stayInResolutionLoop = 1;
+/**
+ * @brief      Boolean value that represent the step by step choice
+ */
 int stepByStepLaunched = 0;
+/**
+ * @brief      Boolean value that controls the clears button state
+ */
 int clearButtonActivated = 1;
+
+/*
+ **************************** Core *************************
+*/
 
 int launchResolveView(int numRow, int numCol, char* graph)
 {
@@ -47,36 +72,28 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 				point.y = event.button.y;
 				if(findPathButtonsAcivated && findPathButtonClicked(point))
 				{
-					/**
-					 * Creates the structure to pass the arguments to the function
-					 */
+					/* Creates the structure to pass the arguments to the function */
 					args->numRow = numRow;
 					args->numCol = numCol;
 					args->graph = graph;
 					args->time = 0;
 					args->stepByStep = 0;
 					args->djikstra = djikstra;
-					/**
-					 * Create the thread
-					 */
+					/* Create the thread */
 					pthread_create(&thread, NULL, resolutionAndDrawing_thread, args);
 
 					findPathButtonsAcivated = 0;
 				}
 				else if(findPathButtonsAcivated && slow_findPathButtonClicked(point))
 				{
-					/**
-					 * Creates the structure to pass the arguments to the function
-					 */
+					/* Creates the structure to pass the arguments to the function */
 					args->numRow = numRow;
 					args->numCol = numCol;
 					args->graph = graph;
 					args->time = SLOW_RESOLUTION_TIME;
 					args->stepByStep = 0;
 					args->djikstra = djikstra;
-					/**
-					 * Create the thread
-					 */
+					/* Create the thread */
 					pthread_create(&thread, NULL, resolutionAndDrawing_thread, args);
 					findPathButtonsAcivated = 0;
 				}
@@ -93,18 +110,14 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 					else if(findPathButtonsAcivated)
 					{
 						changeDebugButtonIcon();
-						/**
-						 * Creates the structure to pass the arguments to the function
-						 */
+						/* Creates the structure to pass the arguments to the function */
 						args->numRow = numRow;
 						args->numCol = numCol;
 						args->graph = graph;
 						args->time = SLOW_RESOLUTION_TIME;
 						args->stepByStep = 1;
 						args->djikstra = djikstra;
-						/**
-						 * Create the thread
-						 */
+						/* Create the thread */
 						pthread_create(&thread, NULL, resolutionAndDrawing_thread, args);
 						findPathButtonsAcivated = 0;
 						stepByStepLaunched = 1;

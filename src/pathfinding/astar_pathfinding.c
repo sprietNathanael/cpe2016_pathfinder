@@ -1,11 +1,47 @@
+/**
+ * @file astar_pathfinding.c
+ * @brief      Compute A* or Djikstra algorithm on a char graph
+ * @author     Nathanaël SPRIET
+ */
+
 #include "astar_pathfinding.h"
+/*
+ **************************** Globals *************************
+*/
+/**
+ * @brief      The target Coordinates
+ */
 Coordinates targetCoordinates = {0,0};
+/**
+ * @brief      The time between each steps
+ */
 int timeBetweenSteps = 0;
+/**
+ * @brief      Boolean value that reprensents the ability to continue to next
+ *             step in step by step mode
+ */
 int canContinueToNextStep = 1;
+/**
+ * @brief      Quantity of analysed nodes
+ */
 int nodeAnalysed = 0;
+/**
+ * @brief      Quantity of analysed duplicate nodes
+ */
 int duplicateNodeAnalysed = 0;
+/**
+ * @brief      Quantity of node pushed into open list
+ */
 int nodeChoosedInOpenList = 0;
+/**
+ * @brief      Quantity of analysed obstacle
+ */
 int obstacleEncountered = 0;
+
+/*
+ **************************** Core *************************
+*/
+
 int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time, int stepByStep, int djikstra)
 {
 	Node currentNode;
@@ -14,9 +50,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 	Node zeroNode = {0,0,0,'\0',zeroCoordinates, NULL};
 	int finalPathLength = 0;
 
-	/**
-	 * Initialise lists
-	 */
+	/* Initialise lists */
 	int listsLength = numCol*numRow;
 	Node openList[listsLength];
 	Node closeList[listsLength];
@@ -29,56 +63,39 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 	int openListHead = 0;
 	int closeListHead = 0;
 
-	/**
-	 * Search and initialise start Node
-	 */
+	/* Search and initialise start Node */
 	Coordinates startCoordinates = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_START);
 	Node startNode = {0, 0, 0, TYPE_START, startCoordinates, NULL};
 
-	/**
-	 * Search and initialise target Node
-	 */
+	/* Search and initialise target Node */
 	targetCoordinates = findCoordinatesInCharGraph(numRow, numCol, graph, TYPE_TARGET);
 
-	/**
-	 * Push start Node into the open list
-	 */
+	/* Push start Node into the open list */
 	openList[openListHead++] = startNode;
 	int targetFound = 0;
-	/**
-	 * Main loop
-	 */
+	/* Main loop */
 	while(!targetFound && openListHead > 0)
 	{
 
-		/**
-		 * Take the first element of the open list = the element which has the lesser F
-		 */
+		/* Take the first element of the open list = the element which has the lesser F */
 		currentNode = openList[0];
 		removeNodeFromList(openListHead, openList, 0);
 		openListHead --;
-		/**
-		 * Push the current node into the close list
-		 */
+		/* Push the current node into the close list */
 		changeNodeColor(currentNode, 1, numCol, 253,255,16);
 		closeList[closeListHead] = currentNode;
-		/**
-		 * Draw a line between the current Node and its parent
-		 */
+		/* Draw a line between the current Node and its parent */
 		if(currentNode.parent != NULL)
 		{
         	drawLineBetweenTwoNodes(currentNode.coordinates,currentNode.parent->coordinates, 0, 0, 0);
         }
         usleep(timeBetweenSteps);
-		/**
-		 * If the resolution is in step by step mode, wait until the
+		/* If the resolution is in step by step mode, wait until the	 
 		 * function continueToNextStep has been called
 		 */
 		while(stepByStep && !canContinueToNextStep);
 		canContinueToNextStep = 0;
-		/**
-		 * Analyse all the neighbour nodes
-		 */
+		/* Analyse all the neighbour nodes */
 		targetFound = analysingNeighbourNodes(openList, &openListHead, closeList, closeListHead, numRow, numCol, graph, &closeList[closeListHead], stepByStep, djikstra);		
 		sortList(openList, openListHead);
 		changeNodeColor(currentNode, 1, numCol, 132,147,251);
@@ -90,9 +107,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		finalPath[finalPathLength++] = targetCoordinates;		
 		printf("Path : (%d;%d) ",targetCoordinates.x, targetCoordinates.y);
 		Node* currentNodePointer = &currentNode;
-		/**
-		 * Build and display final path
-		 */
+		/* Build and display final path	 */
 		printf(" (%d;%d) ",currentNodePointer->coordinates.x, currentNodePointer->coordinates.y);
 		finalPath[finalPathLength++] = currentNodePointer->coordinates;
 		while(currentNodePointer->parent != NULL)
@@ -124,56 +139,39 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 	int deltaX = 0;
 	int deltaY = 0;
 	
-	/**
-	 * Browse all 8 possibilities of neighbours
-	 */
+	/* Browse all 8 possibilities of neighbours */
 	for(deltaX = -1; deltaX <= 1; deltaX ++)
 	{
 		for (deltaY = -1; deltaY <= 1; deltaY ++)
 		{
-			/**
-			 * Exclude the case of (0;0)
-			 */
+			/* Exclude the case of (0;0) */
 			if(deltaY != 0 || deltaX != 0)
 			{
-				/**
-				 * If the Node exists in the graph
-				 */
+				/* If the Node exists in the graph */
 				if((currentNode->coordinates.y+deltaY >= 0 && currentNode->coordinates.y+deltaY < numRow) && (currentNode->coordinates.x+deltaX >= 0 && currentNode->coordinates.x+deltaX < numCol))
 				{
 					nodeAnalysed++;
-					/**
-					 * If the node is not a wall or is not surrounded by walls
-					 */
+					/* If the node is not a wall or is not surrounded by walls */
 					if(canGoToThisPoint(numCol, graph, currentNode, deltaX, deltaY))
 					{
-						/**
-						 * Get the coordinates
-						 */
+						/* Get the coordinates */
 						neighbourNode.coordinates.x = currentNode->coordinates.x+deltaX;
 						neighbourNode.coordinates.y = currentNode->coordinates.y+deltaY;
-						/**
-						 * If the node does not exists in the close list
-						 */
+						/* If the node does not exists in the close list */
 						if(getExistingNodeInList(closeList, closeListHead, neighbourNode.coordinates) == -1)
 						{
-							/**
-							 * Get the parent's coordinates
-							 */
+							/* Get the parent's coordinates */
 							neighbourNode.parent = currentNode;
 
 							
 							neighbourNode.H = computeSimpleDistanceBetweenCoordinates(neighbourNode.coordinates, targetCoordinates);							
-							/**
-							 * If H == 0, it means the Node is the target
-							 */
+							/* If H == 0, it means the Node is the target */
 							if(neighbourNode.H == 0)
 							{
 								return 1;
 							}
 
-							/**
-							 * If the neighbour is in a diagonal position
+							/* If the neighbour is in a diagonal position
 							 * (if |Dx|+|Dy| > 1)
 							 */
 							if((abs(deltaX) + abs(deltaY)) > 1)
@@ -184,9 +182,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 							{
 								neighbourNode.G = SIMPLE_DISTANCE_FACTOR + currentNode->G;
 							}
-							/**
-							 * Get the F parameter
-							 */
+							/* Get the F parameter */
 							if(djikstra)
 							{
 								neighbourNode.F = neighbourNode.G;								
@@ -197,15 +193,11 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 							}
 
 							int alreadyInList = getExistingNodeInList(openList, *openListHead, neighbourNode.coordinates);
-							/**
-							 * If the node is already in the list
-							 */
+							/* If the node is already in the list */
 							if(alreadyInList != -1)
 							{
 								duplicateNodeAnalysed++;
-								/**
-								 * If the node existing in list has a greater G, replace it by the new one
-								 */
+								/* If the node existing in list has a greater G, replace it by the new one */
 								if(openList[alreadyInList].G > neighbourNode.G)
 								{
 									openList[alreadyInList] = neighbourNode;								
@@ -214,15 +206,12 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 							else
 							{
 								nodeChoosedInOpenList++;
-								/**
-								 * Push the node into the open list
-								 */
+								/* Push the node into the open list */
 								openList[*openListHead] = neighbourNode;
 								changeNodeColor(neighbourNode, 0, numCol, 224, 244, 204);
 								*openListHead+=1;
 								usleep(timeBetweenSteps);
-								/**
-								 * If the resolution is in step by step mode, wait until the
+								/* If the resolution is in step by step mode, wait until the
 								 * function continueToNextStep has been called
 								 */
 								while(stepByStep && !canContinueToNextStep);
@@ -243,20 +232,15 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 
 int canGoToThisPoint(int numCol, char* graph, Node* currentNode, int deltaX, int deltaY)
 {
-	/**
-	 * If the node-to-go is a wall
-	 */
+	/* If the node-to-go is a wall */
 	if(graph[((currentNode->coordinates.y+deltaY)*numCol)+(currentNode->coordinates.x+deltaX)] == TYPE_WALL)
 	{
 		return 0;
 	}
-	/**
-	 * If the node-to-go is at diagonal
-	 */
+	/* If the node-to-go is at diagonal */
 	if(abs(deltaX) == 1 && abs(deltaY) == 1)
 	{
-		/**
-		 * Check the two adjacing nodes are not walls :
+		/* Check the two adjacing nodes are not walls :
 		 * (current.x ; deltaY) and (deltaX ; current.y)
 		 */		
 		if(graph[((currentNode->coordinates.y+deltaY)*numCol)+(currentNode->coordinates.x)] == TYPE_WALL)

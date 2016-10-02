@@ -1,0 +1,5 @@
+<map id="view/resolution_view_managment.h" name="view/resolution_view_managment.h">
+<area shape="rect" id="node2" href="$graph__view__managment_8h.html" title="Create a graph into a window. " alt="" coords="63,95,237,121"/>
+<area shape="rect" id="node3" href="$sdl__drawing_8h.html" title="Tools to draw with SDL. " alt="" coords="99,169,201,196"/>
+<area shape="rect" id="node6" href="$graph__managment_8h.html" title="Tools to manage a char graph. " alt="" coords="205,244,396,271"/>
+</map>
