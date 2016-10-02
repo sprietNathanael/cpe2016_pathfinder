@@ -92,7 +92,7 @@ void changeRectangeColor(Coordinates graphPosition,int numCol, int r,int g,int b
     SDL_Flip(ecran);
 }
 
-Coordinates computeThePointedNodeCoordinatesFromSDL(int numRow, int numCol, int x, int y)
+Coordinates computeThePointedNodeCoordinatesFromSDL(int numCol, int x, int y)
 {
     Coordinates pointedNode = {-1,-1};
     Coordinates interNode = {x,y};

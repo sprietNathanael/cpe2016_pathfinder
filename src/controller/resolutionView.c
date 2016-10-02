@@ -26,7 +26,6 @@ void mainResolvLoop(int numRow, int numCol, char* graph, int* state)
 	int continuer = 1;
 	SDL_Event event;
 	Coordinates point;
-	Coordinates finalPath[numRow*numCol];
 	pthread_t thread = 0;
 	void* status;
 	launchPathResolution_args *args = malloc(sizeof *args);

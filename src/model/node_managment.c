@@ -16,8 +16,9 @@ void removeNodeFromList(int listHead, Node* list, int indexOfNodeToRemove)
 int compareNodeByF (Node a, Node b)
 {
 	if ( a.F <  b.F ) return -1;
-	if ( a.F == b.F ) return 0;
-	if ( a.F >  b.F ) return 1;
+	else if ( a.F == b.F ) return 0;
+	else return 1;
+	// else if ( a.F >  b.F ) return 1;
 }
 
 void sortList(Node* list, int indexLimitation)

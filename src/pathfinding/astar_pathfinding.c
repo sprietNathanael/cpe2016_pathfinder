@@ -121,11 +121,9 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, int closeListHead, int numRow, int numCol, char* graph, Node* currentNode, int stepByStep, int djikstra)
 {
 	Node neighbourNode;
-	int neighbourNodesHead = 0;
 	int deltaX = 0;
 	int deltaY = 0;
 	
-	Coordinates currentCoordinates = {0,0};
 	/**
 	 * Browse all 8 possibilities of neighbours
 	 */
@@ -147,7 +145,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 					/**
 					 * If the node is not a wall or is not surrounded by walls
 					 */
-					if(canGoToThisPoint(numRow, numCol, graph, currentNode, deltaX, deltaY))
+					if(canGoToThisPoint(numCol, graph, currentNode, deltaX, deltaY))
 					{
 						/**
 						 * Get the coordinates
@@ -243,7 +241,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 	return 0;
 }
 
-int canGoToThisPoint(int numRow, int numCol, char* graph, Node* currentNode, int deltaX, int deltaY)
+int canGoToThisPoint(int numCol, char* graph, Node* currentNode, int deltaX, int deltaY)
 {
 	/**
 	 * If the node-to-go is a wall

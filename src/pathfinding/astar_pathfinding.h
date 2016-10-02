@@ -48,7 +48,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
  *
  * @return     True if able to go to given point, False otherwise.
  */
-int canGoToThisPoint(int numRow, int numCol, char* graph, Node* currentNode, int deltaX, int deltaY);
+int canGoToThisPoint(int numCol, char* graph, Node* currentNode, int deltaX, int deltaY);
 
 /**
  * @brief      Simply pass the canContinueToNextStep variable to true

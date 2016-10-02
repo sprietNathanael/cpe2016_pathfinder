@@ -36,7 +36,7 @@ int mainCreationLoop(int numRow, int numCol, char* graph)
 			case SDL_MOUSEBUTTONDOWN:
                 point.x = event.button.x;
                 point.y = event.button.y;
-				Coordinates pointedNode = computeThePointedNodeCoordinatesFromSDL(numRow, numCol, point.x, point.y);
+				Coordinates pointedNode = computeThePointedNodeCoordinatesFromSDL(numCol, point.x, point.y);
                 if(pointedNode.x != -1 && pointedNode.y != -1)
                 {
                     changeTypeColorOfGivenNode(pointedNode,choosedType, numCol);

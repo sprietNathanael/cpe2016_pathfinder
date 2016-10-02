@@ -44,6 +44,6 @@ void changeRectangeColor(Coordinates graphPosition,int numCol, int r,int g,int b
  */
 void drawLineBetweenTwoNodes(Coordinates nodeA, Coordinates nodeB,int r,int g,int b);
 
-Coordinates computeThePointedNodeCoordinatesFromSDL(int numRow, int numCol, int x, int y);
+Coordinates computeThePointedNodeCoordinatesFromSDL(int numCol, int x, int y);
 #endif
 

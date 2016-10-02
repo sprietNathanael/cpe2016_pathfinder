@@ -205,7 +205,7 @@ void sdlResolvInit(int numRow, int numCol)
     /**
      * Display the button and the icon
      */
-    SDL_BlitSurface(buildIcon, NULL, buildButton, &debugIconPosition);
+    SDL_BlitSurface(buildIcon, NULL, buildButton, &buildIconPosition);
     SDL_BlitSurface(buildButton, NULL, ecran, &buildButton_position);
 
 
@@ -290,8 +290,6 @@ void changeAlgoSelectionButtonIcon(int djikstra)
 void drawFinalPath(int finalPathLength, int numRow, int numCol, Coordinates finalPath[numRow*numCol])
 {
     int i = 0;
-    Coordinates secondCoordintates = {0,0};
-    Coordinates firstCoordinates = {0,0};
     /**
      * Browses the final path and draw a line between each nodes
      */
