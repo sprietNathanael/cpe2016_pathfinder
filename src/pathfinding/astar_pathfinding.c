@@ -2,6 +2,10 @@
 Coordinates targetCoordinates = {0,0};
 int timeBetweenSteps = 0;
 int canContinueToNextStep = 1;
+int nodeAnalysed = 0;
+int duplicateNodeAnalysed = 0;
+int nodeChoosedInOpenList = 0;
+int obstacleEncountered = 0;
 int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* finalPath, int time, int stepByStep, int djikstra)
 {
 	Node currentNode;
@@ -83,7 +87,7 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 	}
 	if(targetFound)
 	{
-		finalPath[finalPathLength++] = targetCoordinates;
+		finalPath[finalPathLength++] = targetCoordinates;		
 		printf("Path : (%d;%d) ",targetCoordinates.x, targetCoordinates.y);
 		Node* currentNodePointer = &currentNode;
 		/**
@@ -104,6 +108,13 @@ int launchPathResolution(int numRow, int numCol, char* graph, Coordinates* final
 		printf("No path found !\n");
 		finalPathLength = 0;
 	}
+	printf("Path length = %d\n", finalPathLength-1);
+	printf("Computations :\n");
+	printf("\tNode analysed = %d\n", nodeAnalysed);
+	printf("\tDuplicate analysed = %d\n", duplicateNodeAnalysed);
+	printf("\tObstacle encountered = %d\n", obstacleEncountered);
+	printf("\tNode choosed in open list = %d\n", nodeChoosedInOpenList);
+	printf("\tNode choosed in close list = %d\n", closeListHead);
 	return finalPathLength;
 }
 
@@ -132,6 +143,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 				 */
 				if((currentNode->coordinates.y+deltaY >= 0 && currentNode->coordinates.y+deltaY < numRow) && (currentNode->coordinates.x+deltaX >= 0 && currentNode->coordinates.x+deltaX < numCol))
 				{
+					nodeAnalysed++;
 					/**
 					 * If the node is not a wall or is not surrounded by walls
 					 */
@@ -192,6 +204,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 							 */
 							if(alreadyInList != -1)
 							{
+								duplicateNodeAnalysed++;
 								/**
 								 * If the node existing in list has a greater G, replace it by the new one
 								 */
@@ -202,6 +215,7 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 							}
 							else
 							{
+								nodeChoosedInOpenList++;
 								/**
 								 * Push the node into the open list
 								 */
@@ -217,6 +231,10 @@ int analysingNeighbourNodes(Node* openList, int *openListHead, Node* closeList, 
 								canContinueToNextStep = 0;
 							}
 						}
+					}
+					else
+					{
+						obstacleEncountered++;
 					}
 				}
 			}
