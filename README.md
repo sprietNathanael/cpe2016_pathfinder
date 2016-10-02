@@ -1,9 +1,19 @@
 # cpe2016_pathfinder
-## Objectif 
+## Goal
 
-La recherche de chemins permettant de se rendre d’un point à un autre fait partie des problèmes de bases de la robotique mais aussi et surtout d’un bon nombre de jeux sur ordinateur. Nous proposons dans ce projet de mettre en œuvre l’algorithme le plus utilisé A* (lire A star) et éventuellement de le comparer à l’algorithme plus  naïf de Djikstra.  Le projet relève donc de trois aspects :
-La création du terrain (vue comme un quadrillage) où pour chaque case est définie la présence ou l’absence d’obstacle (cf. l’exemple de terrain suivant).
-L’exécution de l’algorithme A* (ce qui implique la mise en place des structures de données nécessaires) et donc l’obtention d’un chemin optimal de parcours. 
-La représentation graphique du terrain, de l’ensemble des cases examinées par l’algorithme et enfin le tracé du chemin solution.
-Eventuellement, il serait plus pratique de sauvegarder  les terrains (et donc de pouvoir les recharger).
- Il serait aussi intéressant de comparer l’algorithme A* avec d’autres comme par exemple celui de Djikstra qui revient à considérer que la fonction de coût F  vaut uniquement G et non
+The goal of this project is to implements a pathfinding algorithm resolution and to visualise this resolution into a mere gui. The algorithm used in the project is A* (A Star) and it can be used as Djikstra algorithm to compare results.
+
+## Compatibility
+
+The project has been tested only on a Linux based system (Ubuntu 16.4). Since it uses threading system, it is likely to produce errors at a build attempt on a non-unix based system.
+Furthermore, it uses SDL1.2, so make sure to have this version installed on your system.
+
+## Compilation
+
+Simply go to the src directory and issue the command ```make``` to compile the binary.
+To get rid of generated files, issue the command ```make clean```.
+
+## Launching
+
+When compiled, just execute the ```pathfinder``` binary, and that's all !
+If you want to load a graph, just pass it as parameter to your executable like : ```./pathfinder myawesomegraph```
