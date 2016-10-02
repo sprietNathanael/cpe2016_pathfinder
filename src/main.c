@@ -45,9 +45,13 @@ int main(int argc, char const *argv[])
 			graph = malloc(height*width*sizeof(char));
 			memset(graph, '0', height*width);
 			creationState = launchCreationView(height, width, graph);
-			if(!creationState)
+			if(creationState==0)
 			{
 				graph = initialGraph(&width, &height);
+			}
+			else if(creationState == -1)
+			{
+				state = 0;
 			}
 		}
 	}

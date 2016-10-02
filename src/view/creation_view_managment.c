@@ -8,6 +8,7 @@ SDL_Rect choiceIndicator_position;
 SDL_Rect saveButton_position;
 SDL_Rect saveIconPosition;
 SDL_Rect closeButton_position;
+SDL_Rect validateButton_position;
 SDL_Rect closeIconPosition;
 
 void sdlCreationInit(int numRow, int numCol)
@@ -116,6 +117,34 @@ void sdlCreationInit(int numRow, int numCol)
      */
     SDL_BlitSurface(choiceIndicator, NULL, ecran, &choiceIndicator_position);
     /**
+     ************************ Creates Validate button
+    */
+    /**
+     * Initialise the button
+     */
+    SDL_Surface *validateButton = NULL;
+    validateButton_position.x = graphWidth+SECOND_COL_BUTTONS_X;
+    validateButton_position.y = VALIDATE_BUTTON_Y;
+    validateButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
+    SDL_FillRect(validateButton, NULL, SDL_MapRGB(ecran->format, 141,242,23));
+    /**
+     * Initialise the icon
+     */
+    SDL_Surface *validateIcon = NULL;
+    SDL_Rect validateIconPosition;
+    validateIconPosition.x = 10;
+    validateIconPosition.y = 0;
+    validateIcon = SDL_LoadBMP("view/icons/validate.bmp");
+    /**
+     * Set the color transparancy
+     */
+    SDL_SetColorKey(validateIcon, SDL_SRCCOLORKEY, SDL_MapRGB(validateIcon->format, 255, 255, 255));
+    /**
+     * Display the button and the icon
+     */
+    SDL_BlitSurface(validateIcon, NULL, validateButton, &validateIconPosition);
+    SDL_BlitSurface(validateButton, NULL, ecran, &validateButton_position);
+    /**
      ************************ Creates Save button
     */
     /**
@@ -125,7 +154,7 @@ void sdlCreationInit(int numRow, int numCol)
     saveButton_position.x = graphWidth+SECOND_COL_BUTTONS_X;
     saveButton_position.y = SAVE_BUTTON_Y;
     saveButton = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_BUTTON_X,SIZE_BUTTON_Y,32,0,0,0,0);
-    SDL_FillRect(saveButton, NULL, SDL_MapRGB(ecran->format, 141,242,23));
+    SDL_FillRect(saveButton, NULL, SDL_MapRGB(ecran->format, 53,255,250));
     /**
      * Initialise the icon
      */
@@ -251,6 +280,10 @@ int chooseBlankButtonClicked(Coordinates cursorPosition)
 int saveButtonClicked(Coordinates cursorPosition)
 {
     return isPointInRectangle(saveButton_position, cursorPosition);
+}
+int validateButtonClicked(Coordinates cursorPosition)
+{
+    return isPointInRectangle(validateButton_position, cursorPosition);
 }
 int closeButtonClicked(Coordinates cursorPosition)
 {

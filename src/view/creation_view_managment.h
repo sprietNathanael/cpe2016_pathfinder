@@ -9,7 +9,8 @@
 #define WALL_BUTTON_CHOICE_Y TARGET_BUTTON_CHOICE_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
 #define BLANK_BUTTON_CHOICE_Y WALL_BUTTON_CHOICE_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
 #define CHOICE_INDICATOR_Y BLANK_BUTTON_CHOICE_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
-#define SAVE_BUTTON_Y BUTTON_Y_MARGE
+#define VALIDATE_BUTTON_Y BUTTON_Y_MARGE
+#define SAVE_BUTTON_Y VALIDATE_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
 #define CLOSE_BUTTON_Y SAVE_BUTTON_Y+SIZE_BUTTON_Y+BUTTON_Y_MARGE
 
 
@@ -63,6 +64,15 @@ int chooseWallButtonClicked(Coordinates cursorPosition);
  * @return     1 if the cursor position is in the button, 0 else
  */
 int chooseBlankButtonClicked(Coordinates cursorPosition);
+
+/**
+ * @brief      Check if the given cursor position is in the "validateBlankButton" button
+ *
+ * @param[in]  cursorPosition  The cursor position
+ *
+ * @return     1 if the cursor position is in the button, 0 else
+ */
+int validateButtonClicked(Coordinates cursorPosition);
 
 /**
  * @brief      Check if the given cursor position is in the "saveButton" button

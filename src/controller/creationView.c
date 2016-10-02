@@ -31,7 +31,7 @@ int mainCreationLoop(int numRow, int numCol, char* graph)
 			case SDL_QUIT :
                 stayInCreationLoop = 0;
 				continuer = 0;
-                return 0;                
+                return -1;                
 				break;
 			case SDL_MOUSEBUTTONDOWN:
                 point.x = event.button.x;
@@ -101,6 +101,24 @@ int mainCreationLoop(int numRow, int numCol, char* graph)
                 {
                     stayInCreationLoop = 0;
                     continuer = 0;
+                    return 0;
+                }
+                else if(validateButtonClicked(point))
+                {
+                    /**
+                     * Check if there is a start and a target
+                     */
+                    startCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'S');
+                    targetCoordinate = findCoordinatesInCharGraph(numRow, numCol, graph, 'T');
+                    if(targetCoordinate.x != -1 && targetCoordinate.y != -1 && startCoordinate.x != -1 && startCoordinate.y != -1)
+                    {
+                        stayInCreationLoop = 0;
+                        continuer = 0;
+                    }
+                    else
+                    {
+                        printf("Can not use a graph without a start and a target !\n");
+                    }
                 }
 
                 break;
